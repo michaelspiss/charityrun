@@ -69,6 +69,7 @@ $app->get('/logout', function ($request, $response) {
  */
 $app->get('/manage', function ($request, $response) {
     // /manage
+    return view($response, 'select_class');
 });
 
 /*
@@ -78,6 +79,8 @@ $app->get('/manage', function ($request, $response) {
  */
 $app->post('/manage', function ($request, $response) {
     // POST: /manage
+    $class = $request->getParam('class');
+    return redirect('/manage/'.$class);
 });
 
 /*
