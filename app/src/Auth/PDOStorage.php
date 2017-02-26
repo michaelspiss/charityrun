@@ -175,7 +175,10 @@ namespace App\Auth;
       */
      public function authRemoveOverrideForUser($instance_name, UserRepresentation $user, $permission)
      {
-         // TODO: Implement authRemoveOverrideForUser() method.
+         $stmt = $this->db->prepare('DELETE FROM user_overrides WHERE user_id = :id AND permission = :permission');
+         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('permission', $permission);
+         return $stmt->execute();
      }
 
      /**
