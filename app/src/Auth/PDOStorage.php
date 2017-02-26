@@ -116,7 +116,12 @@ namespace App\Auth;
       */
      public function authUserHasPackage($instance_name, UserRepresentation $user, Package $package)
      {
-         // TODO: Implement authUserHasPackage() method.
+         $stmt = $this->db->prepare('SELECT id FROM user_packages WHERE user_id = :id AND package = :package');
+         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('package', $package->name());
+         $stmt->execute();
+         // true if data was received, false if not
+         return (bool) $stmt->fetch();
      }
 
      /**
