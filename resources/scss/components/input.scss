@@ -7,3 +7,7 @@ input[type=text], input[type=password], input[type=number] {
   font-size: $height - 10px;
   border: 1px solid $gray;
 }
+
+input[type=number] {
+  width: 50px;
+}
