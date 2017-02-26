@@ -37,6 +37,7 @@ $app->get('/stats', function ($request, $response) {
  */
 $app->get('/login', function ($request, $response) {
     // /login
+    return view($response, 'login');
 });
 
 /*
