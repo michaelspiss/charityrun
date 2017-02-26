@@ -85,7 +85,10 @@ namespace App\Auth;
       */
      public function authRemovePackageFromUser($instance_name, UserRepresentation $user, Package $package)
      {
-         // TODO: Implement authRemovePackageFromUser() method.
+         $stmt = $this->db->prepare('DELETE FROM user_packages WHERE package = :package AND user_id = :id');
+         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('package', $package->name());
+         return $stmt->execute();
      }
 
      /**
