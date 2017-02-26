@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="<?php echo app('translator')->locale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.home'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <a href="/map" class="banner" style="background-image: url(images/map_banner.jpg)">
+            <div class="banner-content">Map</div>
+        </a>
+        <a href="/stats" class="banner" style="background-image: url(images/map_banner2.jpg)">
+            <div class="banner-content">Stats</div>
+        </a>
+    </div>
+    <a href="/login" class="button button-success"><?php echo trans('static.login'); ?></a>
+</div>
+</body>
+</html>

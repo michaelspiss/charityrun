@@ -10,3 +10,7 @@ html, body {
 .hidden {
   display: none;
 }
+
+@import "components/layout";
+@import "components/button";
+@import "components/banner";

@@ -1,0 +1,23 @@
+.banner {
+  height: 50%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  display: block;
+}
+
+.banner-content {
+  position: absolute;
+  bottom: 24px;
+  right: 0;
+  left: 0;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  color: $white;
+  font-size: $font-bigger + 1em;
+}
+
+.banner-content-light {
+  color: $black;
+}

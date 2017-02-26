@@ -1,0 +1,17 @@
+.layout-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-content {
+  flex: 0 1 100%;
+  overflow: auto;
+}
+
+.layout-header {
+  padding: $default-padding;
+  font-size: $font-bigger + 1em;
+  font-weight: bold;
+  color: $black;
+}
