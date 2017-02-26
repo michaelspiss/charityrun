@@ -1,0 +1,22 @@
+<?php /** @var string $class */ ?>
+<!doctype html>
+<html lang="<?php echo app('translator')->locale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a href="/manage/<?php echo $class; ?>" class="sidebar-background"></a>
+<div class="sidebar">
+    <img src="images/map_banner.jpg" alt="" style="width: 100%; height: auto;">
+    <div class="sidebar-current_class"><?php echo trans('dynamic.class_x', ['class' => $class]); ?></div>
+    <a href="/manage" class="button button-noBorder sidebar-item"><?php echo trans('static.change_class'); ?></a>
+    <a href="/manage/help" class="button button-noBorder sidebar-item"><?php echo trans('static.help'); ?></a>
+    <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
+</div>
+</body>
+</html>

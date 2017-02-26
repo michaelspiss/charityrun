@@ -10,5 +10,8 @@
       'next' => 'Next',
       'more' => 'More',
       'add' => 'Add',
-      'overview' => 'Overview'
+      'overview' => 'Overview',
+      'change_class' => 'Change Class',
+      'help' => 'Help',
+      'logout' => 'Log Out'
   ];
