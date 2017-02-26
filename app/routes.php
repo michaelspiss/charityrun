@@ -46,10 +46,16 @@ $app->get('/login', function () {
  * If password is correct authenticate user and redirect to /manage,
  * else send back to login
  */
-$app->post('/login', function () {
+$app->post('/login', function ($request) {
     // POST: /login
-    // TODO: password verification, user authentication
-    return redirect('/manage');
+    /** @var \Slim\Http\Request $request */
+    $password = $request->getParam('password');
+    if(app('auth')->login('Assistant', $password))
+    {
+        return redirect('/manage');
+    } else {
+        return redirect('/login');
+    }
 });
 
 /*
@@ -57,7 +63,8 @@ $app->post('/login', function () {
  */
 $app->get('/logout', function () {
     // /logout
-    // log out user
+    // log the user out
+    app('auth')->logout();
     return redirect('/');
 });
 
