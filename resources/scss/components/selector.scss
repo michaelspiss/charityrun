@@ -1,0 +1,26 @@
+.selector-option {
+  height: $buttonHeight;
+  line-height: $buttonHeight;
+  font-size: $font-bigger;
+}
+
+.selector-option-label {
+  display: block;
+  padding-left: $default-padding;
+}
+
+.selector-option input[type=radio]:checked ~ .selector-option-label {
+  background: $gray;
+  color: $white;
+}
+
+.selector-submit {
+  float: right;
+  text-align: end;
+  padding-right: $default-padding;
+  width: auto;
+}
+
+.selector-footer {
+  height: $buttonHeight;
+}
