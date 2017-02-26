@@ -1,0 +1,12 @@
+.button {
+  height: $buttonHeight;
+  line-height: $buttonHeight;
+  text-align: center;
+  font-weight: bold;
+  color: $white;
+  font-size: $font-bigger;
+  display: block;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
