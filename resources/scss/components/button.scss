@@ -10,3 +10,23 @@
   border: none;
   cursor: pointer;
 }
+
+.button-success {
+  background: $green;
+}
+
+.button-back {
+  background: $gray;
+}
+
+.button-abort {
+  background: $red;
+}
+
+.button-noBorder {
+  color: $black;
+}
+
+.button-warning {
+  background: $yellow;
+}
