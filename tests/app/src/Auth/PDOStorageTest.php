@@ -3,6 +3,7 @@
 namespace tests\app\src\Auth;
 
 use App\Auth\PDOStorage;
+use App\Auth\User;
 
 class PDOStorageTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,5 +37,12 @@ class PDOStorageTest extends \PHPUnit_Framework_TestCase
         $actual = $this->PDOStorage->authFetchUserByUsername('test', 'foo');
 
         $this->assertEquals(['id' => 1, 'username' => 'foo', 'password' => 'xyz'], $actual);
+    }
+
+    public function testAuthFetchUserRepresentationReturnsUserObjectOnSuccess() {
+        $actual = $this->PDOStorage->authFetchUserRepresentation('test', 1);
+
+        $expected = new User('1', 'foo');
+        $this->assertEquals($expected, $actual);
     }
 }

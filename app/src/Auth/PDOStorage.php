@@ -50,7 +50,13 @@ namespace App\Auth;
       */
      public function authFetchUserRepresentation($instance_name, $user_id)
      {
-         // TODO: Implement authFetchUserRepresentation() method.
+         // fetch data
+         $stmt = $this->db->prepare('SELECT id, username FROM users WHERE id = :id');
+         $stmt->bindParam('id', $user_id);
+         $stmt->execute();
+         $user = $stmt->fetch();
+
+         return new User($user['id'], $user['username']);
      }
 
      /**
