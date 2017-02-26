@@ -14,7 +14,7 @@
  */
 $app->get('/', function ($request, $response) {
     // /
-    return view($response, 'home');
+    return view('home');
 });
 
 /*
@@ -37,7 +37,7 @@ $app->get('/stats', function ($request, $response) {
  */
 $app->get('/login', function ($request, $response) {
     // /login
-    return view($response, 'login');
+    return view('login');
 });
 
 /*
@@ -69,7 +69,7 @@ $app->get('/logout', function ($request, $response) {
  */
 $app->get('/manage', function ($request, $response) {
     // /manage
-    return view($response, 'select_class');
+    return view('select_class');
 });
 
 /*

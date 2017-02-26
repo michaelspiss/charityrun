@@ -23,10 +23,10 @@ if(!function_exists('trans')) {
  * Returns a view with the given parameters
  */
 if(!function_exists('view')) {
-    function view($response, $view, $args = []) {
+    function view($view, $args = []) {
         // allow dot notation
         $view = implode(DIRECTORY_SEPARATOR, explode('.', $view)).'.phtml';
-        return app('renderer')->render($response, $view, $args);
+        return app('renderer')->render(app('response'), $view, $args);
     }
 }
 
