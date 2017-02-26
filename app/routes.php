@@ -12,7 +12,7 @@
  * 2. Display stats
  * 3. Log in
  */
-$app->get('/', function ($request, $response) {
+$app->get('/', function () {
     // /
     return view('home');
 });
@@ -35,7 +35,7 @@ $app->get('/stats', function ($request, $response) {
 /*
  * Display log in form, redirect if already logged in
  */
-$app->get('/login', function ($request, $response) {
+$app->get('/login', function () {
     // /login
     return view('login');
 });
@@ -44,7 +44,7 @@ $app->get('/login', function ($request, $response) {
  * If password is correct authenticate user and redirect to /manage,
  * else send back to login
  */
-$app->post('/login', function ($request, $response) {
+$app->post('/login', function () {
     // POST: /login
     // TODO: password verification, user authentication
     return redirect('/manage');
@@ -53,7 +53,7 @@ $app->post('/login', function ($request, $response) {
 /*
  * Log the user out, redirect to index
  */
-$app->get('/logout', function ($request, $response) {
+$app->get('/logout', function () {
     // /logout
     // log out user
     return redirect('/');
@@ -68,7 +68,7 @@ $app->get('/logout', function ($request, $response) {
 /*
  * Display a list of all classes to choose from
  */
-$app->get('/manage', function ($request, $response) {
+$app->get('/manage', function () {
     // /manage
     return view('select_class');
 });
@@ -78,8 +78,9 @@ $app->get('/manage', function ($request, $response) {
  * where class is the selected class.
  * This will only be called if JavaScript is disabled
  */
-$app->post('/manage', function ($request, $response) {
+$app->post('/manage', function ($request) {
     // POST: /manage
+    /** @var \Slim\Http\Request $request */
     $class = $request->getParam('class');
     return redirect('/manage/'.$class);
 });
@@ -87,7 +88,7 @@ $app->post('/manage', function ($request, $response) {
 /*
  * Display a FAQ page regarding the management of classes
  */
-$app->get('/manage/help', function ($request, $response) {
+$app->get('/manage/help', function () {
     // /manage/help
 });
 
