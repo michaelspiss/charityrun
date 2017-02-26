@@ -23,4 +23,12 @@ class User implements UserRepresentation {
     {
         return $this->id;
     }
+
+    /**
+     * Returns the user's username
+     * @return string
+     */
+    public function username() {
+        return $this->username;
+    }
 }
