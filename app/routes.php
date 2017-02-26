@@ -95,7 +95,7 @@ $app->group('/manage/{class}', function () {
     /*
     * Display an overview of the selected class (runners, finished rounds)
     */
-    $this->get('/', function ($request, $response, $class) {
+    $this->get('', function ($request, $response, $class) {
         // /manage/{class}
     });
 
@@ -146,7 +146,7 @@ $app->group('/edit', function () {
     /*
      * Display a list of all classes to choose from
      */
-    $this->get('/', function ($request, $response) {
+    $this->get('', function ($request, $response) {
         // /edit
     });
 
