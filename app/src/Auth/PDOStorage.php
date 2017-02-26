@@ -9,6 +9,17 @@ namespace App\Auth;
  class PDOStorage implements StorageDelegate {
 
      /**
+      * A pdo database connection
+      * @var \PDO
+      */
+     protected $db;
+
+     public function __construct(\PDO $pdo)
+     {
+         $this->db = $pdo;
+     }
+
+     /**
       * Fetches a user by their username. This function should return either an
       * array containing:
       *  - id: the unique identifier for this user
@@ -22,7 +33,11 @@ namespace App\Auth;
       */
      public function authFetchUserByUsername($instance_name, $username)
      {
-         // TODO: Implement authFetchUserByUsername() method.
+         $stmt = $this->db->prepare('SELECT id, username, password FROM users WHERE username = :username');
+         $stmt->bindParam('username', $username);
+         $stmt->execute();
+         // return associative array
+         return $stmt->fetch(\PDO::FETCH_ASSOC);
      }
 
      /**
