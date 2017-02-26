@@ -15,5 +15,11 @@ return [
             'path' => __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
+
+        // Translator settings
+        'translator' => [
+            'path' => __DIR__ . '/../resources/lang',
+            'default_locale' => 'en'
+        ],
     ],
 ];

@@ -17,3 +17,10 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// translator
+$container['translator'] = function ($c) {
+    $settings = $c->get('settings')['translator'];
+    $loader = new \Illuminate\Translation\FileLoader(new \Illuminate\Filesystem\Filesystem, $settings['path']);
+    return new \Illuminate\Translation\Translator($loader, $settings['default_locale']);
+};
