@@ -14,8 +14,8 @@ if(!function_exists('app')) {
  * Returns the translation for a key
  */
 if(!function_exists('trans')) {
-    function trans($key) {
-        return app('translator')->trans($key);
+    function trans($key, $replace = []) {
+        return app('translator')->trans($key, $replace);
     }
 }
 
