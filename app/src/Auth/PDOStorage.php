@@ -143,8 +143,8 @@ namespace App\Auth;
          $stmt = $this->db->prepare('INSERT INTO user_overrides (user_id, permission, value) VALUES (:id, :permission, :value)');
          $stmt->bindParam('id', $user->id());
          $stmt->bindParam('permission', $permission);
-         // Make sure it is an int
-         $new_value = (int) $new_value;
+         // Make sure values are booleans
+         $new_value = (bool) $new_value;
          $stmt->bindParam('value', $new_value);
          return $stmt->execute();
      }
@@ -158,7 +158,11 @@ namespace App\Auth;
       */
      public function authFetchOverridesForUser($instance_name, UserRepresentation $user)
      {
-         // TODO: Implement authFetchOverridesForUser() method.
+         $stmt = $this->db->prepare('SELECT permission, value FROM user_overrides WHERE user_id = :id');
+         $stmt->bindParam('id', $user->id());
+         $stmt->execute();
+
+         return $stmt->fetch(\PDO::FETCH_KEY_PAIR);
      }
 
      /**
