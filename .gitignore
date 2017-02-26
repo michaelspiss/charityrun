@@ -3,3 +3,4 @@
 !/logs/.gitkeep
 /.idea
 /node_modules
+/public/css/styles.css
