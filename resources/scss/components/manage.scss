@@ -11,3 +11,8 @@
   background: $gray;
   color: $white;
 }
+
+.manage-form {
+  display: flex;
+  flex-direction: column;
+}
