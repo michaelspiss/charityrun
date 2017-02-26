@@ -1,0 +1,50 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: $white;
+  max-width: 300px;
+  overflow: auto;
+  padding-bottom: $buttonHeight;
+  // always show sidebar-background (minimum: $buttonHeight)
+  margin-right: $buttonHeight;
+
+  transform: translateX(0);
+  transition: transform .2s ease-in-out;
+}
+
+.sidebar.sidebar-hide {
+  transform: translateX(-100%);
+}
+
+.sidebar-item {
+  min-height: $buttonHeight;
+  text-align: left;
+  padding-left: $default-padding;
+}
+
+.sidebar-current_class {
+  color: $white;
+  height: $buttonHeight;
+  margin-top: -$buttonHeight;
+  line-height: $buttonHeight;
+  padding: 0 $default-padding;
+  font-weight: bold;
+  font-size: $font-bigger;
+}
+
+.sidebar-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $black;
+  opacity: .6;
+  transition: opacity .2s ease-in-out;
+}
+
+.sidebar-background.sidebar-hide {
+  opacity: 0;
+}
