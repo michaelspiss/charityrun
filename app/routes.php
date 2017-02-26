@@ -97,7 +97,7 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('', function ($request, $response, $class) {
         // /manage/{class}
-        return view('manage', ['class' => $class]);
+        return view('manage.overview', ['class' => $class]);
     });
 
     /*
