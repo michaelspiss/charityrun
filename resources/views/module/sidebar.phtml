@@ -2,6 +2,7 @@
 /** @var string $class */
 
 $isOpen = isset($isOpen) ? $isOpen : false;
+$includeJS = isset($includeJS) ? $includeJS : true;
 ?>
 <a href="/manage/<?php echo $class; ?>" class="sidebar-background <?php if(!$isOpen) { echo 'sidebar-hide hidden'; } ?>"></a>
 <div class="sidebar <?php if(!$isOpen) { echo 'sidebar-hide'; } ?>">
@@ -11,3 +12,9 @@ $isOpen = isset($isOpen) ? $isOpen : false;
     <a href="/manage/help" class="button button-noBorder sidebar-item"><?php echo trans('static.help'); ?></a>
     <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
 </div>
+
+<?php
+if($includeJS) {
+    echo '<script type="text/javascript" src="js/sidebar.js"></script>';
+}
+?>
