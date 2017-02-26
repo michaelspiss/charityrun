@@ -14,6 +14,7 @@
  */
 $app->get('/', function ($request, $response) {
     // /
+    return view($response, 'home');
 });
 
 /*
