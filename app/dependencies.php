@@ -34,3 +34,10 @@ $container['database'] = function ($c) {
     $settings = $c->get('settings')['database'];
     return new PDO($settings['dsn'], $settings['username'], $settings['password']);
 };
+
+$container['auth'] = function () {
+    $storageDelegate = new \App\Auth\PDOStorage(app('database'));
+    $sessionDelegate = new \Solution10\Auth\Driver\Session();
+
+    return new Solution10\Auth\Auth('Default', $sessionDelegate, $storageDelegate);
+};
