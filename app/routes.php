@@ -20,7 +20,7 @@ $app->get('/', function ($request, $response) {
 /*
  * Display the live map, with statistics about the run
  */
-$app->get('map', function ($request, $response) {
+$app->get('/map', function ($request, $response) {
     // /map
 });
 
@@ -28,14 +28,14 @@ $app->get('map', function ($request, $response) {
  * Display the current top-runners and overall statistics
  * "Leaderboard"
  */
-$app->get('stats', function ($request, $response) {
+$app->get('/stats', function ($request, $response) {
     // /stats
 });
 
 /*
  * Display log in form, redirect if already logged in
  */
-$app->get('login', function ($request, $response) {
+$app->get('/login', function ($request, $response) {
     // /login
 });
 
@@ -43,7 +43,7 @@ $app->get('login', function ($request, $response) {
  * If password is correct authenticate user and redirect to /manage,
  * else send back to login
  */
-$app->post('login', function ($request, $response) {
+$app->post('/login', function ($request, $response) {
     // POST: /login
     // password verification, user authentication
 });
@@ -51,8 +51,8 @@ $app->post('login', function ($request, $response) {
 /*
  * Log the user out, redirect to index
  */
-$app->get('logout', function ($request, $response) {
-    // POST: /logout
+$app->get('/logout', function ($request, $response) {
+    // /logout
     // log out user
 });
 
@@ -65,7 +65,7 @@ $app->get('logout', function ($request, $response) {
 /*
  * Display a list of all classes to choose from
  */
-$app->get('manage', function ($request, $response) {
+$app->get('/manage', function ($request, $response) {
     // /manage
 });
 
@@ -74,18 +74,18 @@ $app->get('manage', function ($request, $response) {
  * where class is the selected class.
  * This will only be called if JavaScript is disabled
  */
-$app->post('manage', function ($request, $response) {
+$app->post('/manage', function ($request, $response) {
     // POST: /manage
 });
 
 /*
  * Display a FAQ page regarding the management of classes
  */
-$app->get('manage/help', function ($request, $response) {
+$app->get('/manage/help', function ($request, $response) {
     // /manage/help
 });
 
-$app->group('manage/{class}', function () {
+$app->group('/manage/{class}', function () {
 
     /*
     * Display an overview of the selected class (runners, finished rounds)
@@ -97,28 +97,28 @@ $app->group('manage/{class}', function () {
     /*
     * Interface to add rounds to the runners
     */
-    $this->get('add', function ($request, $response, $class) {
+    $this->get('/add', function ($request, $response, $class) {
         // /manage/{class}/add
     });
 
     /*
      * Add rounds to the runners
      */
-    $this->post('add', function ($request, $response, $class) {
+    $this->post('/add', function ($request, $response, $class) {
         // POST: /manage/{class}/add
     });
 
     /*
      * Display log of all recent updates of the runners rounds
      */
-    $this->get('log', function ($request, $response, $class) {
+    $this->get('/log', function ($request, $response, $class) {
         // /manage/{class}/log
     });
 
     /*
     * Undo round updates, Undo undos
     */
-    $this->post('log', function ($request, $response, $class) {
+    $this->post('/log', function ($request, $response, $class) {
         // POST: /manage/{class}/log
     });
 
@@ -126,7 +126,7 @@ $app->group('manage/{class}', function () {
     * Display sidebar, from "more"
     * This will only be called if JavaScript is disabled
     */
-    $this->get('more', function ($request, $response, $class) {
+    $this->get('/more', function ($request, $response, $class) {
         // /manage/{class}/more
     });
 });
@@ -137,7 +137,7 @@ $app->group('manage/{class}', function () {
  |--------------------------------------------------------------------------
  */
 
-$app->group('edit', function () {
+$app->group('/edit', function () {
     /*
      * Display a list of all classes to choose from
      */
@@ -158,14 +158,14 @@ $app->group('edit', function () {
     /*
      * Display FAQ page regarding the editing of classes and runners
      */
-    $this->get('help', function ($request, $response) {
+    $this->get('/help', function ($request, $response) {
         // /edit/help
     });
 
     /*
      * Display an overview of the runners in a class
      */
-    $this->get('{class}', function ($request, $response, $class) {
+    $this->get('/{class}', function ($request, $response, $class) {
         // /edit/{class}
     });
 
@@ -173,14 +173,14 @@ $app->group('edit', function () {
      * Display available data of a runner, with the ability to change it
      * NOT ROUNDS!
      */
-    $this->get('runner/{id}', function ($request, $response, $id) {
+    $this->get('/runner/{id}', function ($request, $response, $id) {
         // /edit/runner/{id}
     });
 
     /*
      * Update the runner's data
      */
-    $this->post('runner/{id}', function ($request, $response, $id) {
+    $this->post('/runner/{id}', function ($request, $response, $id) {
         // POST: /edit/runner/{id}
         // save new runner data
     });
@@ -188,14 +188,14 @@ $app->group('edit', function () {
     /*
      * Display data of a class, with the ability to change it
      */
-    $this->get('class/{class}', function ($request, $response, $class) {
+    $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
     });
 
     /*
      * Update class data
      */
-    $this->post('class/{class}', function ($request, $response, $class) {
+    $this->post('/class/{class}', function ($request, $response, $class) {
         // POST: /edit/class/{class}
         // save new class data
     });
