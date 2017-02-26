@@ -5,5 +5,7 @@
       'login' => 'Log In',
       'back' => 'Back',
       'submit' => 'Submit',
-      'password' => 'Password'
+      'password' => 'Password',
+      'select_class' => 'Select Class',
+      'next' => 'Next'
   ];
