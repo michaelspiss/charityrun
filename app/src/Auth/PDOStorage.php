@@ -177,7 +177,12 @@ namespace App\Auth;
          $stmt->bindParam('id', $id);
          $stmt->execute();
 
-         return $stmt->fetch(\PDO::FETCH_KEY_PAIR);
+         // if no overrides exist, return empty array
+         $overrides = $stmt->fetch(\PDO::FETCH_KEY_PAIR);
+         if($overrides) {
+             return $overrides;
+         }
+         return [];
      }
 
      /**
