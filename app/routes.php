@@ -56,6 +56,7 @@ $app->post('/login', function ($request, $response) {
 $app->get('/logout', function ($request, $response) {
     // /logout
     // log out user
+    return redirect('/');
 });
 
 /*
