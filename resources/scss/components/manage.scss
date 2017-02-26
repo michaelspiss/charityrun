@@ -1,0 +1,13 @@
+.manage-runner {
+  min-height: $buttonHeight;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 $default-padding;
+  line-height: $buttonHeight;
+  font-size: $font-bigger;
+}
+
+.manage-runner:nth-child(even) {
+  background: $gray;
+  color: $white;
+}
