@@ -29,3 +29,8 @@ $container['translator'] = function ($c) {
     $loader = new \Illuminate\Translation\FileLoader(new \Illuminate\Filesystem\Filesystem, $settings['path']);
     return new \Illuminate\Translation\Translator($loader, $settings['default_locale']);
 };
+
+$container['database'] = function ($c) {
+    $settings = $c->get('settings')['database'];
+    return new PDO($settings['dsn'], $settings['username'], $settings['password']);
+};

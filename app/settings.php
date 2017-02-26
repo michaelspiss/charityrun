@@ -21,5 +21,16 @@ return [
             'path' => __DIR__ . '/../resources/lang',
             'default_locale' => 'en'
         ],
+
+        'database' => [
+            // sqlite
+            'dsn' => 'sqlite:../storage/database/database.sqlite',
+            'username' => null,
+            'password' => null,
+            // mysql
+            // 'dsn' => 'mysql:host=127.0.0.1;dbname=database;',
+            // 'username' => 'root',
+            // 'password' => '123456'
+        ],
     ],
 ];
