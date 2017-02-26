@@ -190,6 +190,8 @@ namespace App\Auth;
       */
      public function authResetOverridesForUser($instance_name, UserRepresentation $user)
      {
-         // TODO: Implement authResetOverridesForUser() method.
+         $stmt = $this->db->prepare('DELETE FROM user_overrides WHERE user_id = :id');
+         $stmt->bindParam('id', $user->id());
+         return $stmt->execute();
      }
  }
