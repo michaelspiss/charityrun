@@ -2,5 +2,8 @@
 
   return [
       'home' => 'Home',
-      'login' => 'Log In'
+      'login' => 'Log In',
+      'back' => 'Back',
+      'submit' => 'Submit',
+      'password' => 'Password'
   ];

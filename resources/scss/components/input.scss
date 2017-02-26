@@ -1,0 +1,9 @@
+input[type=text], input[type=password], input[type=number] {
+  // height = button height - padding * 2 - border * 2
+  $height: $buttonHeight - 20px - 2px;
+  height: $height;
+  padding: 10px;
+  // font-size = input height - 10px
+  font-size: $height - 10px;
+  border: 1px solid $gray;
+}

@@ -46,3 +46,12 @@ if(!function_exists('base_url')) {
         return $uri->getScheme().'://'.$uri->getHost().$port;
     }
 }
+
+/**
+ * Returns a redirect response
+ */
+if(!function_exists('redirect')) {
+    function redirect($path) {
+        return app('response')->withRedirect($path);
+    }
+}

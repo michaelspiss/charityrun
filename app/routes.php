@@ -37,6 +37,7 @@ $app->get('/stats', function ($request, $response) {
  */
 $app->get('/login', function ($request, $response) {
     // /login
+    return view($response, 'login');
 });
 
 /*
@@ -45,7 +46,8 @@ $app->get('/login', function ($request, $response) {
  */
 $app->post('/login', function ($request, $response) {
     // POST: /login
-    // password verification, user authentication
+    // TODO: password verification, user authentication
+    return redirect('/manage');
 });
 
 /*
