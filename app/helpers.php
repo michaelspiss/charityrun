@@ -29,3 +29,20 @@ if(!function_exists('view')) {
         return app('renderer')->render($response, $view, $args);
     }
 }
+
+/**
+ * Returns the base url
+ */
+if(!function_exists('base_url')) {
+    function base_url() {
+        /** @var \Psr\Http\Message\UriInterface $uri */
+        $uri = app('request')->getUri();
+        // if port is needed append it
+        $port = ':'.$uri->getPort();
+        if($port == ':80' || $port == ':443') {
+            $port = '';
+        }
+
+        return $uri->getScheme().'://'.$uri->getHost().$port;
+    }
+}
