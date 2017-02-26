@@ -140,7 +140,13 @@ namespace App\Auth;
          $new_value
      )
      {
-         // TODO: Implement authOverridePermissionForUser() method.
+         $stmt = $this->db->prepare('INSERT INTO user_overrides (user_id, permission, value) VALUES (:id, :permission, :value)');
+         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('permission', $permission);
+         // Make sure it is an int
+         $new_value = (int) $new_value;
+         $stmt->bindParam('value', $new_value);
+         return $stmt->execute();
      }
 
      /**
