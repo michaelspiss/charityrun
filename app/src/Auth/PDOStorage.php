@@ -100,7 +100,10 @@ namespace App\Auth;
       */
      public function authFetchPackagesForUser($instance_name, UserRepresentation $user)
      {
-         // TODO: Implement authFetchPackagesForUser() method.
+         $stmt = $this->db->prepare('SELECT package FROM user_packages WHERE user_id = :id');
+         $stmt->bindParam('id', $user->id());
+         $stmt->execute();
+         return $stmt->fetch(\PDO::FETCH_ASSOC);
      }
 
      /**
