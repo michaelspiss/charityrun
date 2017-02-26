@@ -1,6 +1,10 @@
-<?php /** @var string $class */ ?>
-<a href="/manage/<?php echo $class; ?>" class="sidebar-background"></a>
-<div class="sidebar">
+<?php
+/** @var string $class */
+
+$isOpen = isset($isOpen) ? $isOpen : false;
+?>
+<a href="/manage/<?php echo $class; ?>" class="sidebar-background <?php if(!$isOpen) { echo 'sidebar-hide hidden'; } ?>"></a>
+<div class="sidebar <?php if(!$isOpen) { echo 'sidebar-hide'; } ?>">
     <img src="images/map_banner.jpg" alt="" style="width: 100%; height: auto;">
     <div class="sidebar-current_class"><?php echo trans('dynamic.class_x', ['class' => $class]); ?></div>
     <a href="/manage" class="button button-noBorder sidebar-item"><?php echo trans('static.change_class'); ?></a>
