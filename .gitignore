@@ -1,6 +1,6 @@
 /vendor/
-/logs/*
-!/logs/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
 /.idea
 /node_modules
 /public/css/styles.css
