@@ -129,3 +129,73 @@ $app->group('manage/{class}', function () {
         // /manage/{class}/more
     });
 });
+
+/*
+ |--------------------------------------------------------------------------
+ | EDIT
+ |--------------------------------------------------------------------------
+ */
+
+$app->group('edit', function () {
+    /*
+     * Display a list of all classes to choose from
+     */
+    $this->get('/', function ($request, $response) {
+        // /edit
+    });
+
+    /*
+     * Get class selection, redirect to /edit/{class},
+     * where class is the selected class.
+     * This will only be called if JavaScript is disabled
+    */
+    $this->post('/', function ($request, $response) {
+        // POST: /edit
+        // Redirect the user to the selected class
+    });
+
+    /*
+     * Display FAQ page regarding the editing of classes and runners
+     */
+    $this->get('help', function ($request, $response) {
+        // /edit/help
+    });
+
+    /*
+     * Display an overview of the runners in a class
+     */
+    $this->get('{class}', function ($request, $response, $class) {
+        // /edit/{class}
+    });
+
+    /*
+     * Display available data of a runner, with the ability to change it
+     * NOT ROUNDS!
+     */
+    $this->get('runner/{id}', function ($request, $response, $id) {
+        // /edit/runner/{id}
+    });
+
+    /*
+     * Update the runner's data
+     */
+    $this->post('runner/{id}', function ($request, $response, $id) {
+        // POST: /edit/runner/{id}
+        // save new runner data
+    });
+
+    /*
+     * Display data of a class, with the ability to change it
+     */
+    $this->get('class/{class}', function ($request, $response, $class) {
+        // /edit/class/{class}
+    });
+
+    /*
+     * Update class data
+     */
+    $this->post('class/{class}', function ($request, $response, $class) {
+        // POST: /edit/class/{class}
+        // save new class data
+    });
+});
