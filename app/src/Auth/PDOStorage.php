@@ -69,7 +69,10 @@ namespace App\Auth;
       */
      public function authAddPackageToUser($instance_name, UserRepresentation $user, Package $package)
      {
-         // TODO: Implement authAddPackageToUser() method.
+         $stmt = $this->db->prepare('INSERT INTO user_packages (user_id, package) VALUES (:id, :package)');
+         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('package', $package->name());
+         return $stmt->execute();
      }
 
      /**
