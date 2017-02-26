@@ -135,6 +135,7 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('/more', function ($request, $response, $class) {
         // /manage/{class}/more
+        return view('sidebar', ['class' => $class]);
     });
 });
 
