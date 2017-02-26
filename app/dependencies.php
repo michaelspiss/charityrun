@@ -3,6 +3,11 @@
 
 $container = $app->getContainer();
 
+// Alternative route strategy
+$container['foundHandler'] = function () {
+    return new \Slim\Handlers\Strategies\RequestResponseArgs();
+};
+
 // view renderer
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
