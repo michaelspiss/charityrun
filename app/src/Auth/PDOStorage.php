@@ -69,9 +69,12 @@ namespace App\Auth;
       */
      public function authAddPackageToUser($instance_name, UserRepresentation $user, Package $package)
      {
+         $id = $user->id();
+         $package_name = $package->name();
+
          $stmt = $this->db->prepare('INSERT INTO user_packages (user_id, package) VALUES (:id, :package)');
-         $stmt->bindParam('id', $user->id());
-         $stmt->bindParam('package', $package->name());
+         $stmt->bindParam('id', $id);
+         $stmt->bindParam('package', $package_name);
          return $stmt->execute();
      }
 
@@ -85,9 +88,12 @@ namespace App\Auth;
       */
      public function authRemovePackageFromUser($instance_name, UserRepresentation $user, Package $package)
      {
+         $id = $user->id();
+         $package_name = $package->name();
+
          $stmt = $this->db->prepare('DELETE FROM user_packages WHERE package = :package AND user_id = :id');
-         $stmt->bindParam('id', $user->id());
-         $stmt->bindParam('package', $package->name());
+         $stmt->bindParam('id', $id);
+         $stmt->bindParam('package', $package_name);
          return $stmt->execute();
      }
 
@@ -100,8 +106,10 @@ namespace App\Auth;
       */
      public function authFetchPackagesForUser($instance_name, UserRepresentation $user)
      {
+         $id = $user->id();
+
          $stmt = $this->db->prepare('SELECT package FROM user_packages WHERE user_id = :id');
-         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('id', $id);
          $stmt->execute();
          return $stmt->fetch(\PDO::FETCH_ASSOC);
      }
@@ -116,9 +124,12 @@ namespace App\Auth;
       */
      public function authUserHasPackage($instance_name, UserRepresentation $user, Package $package)
      {
+         $id = $user->id();
+         $package_name = $package->name();
+
          $stmt = $this->db->prepare('SELECT id FROM user_packages WHERE user_id = :id AND package = :package');
-         $stmt->bindParam('id', $user->id());
-         $stmt->bindParam('package', $package->name());
+         $stmt->bindParam('id', $id);
+         $stmt->bindParam('package', $package_name);
          $stmt->execute();
          // true if data was received, false if not
          return (bool) $stmt->fetch();
@@ -140,8 +151,10 @@ namespace App\Auth;
          $new_value
      )
      {
+         $id = $user->id();
+
          $stmt = $this->db->prepare('INSERT INTO user_overrides (user_id, permission, value) VALUES (:id, :permission, :value)');
-         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('id', $id);
          $stmt->bindParam('permission', $permission);
          // Make sure values are booleans
          $new_value = (bool) $new_value;
@@ -158,8 +171,10 @@ namespace App\Auth;
       */
      public function authFetchOverridesForUser($instance_name, UserRepresentation $user)
      {
+         $id = $user->id();
+
          $stmt = $this->db->prepare('SELECT permission, value FROM user_overrides WHERE user_id = :id');
-         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('id', $id);
          $stmt->execute();
 
          return $stmt->fetch(\PDO::FETCH_KEY_PAIR);
@@ -175,8 +190,10 @@ namespace App\Auth;
       */
      public function authRemoveOverrideForUser($instance_name, UserRepresentation $user, $permission)
      {
+         $id = $user->id();
+
          $stmt = $this->db->prepare('DELETE FROM user_overrides WHERE user_id = :id AND permission = :permission');
-         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('id', $id);
          $stmt->bindParam('permission', $permission);
          return $stmt->execute();
      }
@@ -190,8 +207,10 @@ namespace App\Auth;
       */
      public function authResetOverridesForUser($instance_name, UserRepresentation $user)
      {
+         $id = $user->id();
+
          $stmt = $this->db->prepare('DELETE FROM user_overrides WHERE user_id = :id');
-         $stmt->bindParam('id', $user->id());
+         $stmt->bindParam('id', $id);
          return $stmt->execute();
      }
  }
