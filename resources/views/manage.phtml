@@ -1,0 +1,43 @@
+<?php /** @var string $class */ ?>
+<!doctype html>
+<html lang="<?php echo app('translator')->locale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.manage_class_x', ['class' => $class]); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.manage_class_x', ['class' => $class]); ?>
+        </div>
+        <!-- reset :nth-child() to 0 -->
+        <div>
+            <div class="manage-runner">
+                <span>Runner</span><span>Rounds</span>
+            </div>
+            <div class="manage-runner">
+                <span>Name</span><span>11</span>
+            </div>
+            <div class="manage-runner">
+                <span>Name</span><span>15</span>
+            </div>
+            <div class="manage-runner">
+                <span>Name</span><span>9</span>
+            </div>
+            <div class="manage-runner">
+                <span>Name</span><span>10</span>
+            </div>
+        </div>
+    </div>
+    <div class="nav"><!--
+        --><a href="/manage/<?php echo $class; ?>" class="nav-item"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item"><?php echo trans('static.more'); ?></a><!--
+    --></div>
+</div>
+</body>
+</html>

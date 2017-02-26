@@ -7,5 +7,8 @@
       'submit' => 'Submit',
       'password' => 'Password',
       'select_class' => 'Select Class',
-      'next' => 'Next'
+      'next' => 'Next',
+      'more' => 'More',
+      'add' => 'Add',
+      'overview' => 'Overview'
   ];
