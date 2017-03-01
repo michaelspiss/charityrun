@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="<?php echo app('translator')->locale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.map'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div id="map" class="map"></div>
+    <div class="map-stats">
+        <div class="map-stats-item">
+            <span>100</span>
+            <b><?php echo trans('static.total_km'); ?></b>
+        </div>
+        <div class="map-stats-item">
+            <span>7000</span>
+            <b><?php echo trans('static.left_to_go'); ?></b>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/ammap/ammap.js"></script>
+<script type="text/javascript" src="js/ammap/worldLow.js"></script>
+<script type="text/javascript" src="js/ammap/themes/light.js"></script>
+<script type="text/javascript" src="js/map_config.js"></script>
+</body>
+</html>
