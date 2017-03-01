@@ -22,8 +22,9 @@ $app->get('/', function () {
 /*
  * Display the live map, with statistics about the run
  */
-$app->get('/map', function ($request, $response) {
+$app->get('/map', function () {
     // /map
+    return view('map');
 });
 
 /*
