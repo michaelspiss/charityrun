@@ -13,5 +13,8 @@
       'overview' => 'Overview',
       'change_class' => 'Change Class',
       'help' => 'Help',
-      'logout' => 'Log Out'
+      'logout' => 'Log Out',
+      'map' => 'Map',
+      'total_km' => 'total km',
+      'left_to_go' => 'left to go'
   ];
