@@ -1,0 +1,21 @@
+.map {
+  width: 100%;
+  flex: 0 1 100%;
+}
+
+.map-stats {
+  box-shadow: $default-box-shadow;
+  display: flex;
+  flex: 0 1 10%;
+  min-height: 2.5 * $font-bigger;
+}
+
+.map-stats-item {
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  color: $black;
+  font-size: $font-bigger;
+}
