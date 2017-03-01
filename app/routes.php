@@ -92,6 +92,10 @@ $app->post('/manage', function ($request) {
     // POST: /manage
     /** @var \Slim\Http\Request $request */
     $class = $request->getParam('class');
+    // if no class has been submitted
+    if($class == "") {
+        return redirect('/manage');
+    }
     return redirect('/manage/'.$class);
 })->add(new LCM());
 
