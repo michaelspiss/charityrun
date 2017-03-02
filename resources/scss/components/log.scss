@@ -1,0 +1,49 @@
+.log-item {
+  padding: 0 0 0 $default-padding;
+  color: $black;
+  display: flex;
+  min-height: $buttonHeight;
+  margin-bottom: 16px;
+}
+
+.log-item-desc {
+  flex: 0 1 100%;
+  padding-right: $default-padding;
+  font-size: $font-smaller;
+}
+
+.log-item-type {
+  font-weight: bold;
+  border-bottom: dotted 1px $black;
+  padding-bottom: 2px;
+  margin-bottom: 8px;
+  font-size: $font-bigger;
+}
+
+.log-time {
+  float: right;
+  font-size: $font-smaller - 0.1em;
+  font-weight: normal;
+  color: $gray;
+}
+
+.log-item-undo {
+  flex: 0 0 $buttonHeight;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba($gray, .2);
+  color: $gray;
+}
+
+.log-item-undo-hasPermission {
+  background: rgba($gray, .6);
+  color: $black;
+}
+
+.log-undo-icon {
+  width: 24px;
+  height: 24px;
+}
