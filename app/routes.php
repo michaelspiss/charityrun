@@ -136,6 +136,7 @@ $app->group('/manage/{class}', function () {
      */
     $this->get('/log', function ($request, $response, $class) {
         // /manage/{class}/log
+        return view('manage.log', ['class' => $class]);
     });
 
     /*
