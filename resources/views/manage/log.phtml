@@ -1,0 +1,42 @@
+<?php /** @var string $class */ ?>
+<!doctype html>
+<html lang="<?php echo app('translator')->locale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.log_class_x', ['class' => $class]); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.log_class_x', ['class' => $class]); ?>
+        </div>
+        <div class="log-item">
+            <div class="log-item-desc">
+                <div class="log-item-type"><span><?php echo trans('static.add_rounds'); ?></span><span class="log-time">2017-03-02 17:28:56</span></div> 123 rounds added: 1 for x, 5 for y, 3 for z, 4 for a, 3 for b, 2 for c, 1 for d, 3 for e</div>
+            <div class="log-item-undo">
+                <svg class="log-undo-icon"><use xlink:href="/images/undo.svg#icon"></use><image src="images/undo.png" height="24px" width="24px"/></svg>
+            </div>
+        </div>
+        <div class="log-item">
+            <div class="log-item-desc">
+                <div class="log-item-type"><span><?php echo trans('static.add_rounds'); ?></span><span class="log-time">2017-03-02 17:28:56</span></div> 123 rounds added: 1 for x, 5 for y, 3 for z</div>
+            <div class="log-item-undo">
+                <svg class="log-undo-icon"><use xlink:href="/images/undo.svg#icon"></use><image src="images/undo.png" height="24px" width="24px"/></svg>
+            </div>
+        </div>
+    </div>
+    <div class="nav"><!--
+        --><a href="/manage/<?php echo $class; ?>" class="nav-item"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--
+    --></div>
+</div>
+<?php
+echo $this->fetch('module/sidebar.phtml', ['class' => $class]);
+?>
+</body>
+</html>

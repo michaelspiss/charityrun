@@ -17,5 +17,6 @@
       'map' => 'Map',
       'total_km' => 'total km',
       'left_to_go' => 'left to go',
-      'log' => 'Log'
+      'log' => 'Log',
+      'add_rounds' => 'Add Rounds'
   ];
