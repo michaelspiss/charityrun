@@ -16,5 +16,7 @@
       'logout' => 'Log Out',
       'map' => 'Map',
       'total_km' => 'total km',
-      'left_to_go' => 'left to go'
+      'left_to_go' => 'left to go',
+      'log' => 'Log',
+      'add_rounds' => 'Add Rounds'
   ];
