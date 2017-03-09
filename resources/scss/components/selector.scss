@@ -2,11 +2,23 @@
   height: $buttonHeight;
   line-height: $buttonHeight;
   font-size: $font-bigger;
+  position: relative;
+}
+
+.selector-option-radio {
+  position: absolute;
+  left: $default-padding;
+  top: $buttonHeight / 3;
 }
 
 .selector-option-label {
   display: block;
   padding-left: $default-padding;
+  &:before {
+    content: '';
+    display: inline-block;
+    margin-left: 32px;
+  }
 }
 
 .selector-option input[type=radio]:checked ~ .selector-option-label {
