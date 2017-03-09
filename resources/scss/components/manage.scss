@@ -1,15 +1,24 @@
 .manage-runner {
   min-height: $buttonHeight;
-  display: flex;
-  justify-content: space-between;
   padding: 0 $default-padding;
   line-height: $buttonHeight;
   font-size: $font-bigger;
+  display: block;
+
+  &:after {
+    clear: both;
+    content: '';
+    display: block;
+  }
 }
 
 .manage-runner:nth-child(even) {
   background: $gray;
   color: $white;
+}
+
+.manage-list-right {
+  float: right;
 }
 
 .manage-form {
