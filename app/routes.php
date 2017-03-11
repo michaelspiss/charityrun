@@ -104,6 +104,7 @@ $app->post('/manage', function ($request) {
  */
 $app->get('/manage/help', function () {
     // /manage/help
+    return view('help');
 })->add(new LCM());
 
 $app->group('/manage/{class}', function () {
