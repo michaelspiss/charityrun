@@ -1,4 +1,4 @@
-input[type=text], input[type=password], input[type=number] {
+input[type=text], input[type=password], input[type=number], select {
   // height = button height - padding * 2 - border * 2
   $height: $buttonHeight - 20px - 2px;
   height: $height;
@@ -10,4 +10,9 @@ input[type=text], input[type=password], input[type=number] {
 
 input[type=number] {
   width: 50px;
+}
+
+select {
+  box-sizing: content-box;
+  background: $white;
 }
