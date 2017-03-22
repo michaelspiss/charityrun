@@ -17,11 +17,11 @@
         </div>
         <form action="/edit/runner/<?php echo $id; ?>" method="post" class="manage-form">
             <label class="manage-runner">
-                <span>Name:</span>
+                <span><?php echo trans('static.name'); ?>:</span>
                 <input type="text" class="manage-list-right edit-input" value="Gunther Gutberg">
             </label>
             <label class="manage-runner">
-                <span>Class:</span>
+                <span><?php echo trans('static.class'); ?>:</span>
                 <select name="class" id="class" class="manage-list-right edit-input">
                     <option value="00" selected>00</option>
                     <option value="01">01</option>
@@ -30,8 +30,8 @@
                 </select>
             </label>
             <div class="manage-runner">
-                <span>Donors:</span>
-                <div class="button button-noBorder manage-list-right edit-link">Display Donors</div>
+                <span><?php echo trans('static.donors'); ?>:</span>
+                <div class="button button-noBorder manage-list-right edit-link"><?php echo trans('static.display_donors'); ?></div>
             </div>
             <input type="submit" id="save" class="hidden">
         </form>

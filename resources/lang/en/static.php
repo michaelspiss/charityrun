@@ -20,5 +20,9 @@
       'log' => 'Log',
       'add_rounds' => 'Add Rounds',
       'save' => 'Save',
-      'cancel' => 'Cancel'
+      'cancel' => 'Cancel',
+      'name' => 'Name',
+      'class' => 'Class',
+      'donors' => 'Donors',
+      'display_donors' => 'Display Donors'
   ];
