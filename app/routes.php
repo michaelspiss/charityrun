@@ -201,6 +201,7 @@ $app->group('/edit', function () {
      */
     $this->get('/runner/{id}', function ($request, $response, $id) {
         // /edit/runner/{id}
+        return view('edit.runner', ['id' => $id]);
     });
 
     /*
