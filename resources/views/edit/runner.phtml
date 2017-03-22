@@ -18,11 +18,11 @@
         <form action="/edit/runner/<?php echo $id; ?>" method="post" class="manage-form">
             <label class="manage-runner">
                 <span>Name:</span>
-                <input type="text" class="manage-list-right" value="Gunther Gutberg" style="width:50%">
+                <input type="text" class="manage-list-right edit-input" value="Gunther Gutberg">
             </label>
             <label class="manage-runner">
                 <span>Class:</span>
-                <select name="class" id="class" class="manage-list-right" style="width:50%">
+                <select name="class" id="class" class="manage-list-right edit-input">
                     <option value="00" selected>00</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -31,7 +31,7 @@
             </label>
             <div class="manage-runner">
                 <span>Donators:</span>
-                <div class="button button-noBorder manage-list-right" style="width:50%">Display Donators</div>
+                <div class="button button-noBorder manage-list-right edit-link">Display Donators</div>
             </div>
             <input type="submit" id="save" class="hidden">
         </form>
