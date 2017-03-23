@@ -30,5 +30,6 @@
       'donation' => 'Donation',
       'fixed_amount' => 'Fixed Amount',
       'wants_receipt' => 'Wants Receipt',
-      'donates_for' => 'Donates For'
+      'donates_for' => 'Donates For',
+      'delete' => 'Delete'
   ];

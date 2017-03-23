@@ -52,6 +52,10 @@
             </div>
             <input type="submit" id="save" class="hidden">
         </form>
+        <form action="/edit/donor/<?php echo $id; ?>" method="post" class="manage-form">
+            <input type="checkbox" class="hidden" name="doDelete" checked>
+            <input type="submit" class="button button-abort" value="<?php echo trans('static.delete'); ?>">
+        </form>
     </div>
     <div class="button-container">
         <!-- TODO: Return to runner's class -->
