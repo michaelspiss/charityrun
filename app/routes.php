@@ -233,6 +233,7 @@ $app->group('/edit', function () {
      */
     $this->get('/donor/{id}', function ($request, $response, $id) {
         // /edit/donor/{id}
+        return view('edit.donor');
     });
 
     /*
