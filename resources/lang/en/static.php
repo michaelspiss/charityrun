@@ -26,5 +26,9 @@
       'donors' => 'Donors',
       'display_donors' => 'Display Donors',
       'display_students' => 'Display Students',
-      'students' => 'Students'
+      'students' => 'Students',
+      'donation' => 'Donation',
+      'fixed_amount' => 'Fixed Amount',
+      'wants_receipt' => 'Wants Receipt',
+      'donates_for' => 'Donates For'
   ];
