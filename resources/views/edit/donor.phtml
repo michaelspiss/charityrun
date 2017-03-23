@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="<?php echo app('translator')->locale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.edit_donor_x', ['name' => 'Gunther Gutberg']); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.edit_donor_x', ['name' => 'Gunther Gutberg']); ?>
+        </div>
+        <form action="/edit/donor/<?php echo $id; ?>" method="post" class="manage-form">
+            <label class="manage-row">
+                <span><?php echo trans('static.name'); ?>:</span>
+                <input type="text" class="manage-list-right edit-input" value="Gunther Gutberg">
+            </label>
+            <div class="manage-row">
+                <span><?php echo trans('static.donates_for'); ?>:</span>
+                <span class="manage-list-right">Runners Name</span>
+            </div>
+            <label class="manage-row">
+                <span><?php echo trans('static.donation'); ?>:</span>
+                <input type="number" class="manage-list-right edit-input" value="12.50">
+            </label>
+            <div class="manage-row">
+                <span><?php echo trans('static.fixed_amount'); ?>:</span>
+                <label class="edit-label manage-list-right">
+                    Yes:
+                    <input type="radio" name="amountIsFixed" value="1">
+                </label><br>
+                <label class="edit-label manage-list-right">
+                    No:
+                    <input type="radio" name="amountIsFixed" value="0">
+                </label>
+            </div>
+            <div class="manage-row">
+                <span><?php echo trans('static.wants_receipt'); ?>:</span>
+                <label class="edit-label manage-list-right">
+                    Yes:
+                    <input type="radio" name="wantsReceipt" value="1">
+                </label><br>
+                <label class="edit-label manage-list-right">
+                    No:
+                    <input type="radio" name="wantsReceipt" value="0">
+                </label>
+            </div>
+            <input type="submit" id="save" class="hidden">
+        </form>
+        <form action="/edit/donor/<?php echo $id; ?>" method="post" class="manage-form">
+            <input type="checkbox" class="hidden" name="doDelete" checked>
+            <input type="submit" class="button button-abort" value="<?php echo trans('static.delete'); ?>">
+        </form>
+    </div>
+    <div class="button-container">
+        <!-- TODO: Return to runner's class -->
+        <a href="/manage" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
+    </div>
+</div>
+</body>
+</html>

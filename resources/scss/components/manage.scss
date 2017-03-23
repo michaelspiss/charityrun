@@ -1,4 +1,4 @@
-.manage-runner {
+.manage-row {
   min-height: $buttonHeight;
   padding: 0 $default-padding;
   line-height: $buttonHeight;
@@ -12,7 +12,7 @@
   }
 }
 
-.manage-runner:nth-child(even) {
+.manage-row:nth-child(even) {
   background: $gray;
   color: $white;
 }

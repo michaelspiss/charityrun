@@ -201,6 +201,7 @@ $app->group('/edit', function () {
      */
     $this->get('/runner/{id}', function ($request, $response, $id) {
         // /edit/runner/{id}
+        return view('edit.runner', ['id' => $id]);
     });
 
     /*
@@ -216,6 +217,7 @@ $app->group('/edit', function () {
      */
     $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
+        return view('edit.class');
     });
 
     /*
@@ -224,5 +226,21 @@ $app->group('/edit', function () {
     $this->post('/class/{class}', function ($request, $response, $class) {
         // POST: /edit/class/{class}
         // save new class data
+    });
+
+    /*
+     * Display data of a donor, with the ability to change it
+     */
+    $this->get('/donor/{id}', function ($request, $response, $id) {
+        // /edit/donor/{id}
+        return view('edit.donor');
+    });
+
+    /*
+    * Update donor data
+    */
+    $this->post('/donor/{id}', function ($request, $response, $class) {
+        // POST: /edit/donor/{id}
+        // save new donor data
     });
 });

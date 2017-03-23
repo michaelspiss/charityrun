@@ -18,5 +18,18 @@
       'total_km' => 'total km',
       'left_to_go' => 'left to go',
       'log' => 'Log',
-      'add_rounds' => 'Add Rounds'
+      'add_rounds' => 'Add Rounds',
+      'save' => 'Save',
+      'cancel' => 'Cancel',
+      'name' => 'Name',
+      'class' => 'Class',
+      'donors' => 'Donors',
+      'display_donors' => 'Display Donors',
+      'display_students' => 'Display Students',
+      'students' => 'Students',
+      'donation' => 'Donation',
+      'fixed_amount' => 'Fixed Amount',
+      'wants_receipt' => 'Wants Receipt',
+      'donates_for' => 'Donates For',
+      'delete' => 'Delete'
   ];
