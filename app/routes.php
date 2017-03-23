@@ -217,6 +217,7 @@ $app->group('/edit', function () {
      */
     $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
+        return view('edit.class');
     });
 
     /*
