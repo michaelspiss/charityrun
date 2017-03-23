@@ -24,5 +24,7 @@
       'name' => 'Name',
       'class' => 'Class',
       'donors' => 'Donors',
-      'display_donors' => 'Display Donors'
+      'display_donors' => 'Display Donors',
+      'display_students' => 'Display Students',
+      'students' => 'Students'
   ];
