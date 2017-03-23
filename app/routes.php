@@ -164,22 +164,6 @@ $app->group('/manage/{class}', function () {
  */
 
 $app->group('/edit', function () {
-    /*
-     * Display a list of all classes to choose from
-     */
-    $this->get('', function ($request, $response) {
-        // /edit
-    });
-
-    /*
-     * Get class selection, redirect to /edit/{class},
-     * where class is the selected class.
-     * This will only be called if JavaScript is disabled
-    */
-    $this->post('/', function ($request, $response) {
-        // POST: /edit
-        // Redirect the user to the selected class
-    });
 
     /*
      * Display FAQ page regarding the editing of classes and runners
