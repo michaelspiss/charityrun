@@ -227,4 +227,19 @@ $app->group('/edit', function () {
         // POST: /edit/class/{class}
         // save new class data
     });
+
+    /*
+     * Display data of a donor, with the ability to change it
+     */
+    $this->get('/donor/{id}', function ($request, $response, $id) {
+        // /edit/donor/{id}
+    });
+
+    /*
+    * Update donor data
+    */
+    $this->post('/donor/{id}', function ($request, $response, $class) {
+        // POST: /edit/donor/{id}
+        // save new donor data
+    });
 });
