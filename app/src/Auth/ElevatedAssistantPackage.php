@@ -8,7 +8,7 @@ class ElevatedAssistantPackage extends Package {
 
     public function init() {
         $this
-            ->precedence(5)
+            ->precedence(7)
             ->permissions([
                 'addDonor' => true,
                 'addRunner' => true,
