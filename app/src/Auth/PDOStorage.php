@@ -111,7 +111,11 @@ namespace App\Auth;
          $stmt = $this->db->prepare('SELECT package FROM user_packages WHERE user_id = :id');
          $stmt->bindParam('id', $id);
          $stmt->execute();
-         return $stmt->fetch(\PDO::FETCH_ASSOC);
+         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+         if($result === false) {
+             return [];
+         }
+         return $result;
      }
 
      /**
