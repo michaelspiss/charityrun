@@ -27,8 +27,4 @@ class AdminPackage extends Package {
                 'editSettings' => true
         ]);
     }
-
-    public function name() {
-        return 'AdminPackage';
-    }
 }

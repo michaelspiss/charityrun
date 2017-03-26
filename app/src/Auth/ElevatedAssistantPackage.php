@@ -29,8 +29,4 @@ class ElevatedAssistantPackage extends Package {
                 'editSettings' => false
         ]);
     }
-
-    public function name() {
-        return 'ElevatedAssistantPackage';
-    }
 }

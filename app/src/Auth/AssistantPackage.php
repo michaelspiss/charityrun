@@ -29,8 +29,4 @@ class AssistantPackage extends Package {
                 'editSettings' => false
         ]);
     }
-
-    public function name() {
-        return 'AssistantPackage';
-    }
 }
