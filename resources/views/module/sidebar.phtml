@@ -9,6 +9,9 @@ $includeJS = isset($includeJS) ? $includeJS : true;
     <img src="images/map_banner.jpg" alt="" style="width: 100%; height: auto;">
     <div class="sidebar-current_class"><?php echo trans('dynamic.class_x', ['class' => $class]); ?></div>
     <a href="/manage" class="button button-noBorder sidebar-item"><?php echo trans('static.change_class'); ?></a>
+    <?php if(app('auth')->can('editClass')) { ?>
+        <a href="/edit/class/<?php echo $class; ?>" class="button button-noBorder sidebar-item"><?php echo trans('static.edit_class'); ?></a>
+    <?php } ?>
     <a href="/manage/<?php echo $class; ?>/log" class="button button-noBorder sidebar-item"><?php echo trans('static.log'); ?></a>
     <a href="/manage/help" class="button button-noBorder sidebar-item"><?php echo trans('static.help'); ?></a>
     <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>

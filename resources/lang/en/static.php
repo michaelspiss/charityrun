@@ -32,5 +32,6 @@
       'wants_receipt' => 'Wants Receipt',
       'donates_for' => 'Donates For',
       'delete' => 'Delete',
-      'username' => 'Username'
+      'username' => 'Username',
+      'edit_class' => 'Edit Class'
   ];
