@@ -38,9 +38,13 @@ $app->get('/stats', function ($request, $response) {
 /*
  * Display log in form, redirect if already logged in
  */
-$app->get('/login', function () {
+$app->get('/login', function ($request) {
     // /login
-    return view('login');
+
+    /** @var \Slim\Http\Request $request */
+    // check if user wants to log in as admin
+    $login_as_admin = isset($request->getQueryParams()['admin']);
+    return view('login', ['login_as_admin' => $login_as_admin]);
 });
 
 /*
@@ -51,7 +55,9 @@ $app->post('/login', function ($request) {
     // POST: /login
     /** @var \Slim\Http\Request $request */
     $password = $request->getParam('password');
-    if(app('auth')->login('Assistant', $password))
+    // use username if provided, else log in as 'Assistant'
+    $username = $request->getParam('username', 'Assistant');
+    if(app('auth')->login($username , $password))
     {
         return redirect('/manage');
     } else {
@@ -164,22 +170,6 @@ $app->group('/manage/{class}', function () {
  */
 
 $app->group('/edit', function () {
-    /*
-     * Display a list of all classes to choose from
-     */
-    $this->get('', function ($request, $response) {
-        // /edit
-    });
-
-    /*
-     * Get class selection, redirect to /edit/{class},
-     * where class is the selected class.
-     * This will only be called if JavaScript is disabled
-    */
-    $this->post('/', function ($request, $response) {
-        // POST: /edit
-        // Redirect the user to the selected class
-    });
 
     /*
      * Display FAQ page regarding the editing of classes and runners

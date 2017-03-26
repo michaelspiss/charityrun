@@ -6,5 +6,6 @@ return [
     'log_class_x' => 'Log Class :class',
     'edit_runner_x' => 'Edit Runner: :name',
     'edit_class_x' => 'Edit Class: :class',
-    'edit_donor_x' => 'Edit Donor: :name'
+    'edit_donor_x' => 'Edit Donor: :name',
+    'log_in_as_x' => 'Log In as :role'
 ];
