@@ -1,4 +1,8 @@
-<?php /** @var string $class */ ?>
+<?php
+/** @var string $class */
+
+$classMembers = \App\Representatives\Classes::getAllClassMembers($class);
+?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
 <head>
@@ -21,18 +25,21 @@
             <div class="manage-row">
                 <span>Runner</span><span class="manage-list-right">Rounds</span>
             </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">11</span>
-            </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">15</span>
-            </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">9</span>
-            </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">10</span>
-            </div>
+            <?php
+            if(empty($classMembers)) {
+                echo '<div class="manage-row"><center>This class doesn\'t have any members.</center></div>';
+            } else {
+                foreach ($classMembers as $classMember) {
+                    // TODO: merge those many request into one
+                    $runner = new \App\Representatives\Runner($classMember['id']);
+                    echo "
+                    <div class='manage-row'>
+                        <span>{$runner->get('name')}</span><span class='manage-list-right'>{$runner->get('total-rounds')}</span>
+                    </div>
+                    ";
+                }
+            }
+            ?>
         </div>
     </div>
     <div class="nav"><!--
