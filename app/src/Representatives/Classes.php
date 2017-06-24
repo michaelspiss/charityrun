@@ -52,4 +52,19 @@ class Classes extends SQLITE_DEPENDANT {
     public static function getAllNames() {
         return app('database')->query('SELECT name FROM classes')->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    /**
+     * Returns the Ids of all runners in a class
+     * @param $className
+     * @return array
+     */
+    public static function getAllClassMembers($className) {
+        /** @var \PDOStatement $stmt */
+        $stmt = app('database')->prepare('SELECT id FROM runners WHERE class = :className');
+        $stmt->bindParam(':className', $className);
+        if($stmt->execute()) {
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        return [];
+    }
 }
