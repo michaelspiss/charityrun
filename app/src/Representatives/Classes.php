@@ -44,4 +44,12 @@ class Classes extends SQLITE_DEPENDANT {
     {
         return 'UPDATE classes SET "'.$update_string.'" WHERE id = :id';
     }
+
+    /**
+     * Returns all available class names
+     * @return mixed
+     */
+    public static function getAllNames() {
+        return app('database')->query('SELECT name FROM classes')->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
