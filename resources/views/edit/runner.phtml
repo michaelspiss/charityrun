@@ -48,8 +48,7 @@ $runner = new \App\Representatives\Runner($id);
         </form>
     </div>
     <div class="button-container">
-        <!-- TODO: Return to runner's class -->
-        <a href="/manage" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <a href="<?php echo base_url()."/manage/".$runner->get('class'); ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
         <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
     </div>
 </div>
