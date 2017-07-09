@@ -49,4 +49,19 @@ class Donor extends SQLITE_DEPENDANT {
     {
         return 'UPDATE donors SET '.$update_string.' WHERE id = :id';
     }
+
+    /**
+     * Returns overview-data about the runner's donors
+     * @param $id integer the runners id
+     * @return array with all ids and names of the runner's donors
+     */
+    public static function getAllForRunner($id) {
+        /** @var \PDOStatement $stmt */
+        $stmt = app('database')->prepare('SELECT name, id FROM donors WHERE `runner-id` = :id');
+        $stmt->bindParam(':id', $id);
+        if($stmt->execute()) {
+            return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        return [];
+    }
 }

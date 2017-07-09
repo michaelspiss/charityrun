@@ -38,7 +38,23 @@ $runner = new \App\Representatives\Runner($id);
             </label>
             <div class="manage-row">
                 <span><?php echo trans('static.donors'); ?>:</span>
-                <div class="button button-noBorder manage-list-right edit-link"><?php echo trans('static.display_donors'); ?></div>
+                <label class="button button-noBorder manage-list-right edit-link" for="donors_list"><?php echo trans('static.display_donors'); ?></label>
+            </div>
+            <input type="checkbox" id="donors_list" class="accordion-status" checked>
+            <div class="accordion-content">
+                <?php
+                $donors = \App\Representatives\Donor::getAllForRunner($id);
+                if(empty($donors)) {
+                    echo '<div class="manage-row">'.trans('static.has_no_donors').'</div>';
+                }
+                foreach($donors as $donor) {
+                    if(app('auth')->can('editDonor')) {
+                        echo "<a href=\"edit/donor/{$donor['id']}\" class='manage-row'>{$donor['name']}</a>";
+                    } else {
+                        echo "<div class='manage-row'>{$donor['name']}</div>";
+                    }
+                }
+                ?>
             </div>
             <input type="submit" id="save" class="hidden">
         </form>

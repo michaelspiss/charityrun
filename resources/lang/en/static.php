@@ -33,5 +33,6 @@
       'donates_for' => 'Donates For',
       'delete' => 'Delete',
       'username' => 'Username',
-      'edit_class' => 'Edit Class'
+      'edit_class' => 'Edit Class',
+      'has_no_donors' => 'This runner does not have any donors assigned.'
   ];
