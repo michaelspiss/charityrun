@@ -22,5 +22,7 @@ html, body {
 @import "components/sidebar";
 @import "components/map";
 @import "components/log";
+// accordion must be before help!
+@import "components/accordion";
 @import "components/help";
 @import "components/edit";
