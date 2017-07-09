@@ -179,13 +179,6 @@ $app->group('/edit', function () {
     });
 
     /*
-     * Display an overview of the runners in a class
-     */
-    $this->get('/{class}', function ($request, $response, $class) {
-        // /edit/{class}
-    });
-
-    /*
      * Display available data of a runner, with the ability to change it
      * NOT ROUNDS!
      */
@@ -207,7 +200,7 @@ $app->group('/edit', function () {
      */
     $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
-        return view('edit.class');
+        return view('edit.class', ['class' => $class]);
     });
 
     /*

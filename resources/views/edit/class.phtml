@@ -1,3 +1,6 @@
+<?php
+/** @var string $class */
+?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
 <head>
@@ -5,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CharityRun: <?php echo trans('dynamic.edit_class_x', ['class' => '00']); ?></title>
+    <title>CharityRun: <?php echo trans('dynamic.edit_class_x', ['class' => $class]); ?></title>
     <base href="<?php echo base_url(); ?>">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -13,12 +16,12 @@
 <div class="layout-container">
     <div class="layout-content">
         <div class="layout-header">
-            <?php echo trans('dynamic.edit_class_x', ['class' => 00]); ?>
+            <?php echo trans('dynamic.edit_class_x', ['class' => $class]); ?>
         </div>
         <form action="/edit/class/<?php echo $class; ?>" method="post" class="manage-form">
             <label class="manage-row">
                 <span><?php echo trans('static.name'); ?>:</span>
-                <input type="text" class="manage-list-right edit-input" value="00">
+                <input type="text" class="manage-list-right edit-input" value="<?php echo $class; ?>">
             </label>
             <div class="manage-row">
                 <span><?php echo trans('static.students'); ?>:</span>
