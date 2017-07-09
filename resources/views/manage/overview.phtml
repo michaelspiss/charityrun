@@ -32,11 +32,19 @@ $classMembers = \App\Representatives\Classes::getAllClassMembers($class);
                 foreach ($classMembers as $classMember) {
                     // TODO: merge those many request into one
                     $runner = new \App\Representatives\Runner($classMember['id']);
-                    echo "
-                    <div class='manage-row'>
-                        <span>{$runner->get('name')}</span><span class='manage-list-right'>{$runner->get('total-rounds')}</span>
-                    </div>
-                    ";
+                    if(app('auth')->can('editRunner')) {
+                        echo "
+                        <a href='/edit/runner/{$classMember['id']}' class='manage-row'>
+                            <span>{$runner->get('name')}</span><span class='manage-list-right'>{$runner->get('total-rounds')}</span>
+                        </a>
+                        ";
+                    } else {
+                        echo "
+                        <div class='manage-row'>
+                            <span>{$runner->get('name')}</span><span class='manage-list-right'>{$runner->get('total-rounds')}</span>
+                        </div>
+                        ";
+                    }
                 }
             }
             ?>
