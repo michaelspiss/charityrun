@@ -30,7 +30,7 @@ $classMembers = \App\Representatives\Classes::getAllClassMembers($class);
                 $runner = new \App\Representatives\Runner($classMember['id']);
                 echo "
                 <label class=\"manage-row\">
-                    <span>{$runner->get('name')}</span><input type=\"number\" class=\"manage-list-right\">
+                    <span>{$runner->get('name')}</span><input type=\"number\" class=\"manage-list-right\" placeholder=\"0\">
                 </label>
                 ";
             }
