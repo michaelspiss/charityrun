@@ -40,9 +40,7 @@ $app->get('/stats', function ($request, $response) {
  */
 $app->get('/login', function ($request) {
     // /login
-	/** @var \Solution10\Auth\Auth $auth */
-	$auth = app('auth');
-	if($auth->loggedIn()) {
+	if(app('auth')->loggedIn()) {
 		return redirect('/manage');
 	}
     /** @var \Slim\Http\Request $request */
@@ -199,9 +197,7 @@ $app->group('/edit', function () {
      */
     $this->get('/runner/{id}', function ($request, $response, $id) {
         // /edit/runner/{id}
-	    /** @var \Solution10\Auth\Auth $auth */
-	    $auth = app('auth');
-	    if(!$auth->can('editRunner')) {
+	    if(!app('auth')->can('editRunner')) {
 		    echo 'You don\'t have permission to do this';
 		    exit();
 	    }
