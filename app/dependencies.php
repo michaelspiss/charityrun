@@ -32,7 +32,9 @@ $container['translator'] = function ($c) {
 
 $container['database'] = function ($c) {
     $settings = $c->get('settings')['database'];
-    return new PDO($settings['dsn'], $settings['username'], $settings['password']);
+    $pdo = new PDO($settings['dsn'], $settings['username'], $settings['password']);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    return $pdo;
 };
 
 $container['auth'] = function () {

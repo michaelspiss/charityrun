@@ -1,3 +1,6 @@
+<?php
+    /** @var array $group_names */
+?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
 <head>
@@ -15,25 +18,28 @@
         <div class="layout-header">
             <?php echo trans('static.select_class'); ?>
         </div>
-        <form action="/manage" method="post">
-            <div class="selector-option">
-                <input type="radio" name="class" value="00" id="class00" class="selector-option-radio">
-                <label for="class00" class="selector-option-label">00</label>
-            </div>
-            <div class="selector-option">
-                <input type="radio" name="class" value="01" id="class01" class="selector-option-radio">
-                <label for="class01" class="selector-option-label">01</label>
-            </div>
-            <div class="selector-option">
-                <input type="radio" name="class" value="02" id="class02" class="selector-option-radio">
-                <label for="class02" class="selector-option-label">02</label>
-            </div>
-            <div class="selector-option">
-                <input type="radio" name="class" value="03" id="class03" class="selector-option-radio">
-                <label for="class03" class="selector-option-label">03</label>
-            </div>
-            <input type="submit" class="hidden" id="formSubmit">
-        </form>
+        <?php
+        if(empty($group_names)) {
+	        echo '<div><div class="manage-row"><center>There are no classes yet.</center></div></div>';
+        } else {
+	        ?>
+            <form action="/manage" method="post">
+		        <?php
+		        foreach ( $group_names as $group_name ) {
+			        $group_name = $group_name['name'];
+			        echo "
+                <div class='selector-option'>
+                    <input type='radio' name='class' value='$group_name' id='class$group_name' class='selector-option-radio'>
+                    <label for='class$group_name' class='selector-option-label'>$group_name</label>
+                </div>
+                ";
+		        }
+		        ?>
+                <input type="submit" class="hidden" id="formSubmit">
+            </form>
+	        <?php
+        }
+        ?>
     </div>
     <div class="selector-footer">
         <label for="formSubmit" class="button button-noBorder selector-submit"><?php echo trans('static.next'); ?></label>

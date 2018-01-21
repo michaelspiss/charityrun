@@ -1,3 +1,7 @@
+<?php
+/** @var string $id */
+/** @var array $donor */
+?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
 <head>
@@ -5,7 +9,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CharityRun: <?php echo trans('dynamic.edit_donor_x', ['name' => 'Gunther Gutberg']); ?></title>
+    <title>CharityRun: <?php echo trans('dynamic.edit_donor_x', ['name' => $donor['name']]); ?></title>
     <base href="<?php echo base_url(); ?>">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -13,41 +17,53 @@
 <div class="layout-container">
     <div class="layout-content">
         <div class="layout-header">
-            <?php echo trans('dynamic.edit_donor_x', ['name' => 'Gunther Gutberg']); ?>
+            <?php echo trans('dynamic.edit_donor_x', ['name' => $donor['name']]); ?>
         </div>
         <form action="/edit/donor/<?php echo $id; ?>" method="post" class="manage-form">
             <label class="manage-row">
                 <span><?php echo trans('static.name'); ?>:</span>
-                <input type="text" class="manage-list-right edit-input" value="Gunther Gutberg">
+                <input type="text" class="manage-list-right edit-input" value="<?php echo $donor['name']; ?>">
             </label>
             <div class="manage-row">
                 <span><?php echo trans('static.donates_for'); ?>:</span>
-                <span class="manage-list-right">Runners Name</span>
+                <span class="manage-list-right"><?php echo $donor['runner_name'].", ".$donor['runner_class']; ?></span>
             </div>
             <label class="manage-row">
                 <span><?php echo trans('static.donation'); ?>:</span>
-                <input type="number" class="manage-list-right edit-input" value="12.50">
+                <input type="number" class="manage-list-right edit-input" value="<?php echo $donor['donation']; ?>">
             </label>
             <div class="manage-row">
                 <span><?php echo trans('static.fixed_amount'); ?>:</span>
                 <label class="edit-label manage-list-right">
                     Yes:
-                    <input type="radio" name="amountIsFixed" value="1">
+                    <input type="radio" name="amountIsFixed" value="1" <?php
+                        $selected = $donor['amountIsFixed'] == 1 ? "checked" : "";
+                        echo $selected;
+                        ?> >
                 </label><br>
                 <label class="edit-label manage-list-right">
                     No:
-                    <input type="radio" name="amountIsFixed" value="0">
+                    <input type="radio" name="amountIsFixed" value="0" <?php
+                    $selected = $donor['amountIsFixed'] == 0 ? "checked" : "";
+                    echo $selected;
+                    ?> >
                 </label>
             </div>
             <div class="manage-row">
                 <span><?php echo trans('static.wants_receipt'); ?>:</span>
                 <label class="edit-label manage-list-right">
                     Yes:
-                    <input type="radio" name="wantsReceipt" value="1">
+                    <input type="radio" name="wantsReceipt" value="1" <?php
+                    $selected = $donor['wantsReceipt'] == 1 ? "checked" : "";
+                    echo $selected;
+                    ?> >
                 </label><br>
                 <label class="edit-label manage-list-right">
                     No:
-                    <input type="radio" name="wantsReceipt" value="0">
+                    <input type="radio" name="wantsReceipt" value="0" <?php
+                    $selected = $donor['wantsReceipt'] == 0 ? "checked" : "";
+                    echo $selected;
+                    ?> >
                 </label>
             </div>
             <input type="submit" id="save" class="hidden">
@@ -58,8 +74,7 @@
         </form>
     </div>
     <div class="button-container">
-        <!-- TODO: Return to runner's class -->
-        <a href="/manage" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <a href="<?php echo base_url()."/edit/runner/".$donor['runner_id']; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
         <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
     </div>
 </div>

@@ -25,3 +25,8 @@
   display: flex;
   flex-direction: column;
 }
+
+.manage-row input[type=radio] {
+  height: 54px;
+  margin: 0;
+}

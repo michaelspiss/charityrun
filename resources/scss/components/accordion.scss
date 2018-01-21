@@ -1,0 +1,17 @@
+.accordion-status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  margin: 0;
+
+  // :checked represents closed state to prevent missing content
+  // when the browser does not support the :checked attribute
+  &:checked  ~ .accordion-content {
+    max-height: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+}

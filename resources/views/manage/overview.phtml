@@ -1,4 +1,7 @@
-<?php /** @var string $class */ ?>
+<?php
+/** @var string $class */
+/** @var array $runners */
+?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
 <head>
@@ -21,22 +24,31 @@
             <div class="manage-row">
                 <span>Runner</span><span class="manage-list-right">Rounds</span>
             </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">11</span>
-            </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">15</span>
-            </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">9</span>
-            </div>
-            <div class="manage-row">
-                <span>Name</span><span class="manage-list-right">10</span>
-            </div>
+            <?php
+            if(empty($runners)) {
+                echo '<div class="manage-row"><center>This class doesn\'t have any members.</center></div>';
+            } else {
+                foreach ($runners as $runner) {
+                    if(app('auth')->can('editRunner')) {
+                        echo "
+                        <a href='/edit/runner/{$runner['id']}' class='manage-row'>
+                            <span>{$runner['name']}</span><span class='manage-list-right'>{$runner['total_rounds']}</span>
+                        </a>
+                        ";
+                    } else {
+                        echo "
+                        <div class='manage-row'>
+                            <span>{$runner['name']}</span><span class='manage-list-right'>{$runner['total_rounds']}</span>
+                        </div>
+                        ";
+                    }
+                }
+            }
+            ?>
         </div>
     </div>
     <div class="nav"><!--
-        --><a href="/manage/<?php echo $class; ?>" class="nav-item"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--
+        --><a href="/manage/<?php echo $class; ?>" class="nav-item active"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--
     --></div>
 </div>
 <?php
