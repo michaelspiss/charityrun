@@ -40,7 +40,11 @@ $app->get('/stats', function ($request, $response) {
  */
 $app->get('/login', function ($request) {
     // /login
-
+	/** @var \Solution10\Auth\Auth $auth */
+	$auth = app('auth');
+	if($auth->loggedIn()) {
+		return redirect('/manage');
+	}
     /** @var \Slim\Http\Request $request */
     // check if user wants to log in as admin
     $login_as_admin = isset($request->getQueryParams()['admin']);
