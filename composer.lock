@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a8a826a37b0907feae274b95047c46d",
+    "content-hash": "330e7da27a9e6e597b7edcae0724a15f",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -343,30 +343,29 @@
             "time": "2014-11-20T16:49:30+00:00"
         },
         {
-            "name": "michaelspiss/representatives",
-            "version": "v1.1.0",
+            "name": "michaelspiss/multiton",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/michaelspiss/Representatives.git",
-                "reference": "8ae5ca9ba5ea4c95fe5886c0b895d6f0139d2c48"
+                "url": "https://github.com/michaelspiss/multiton.git",
+                "reference": "e380e081afaa16baf718aae300015a1868309f72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michaelspiss/Representatives/zipball/8ae5ca9ba5ea4c95fe5886c0b895d6f0139d2c48",
-                "reference": "8ae5ca9ba5ea4c95fe5886c0b895d6f0139d2c48",
+                "url": "https://api.github.com/repos/michaelspiss/multiton/zipball/e380e081afaa16baf718aae300015a1868309f72",
+                "reference": "e380e081afaa16baf718aae300015a1868309f72",
                 "shasum": ""
             },
             "require": {
                 "php": ">= 5.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.1",
-                "satooshi/php-coveralls": "^1.0"
+                "phpunit/phpunit": "^4.1"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "MichaelSpiss\\Representatives\\": "src/"
+                    "MichaelSpiss\\DesignPatterns\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -378,15 +377,14 @@
                     "name": "Michael Spiss"
                 }
             ],
-            "description": "Representatives aim to be universal interfaces for datasets in any type of storage.",
-            "homepage": "https://github.com/michaelspiss/Representatives",
+            "description": "A trait to implement the Multiton design pattern without any dependencies.",
+            "homepage": "https://github.com/michaelspiss/multiton",
             "keywords": [
-                "interface",
-                "representative",
-                "storage"
+                "design-pattern",
+                "multiton",
+                "pattern"
             ],
-            "abandoned": true,
-            "time": "2017-04-03T19:43:52+00:00"
+            "time": "2017-04-20T15:17:38+00:00"
         },
         {
             "name": "monolog/monolog",

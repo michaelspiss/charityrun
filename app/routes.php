@@ -85,8 +85,9 @@ $app->get('/logout', function () {
  * Display a list of all classes to choose from
  */
 $app->get('/manage', function () {
-    // /manage
-    return view('select_class');
+	// /manage
+	$group_names = app('database')->query('SELECT name from groups')->fetchAll();
+	return view('select_class', ['group_names' => $group_names]);
 })->add(new LCM());
 
 /*
@@ -120,7 +121,12 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('', function ($request, $response, $class) {
         // /manage/{class}
-        return view('manage.overview', ['class' => $class]);
+	    /** @var PDOStatement $stmt */
+	    $stmt = app('database')->prepare('SELECT r.id, r.name, r.total_rounds FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id');
+	    $stmt->bindParam(':class', $class);
+	    $stmt->execute();
+	    $runners = $stmt->fetchAll();
+        return view('manage.overview', ['class' => $class, 'runners' => $runners]);
     });
 
     /*
@@ -128,7 +134,12 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('/add', function ($request, $response, $class) {
         // /manage/{class}/add
-        return view('manage.add', ['class' => $class]);
+	    /** @var PDOStatement $stmt */
+	    $stmt = app('database')->prepare('SELECT r.id, r.name FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id');
+	    $stmt->bindParam(':class', $class);
+	    $stmt->execute();
+	    $runners = $stmt->fetchAll();
+        return view('manage.add', ['class' => $class, 'runners' => $runners]);
     });
 
     /*
@@ -184,7 +195,34 @@ $app->group('/edit', function () {
      */
     $this->get('/runner/{id}', function ($request, $response, $id) {
         // /edit/runner/{id}
-        return view('edit.runner', ['id' => $id]);
+	    /** @var \Solution10\Auth\Auth $auth */
+	    $auth = app('auth');
+	    if(!$auth->can('editRunner')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    // get runner data
+	    $stmt = app('database')->prepare('SELECT r.*, g.name as class_name FROM runners as r, groups as g WHERE r.id = :id and r.class = g.id');
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+		$runner = $stmt->fetch();
+	    if(empty($runner)) {
+		    return app('notFoundHandler')($request, $response);
+	    }
+		// get all group names (and ids)
+		$stmt = app('database')->query('SELECT id, name FROM groups');
+		$groups = $stmt->fetchAll();
+		// get donor data
+		$stmt = app('database')->prepare('SELECT id, name FROM donors WHERE runner_id = :id');
+		$stmt->bindParam(':id', $id);
+		$stmt->execute();
+		$donors = $stmt->fetchAll();
+        return view('edit.runner', [
+        	'id' => $id,
+	        'runner' => $runner,
+	        'groups' => $groups,
+	        'donors' => $donors
+        ]);
     });
 
     /*
@@ -216,7 +254,21 @@ $app->group('/edit', function () {
      */
     $this->get('/donor/{id}', function ($request, $response, $id) {
         // /edit/donor/{id}
-        return view('edit.donor', ['id' => $id]);
+	    /** @var $stmt PDOStatement */
+	    $stmt = app('database')->prepare('SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id');
+	    $stmt->bindParam(':id', $id);
+	    $stmt->execute();
+	    $donor = $stmt->fetch();
+	    /** @var \Solution10\Auth\Auth $auth */
+	    $auth = app('auth');
+	    if(!$auth->can('editDonor')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    if(empty($donor)) {
+		    return app('notFoundHandler')($request, $response);
+	    }
+        return view('edit.donor', ['id' => $id, 'donor' => $donor]);
     });
 
     /*

@@ -1,7 +1,6 @@
 <?php
 /** @var string $class */
-
-$classMembers = \App\Representatives\Classes::getAllClassMembers($class);
+/** @var array $runners */
 ?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
@@ -26,22 +25,20 @@ $classMembers = \App\Representatives\Classes::getAllClassMembers($class);
                 <span>Runner</span><span class="manage-list-right">Rounds</span>
             </div>
             <?php
-            if(empty($classMembers)) {
+            if(empty($runners)) {
                 echo '<div class="manage-row"><center>This class doesn\'t have any members.</center></div>';
             } else {
-                foreach ($classMembers as $classMember) {
-                    // TODO: merge those many request into one
-                    $runner = new \App\Representatives\Runner($classMember['id']);
+                foreach ($runners as $runner) {
                     if(app('auth')->can('editRunner')) {
                         echo "
-                        <a href='/edit/runner/{$classMember['id']}' class='manage-row'>
-                            <span>{$runner->get('name')}</span><span class='manage-list-right'>{$runner->get('total-rounds')}</span>
+                        <a href='/edit/runner/{$runner['id']}' class='manage-row'>
+                            <span>{$runner['name']}</span><span class='manage-list-right'>{$runner['total_rounds']}</span>
                         </a>
                         ";
                     } else {
                         echo "
                         <div class='manage-row'>
-                            <span>{$runner->get('name')}</span><span class='manage-list-right'>{$runner->get('total-rounds')}</span>
+                            <span>{$runner['name']}</span><span class='manage-list-right'>{$runner['total_rounds']}</span>
                         </div>
                         ";
                     }

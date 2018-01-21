@@ -1,7 +1,6 @@
 <?php
 /** @var string $class */
-
-$classMembers = \App\Representatives\Classes::getAllClassMembers($class);
+/** @var array $runners */
 ?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
@@ -25,12 +24,10 @@ $classMembers = \App\Representatives\Classes::getAllClassMembers($class);
                 <span>Runner</span><span class="manage-list-right">Rounds</span>
             </div>
             <?php
-            foreach($classMembers as $classMember) {
-                // TODO: optimize this monstrosity
-                $runner = new \App\Representatives\Runner($classMember['id']);
+            foreach($runners as $runner) {
                 echo "
                 <label class=\"manage-row\">
-                    <span>{$runner->get('name')}</span><input type=\"number\" class=\"manage-list-right\" placeholder=\"0\">
+                    <span>{$runner['name']}</span><input type=\"number\" class=\"manage-list-right\" name=\"runner{$runner['id']}\" placeholder=\"0\">
                 </label>
                 ";
             }

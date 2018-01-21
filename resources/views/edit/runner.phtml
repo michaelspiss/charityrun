@@ -1,6 +1,8 @@
 <?php
 /** @var string $id */
-$runner = new \App\Representatives\Runner($id);
+/** @var array $runner */
+/** @var array $donors */
+/** @var array $groups */
 ?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
@@ -17,21 +19,20 @@ $runner = new \App\Representatives\Runner($id);
 <div class="layout-container">
     <div class="layout-content">
         <div class="layout-header">
-            <?php echo trans('dynamic.edit_runner_x', ['name' => $runner->get('name')]); ?>
+            <?php echo trans('dynamic.edit_runner_x', ['name' => $runner['name']]); ?>
         </div>
         <form action="/edit/runner/<?php echo $id; ?>" method="post" class="manage-form">
             <label class="manage-row">
                 <span><?php echo trans('static.name'); ?>:</span>
-                <input type="text" class="manage-list-right edit-input" value="<?php echo $runner->get('name'); ?>">
+                <input type="text" class="manage-list-right edit-input" value="<?php echo $runner['name']; ?>">
             </label>
             <label class="manage-row">
                 <span><?php echo trans('static.class'); ?>:</span>
                 <select name="class" id="class" class="manage-list-right edit-input">
                     <?php
-                    $classes = \App\Representatives\Classes::getAllNames();
-                    foreach($classes as $class) {
-                        $selected = $class['name'] == $runner->get('class') ? "selected" : "";
-                        echo "<option value=\"{$class['name']}\" $selected>{$class['name']}</option>";
+                    foreach($groups as $group) {
+                        $selected = $group['id'] == $runner['class'] ? "selected" : "";
+                        echo "<option value=\"{$group['id']}\" $selected>{$group['name']}</option>";
                     }
                     ?>
                 </select>
@@ -43,8 +44,7 @@ $runner = new \App\Representatives\Runner($id);
             <input type="checkbox" id="donors_list" class="accordion-status" checked>
             <div class="accordion-content">
                 <?php
-                $donors = \App\Representatives\Donor::getAllForRunner($id);
-                if(empty($donors)) {
+                if(!isset($donors[0])) {
                     echo '<div class="manage-row">'.trans('static.has_no_donors').'</div>';
                 }
                 foreach($donors as $donor) {
@@ -65,7 +65,7 @@ $runner = new \App\Representatives\Runner($id);
         </form>
     </div>
     <div class="button-container">
-        <a href="<?php echo base_url()."/manage/".$runner->get('class'); ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <a href="<?php echo base_url()."/manage/".$runner['class_name']; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
         <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
     </div>
 </div>
