@@ -68,13 +68,10 @@ if(!function_exists('db_prepared_query')) {
 	function db_prepared_query(string $query, array $params, &$execute_return_value = null) {
 		/** @var PDOStatement $stmt */
 		$stmt = app('database')->prepare($query);
-		foreach($params as $key => $value) {
-			$stmt->bindParam($key, $value);
-		}
 		if(is_null($execute_return_value)) {
-			$stmt->execute();
+			$stmt->execute($params);
 		} else {
-			$execute_return_value = $stmt->execute();
+			$execute_return_value = $stmt->execute($params);
 		}
 		return $stmt;
 	}
