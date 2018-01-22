@@ -24,7 +24,8 @@ class AdminPackage extends Package {
                 'editDonor' => true,
                 'viewEditHelp' => true,
                 'rollback' => true,
-                'editSettings' => true
+                'editSettings' => true,
+                'addRounds' => true
         ]);
     }
 }

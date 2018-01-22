@@ -27,7 +27,7 @@
             foreach($runners as $runner) {
                 echo "
                 <label class=\"manage-row\">
-                    <span>{$runner['name']}</span><input type=\"number\" class=\"manage-list-right\" name=\"runner{$runner['id']}\" placeholder=\"0\">
+                    <span>{$runner['name']}</span><input type=\"number\" class=\"manage-list-right\" name=\"runner{$runner['id']}\" placeholder=\"0\" min='0'>
                 </label>
                 ";
             }

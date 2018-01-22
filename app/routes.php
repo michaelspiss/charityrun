@@ -136,6 +136,10 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('/add', function ($request, $response, $class) {
         // /manage/{class}/add
+	    if(!app('auth')->can('addRounds')) {
+		    echo "You don't have permission to do this.";
+		    exit();
+	    }
 	    /** @var PDOStatement $stmt */
 	    $stmt = app('database')->prepare('SELECT r.id, r.name FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id');
 	    $stmt->bindParam(':class', $class);
@@ -147,8 +151,24 @@ $app->group('/manage/{class}', function () {
     /*
      * Add rounds to the runners
      */
-    $this->post('/add', function ($request, $response, $class) {
+    $this->post(
+	    '/add', function ($request, $response, $class) {
         // POST: /manage/{class}/add
+	    if(!app('auth')->can('addRounds')) {
+	    	echo "You don't have permission to do this.";
+	    	exit();
+	    }
+	    $stmt = app('database')->prepare('UPDATE runners SET total_rounds = total_rounds + :rounds WHERE id = :id');
+	    foreach($request->getParams() as $field_name => $value) {
+	    	if(preg_match('/^runner[0-9]+$/', $field_name)
+		       && preg_match('/^[0-9]+$/', $value)) {
+			    $id = substr( $field_name, 6 );
+			    $stmt->bindParam( ':id', $id );
+			    $stmt->bindParam( ':rounds', $value );
+				$stmt->execute();
+		    }
+	    }
+	    return redirect("/manage/$class");
     });
 
     /*
