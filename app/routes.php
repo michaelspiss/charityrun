@@ -158,14 +158,17 @@ $app->group('/manage/{class}', function () {
 	    	echo "You don't have permission to do this.";
 	    	exit();
 	    }
-	    $stmt = app('database')->prepare('UPDATE runners SET total_rounds = total_rounds + :rounds WHERE id = :id');
+	    $stmt_runner = app('database')->prepare('UPDATE runners SET total_rounds = total_rounds + :rounds WHERE id = :id');
+	    $stmt_stat = app('database')->prepare("UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'");
 	    foreach($request->getParams() as $field_name => $value) {
 	    	if(preg_match('/^runner[0-9]+$/', $field_name)
 		       && preg_match('/^[0-9]+$/', $value)) {
 			    $id = substr( $field_name, 6 );
-			    $stmt->bindParam( ':id', $id );
-			    $stmt->bindParam( ':rounds', $value );
-				$stmt->execute();
+			    $stmt_runner->bindParam( ':id', $id );
+			    $stmt_runner->bindParam( ':rounds', $value );
+				$stmt_runner->execute();
+				$stmt_stat->bindParam(':rounds', $value);
+				$stmt_stat->execute();
 		    }
 	    }
 	    return redirect("/manage/$class");
