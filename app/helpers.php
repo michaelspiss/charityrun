@@ -55,3 +55,27 @@ if(!function_exists('redirect')) {
         return app('response')->withRedirect($path);
     }
 }
+
+if(!function_exists('db_prepared_query')) {
+	/**
+	 * Executes a prepared sql query with the given parameters.
+	 * @param string $query
+	 * @param array  $params as key => value pairs
+	 * @param null   $execute_return_value sets the given variable to
+	 * the execute's return value
+	 * @return PDOStatement
+	 */
+	function db_prepared_query(string $query, array $params, &$execute_return_value = null) {
+		/** @var PDOStatement $stmt */
+		$stmt = app('database')->prepare($query);
+		foreach($params as $key => $value) {
+			$stmt->bindParam($key, $value);
+		}
+		if(is_null($execute_return_value)) {
+			$stmt->execute();
+		} else {
+			$execute_return_value = $stmt->execute();
+		}
+		return $stmt;
+	}
+}

@@ -123,11 +123,10 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('', function ($request, $response, $class) {
         // /manage/{class}
-	    /** @var PDOStatement $stmt */
-	    $stmt = app('database')->prepare('SELECT r.id, r.name, r.total_rounds FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id');
-	    $stmt->bindParam(':class', $class);
-	    $stmt->execute();
-	    $runners = $stmt->fetchAll();
+	    $runners = db_prepared_query(
+	    	'SELECT r.id, r.name, r.total_rounds FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id',
+		        [':class' => $class]
+		    )->fetchAll();
         return view('manage.overview', ['class' => $class, 'runners' => $runners]);
     });
 
@@ -140,39 +139,17 @@ $app->group('/manage/{class}', function () {
 		    echo "You don't have permission to do this.";
 		    exit();
 	    }
-	    /** @var PDOStatement $stmt */
-	    $stmt = app('database')->prepare('SELECT r.id, r.name FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id');
-	    $stmt->bindParam(':class', $class);
-	    $stmt->execute();
-	    $runners = $stmt->fetchAll();
+	    $runners = db_prepared_query(
+	    	'SELECT r.id, r.name FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id',
+	        [':class' => $class]
+	    )->fetchAll();
         return view('manage.add', ['class' => $class, 'runners' => $runners]);
     });
 
     /*
      * Add rounds to the runners
      */
-    $this->post(
-	    '/add', function ($request, $response, $class) {
-        // POST: /manage/{class}/add
-	    if(!app('auth')->can('addRounds')) {
-	    	echo "You don't have permission to do this.";
-	    	exit();
-	    }
-	    $stmt_runner = app('database')->prepare('UPDATE runners SET total_rounds = total_rounds + :rounds WHERE id = :id');
-	    $stmt_stat = app('database')->prepare("UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'");
-	    foreach($request->getParams() as $field_name => $value) {
-	    	if(preg_match('/^runner[0-9]+$/', $field_name)
-		       && preg_match('/^[0-9]+$/', $value)) {
-			    $id = substr( $field_name, 6 );
-			    $stmt_runner->bindParam( ':id', $id );
-			    $stmt_runner->bindParam( ':rounds', $value );
-				$stmt_runner->execute();
-				$stmt_stat->bindParam(':rounds', $value);
-				$stmt_stat->execute();
-		    }
-	    }
-	    return redirect("/manage/$class");
-    });
+    $this->post( '/add', \App\Controllers\Manage::class.':add_post');
 
     /*
      * Display log of all recent updates of the runners rounds
@@ -225,10 +202,10 @@ $app->group('/edit', function () {
 		    exit();
 	    }
 	    // get runner data
-	    $stmt = app('database')->prepare('SELECT r.*, g.name as class_name FROM runners as r, groups as g WHERE r.id = :id and r.class = g.id');
-		$stmt->bindParam(':id', $id);
-		$stmt->execute();
-		$runner = $stmt->fetch();
+	    $runner = db_prepared_query(
+	    	'SELECT r.*, g.name as class_name FROM runners as r, groups as g WHERE r.id = :id and r.class = g.id',
+		    [':id', $id]
+	    )->fetch();
 	    if(empty($runner)) {
 		    return app('notFoundHandler')($request, $response);
 	    }
@@ -236,10 +213,10 @@ $app->group('/edit', function () {
 		$stmt = app('database')->query('SELECT id, name FROM groups');
 		$groups = $stmt->fetchAll();
 		// get donor data
-		$stmt = app('database')->prepare('SELECT id, name FROM donors WHERE runner_id = :id');
-		$stmt->bindParam(':id', $id);
-		$stmt->execute();
-		$donors = $stmt->fetchAll();
+		$donors = db_prepared_query(
+			'SELECT id, name FROM donors WHERE runner_id = :id',
+			[':id', $id]
+			)->fetchAll();
         return view('edit.runner', [
         	'id' => $id,
 	        'runner' => $runner,
@@ -277,11 +254,10 @@ $app->group('/edit', function () {
      */
     $this->get('/donor/{id}', function ($request, $response, $id) {
         // /edit/donor/{id}
-	    /** @var $stmt PDOStatement */
-	    $stmt = app('database')->prepare('SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id');
-	    $stmt->bindParam(':id', $id);
-	    $stmt->execute();
-	    $donor = $stmt->fetch();
+	    $donor = db_prepared_query(
+	    	'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
+	        [':id', $id]
+	    )->fetch();
 	    /** @var \Solution10\Auth\Auth $auth */
 	    $auth = app('auth');
 	    if(!$auth->can('editDonor')) {
