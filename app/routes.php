@@ -206,7 +206,7 @@ $app->group('/edit', function () {
 	    // get runner data
 	    $runner = db_prepared_query(
 	    	'SELECT r.*, g.name as class_name FROM runners as r, groups as g WHERE r.id = :id and r.class = g.id',
-		    [':id', $id]
+		    [':id' => $id]
 	    )->fetch();
 	    if(empty($runner)) {
 		    return app('notFoundHandler')($request, $response);
@@ -217,7 +217,7 @@ $app->group('/edit', function () {
 		// get donor data
 		$donors = db_prepared_query(
 			'SELECT id, name FROM donors WHERE runner_id = :id',
-			[':id', $id]
+			[':id' => $id]
 			)->fetchAll();
         return view('edit.runner', [
         	'id' => $id,
@@ -258,7 +258,7 @@ $app->group('/edit', function () {
         // /edit/donor/{id}
 	    $donor = db_prepared_query(
 	    	'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
-	        [':id', $id]
+	        [':id' => $id]
 	    )->fetch();
 	    /** @var \Solution10\Auth\Auth $auth */
 	    $auth = app('auth');
