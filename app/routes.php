@@ -154,22 +154,24 @@ $app->group('/manage/{class}', function () {
     /*
      * Display log of all recent updates of the runners rounds
      */
-    $this->get('/log', function ($request, $response, $class) {
-        // /manage/{class}/log
-        return view('manage.log', ['class' => $class]);
-    });
+	$this->get('/log[/{page:[0-9]+}]', function ($request, $response, $class, $page = 1) {
+		// /manage/{class}/log/
+		$offset = 25*($page-1) > 0 ? 25*($page-1) : 0;
+		$logs = db_prepared_query(
+			'SELECT l.id, l.log_string, l.datetime, l.rounds_changed, l.active, u.username as user_name FROM logs as l, users as u WHERE l.user = u.id AND l.class = :class ORDER BY l.id DESC LIMIT 25 OFFSET :offset',
+			[':class' => $class, ':offset' => $offset])->fetchAll();
+		return view('manage.log', ['class' => $class, 'logs' => $logs, 'page' => $page]);
+	});
 
     /*
     * Undo round updates, Undo undos
     */
-    $this->post('/log', function ($request, $response, $class) {
-        // POST: /manage/{class}/log
-    });
+	$this->post('/log', \App\Controllers\Manage::class.':rollback_log_post');
 
-    /*
-    * Display sidebar, from "more"
-    * This will only be called if JavaScript is disabled
-    */
+	/*
+	* Display sidebar, from "more"
+	* This will only be called if JavaScript is disabled
+	*/
     $this->get('/more', function ($request, $response, $class) {
         // /manage/{class}/more
         return view('sidebar', ['class' => $class]);
