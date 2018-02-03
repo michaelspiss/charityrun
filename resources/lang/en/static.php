@@ -34,5 +34,7 @@
       'delete' => 'Delete',
       'username' => 'Username',
       'edit_class' => 'Edit Class',
-      'has_no_donors' => 'This runner does not have any donors assigned.'
+      'has_no_donors' => 'This runner does not have any donors assigned.',
+      'added_rounds' => 'Added Rounds',
+      'rolled_back' => 'Rolled Back'
   ];

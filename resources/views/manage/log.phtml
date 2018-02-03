@@ -1,5 +1,6 @@
 <?php
 /** @var string $class */
+/** @var int $page */
 /** @var array $logs */
 ?>
 <!doctype html>
@@ -21,16 +22,30 @@
         </div>
 	    <?php
 	    foreach($logs as $log) { ?>
-        <div class="log-item">
+        <form class="log-item" action="/manage/<?php echo $class; ?>/log" method="post">
             <div class="log-item-desc">
-                <div class="log-item-type"><span><?php echo trans('static.add_rounds'); ?></span><span class="log-time"><?php echo $log['datetime']; ?></span></div> <?php echo $log['rounds_changed']; ?> rounds</div>
-            <div class="log-item-undo">
-                <svg class="log-undo-icon"><use xlink:href="/images/undo.svg#icon"></use><image src="images/undo.png" height="24px" width="24px"/></svg>
+                <div class="log-item-type">
+                    <span><?php if($log['rounds_changed'] > 0) echo trans('static.added_rounds'); else echo trans('static.rolled_back'); ?></span><span class="log-time"><?php echo $log['datetime']; ?></span>
+                </div> <?php echo $log['rounds_changed']; ?> rounds
             </div>
-        </div>
+            <input type="hidden" name="id" value="<?php echo $log['id']; ?>">
+            <button type="submit" href="<?php if(app('auth')->can('rollback') && $log['active']) echo 'log-item-undo-hasPermission'; ?>" class="log-item-undo <?php if(app('auth')->can('rollback') && $log['active']) echo 'log-item-undo-hasPermission'; ?>">
+                <svg class="log-undo-icon"><use xlink:href="/images/undo.svg#icon"></use><image src="images/undo.png" height="24px" width="24px"/></svg>
+            </button>
+        </form>
         <?php
         }
-        ?>
+	    echo '<div class="button-container">';
+	    if($page > 1) {
+		    $previous_page = $page - 1;
+		    echo '<a class="button button-noBorder" href="/manage/'.$class.'/log/'.$previous_page.'"> < Page '.$previous_page.'</a>';
+	    }
+	    if(count($logs) == 25) {
+		    $next_page = $page + 1;
+		    echo '<a class="button button-noBorder" href="/manage/'.$class.'/log/'.$next_page.'">Page '.$next_page.' ></a>';
+	    }
+	    echo '</div>';
+	    ?>
     </div>
     <div class="nav"><!--
         --><a href="/manage/<?php echo $class; ?>" class="nav-item"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--
