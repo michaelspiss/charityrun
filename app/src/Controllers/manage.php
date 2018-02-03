@@ -20,6 +20,7 @@ class Manage {
 			exit();
 		}
 		$log_string = '';
+		$rounds_changed = 0;
 		foreach($request->getParams() as $field_name => $value) {
 			if(preg_match('/^runner[0-9]+$/', $field_name)
 			   && preg_match('/^[0-9]+$/', $value)) {
@@ -31,15 +32,17 @@ class Manage {
 					"UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'",
 					[':rounds', $value] );
 				$log_string .= $id.'+'.$value.';';
+				$rounds_changed = $rounds_changed + $value;
 			}
 		}
 		db_prepared_query(
-			'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`) VALUES (:class, :log_string, :date_time, :user)',
+			'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`, `rounds_changed`) VALUES (:class, :log_string, :date_time, :user, :rounds_changed)',
 			[
 				':class' => $class,
 				':log_string' => $log_string,
 				':date_time' => date('Y-m-d H:m:s'),
-				':user' => app('auth')->user()->id()
+				':user' => app('auth')->user()->id(),
+				':rounds_changed' => $rounds_changed
 			]);
 		return redirect("/manage/$class");
 	}

@@ -1,4 +1,7 @@
-<?php /** @var string $class */ ?>
+<?php
+/** @var string $class */
+/** @var array $logs */
+?>
 <!doctype html>
 <html lang="<?php echo app('translator')->locale(); ?>">
 <head>
@@ -16,20 +19,18 @@
         <div class="layout-header">
             <?php echo trans('dynamic.log_class_x', ['class' => $class]); ?>
         </div>
+	    <?php
+	    foreach($logs as $log) { ?>
         <div class="log-item">
             <div class="log-item-desc">
-                <div class="log-item-type"><span><?php echo trans('static.add_rounds'); ?></span><span class="log-time">2017-03-02 17:28:56</span></div> 123 rounds added: 1 for x, 5 for y, 3 for z, 4 for a, 3 for b, 2 for c, 1 for d, 3 for e</div>
+                <div class="log-item-type"><span><?php echo trans('static.add_rounds'); ?></span><span class="log-time"><?php echo $log['datetime']; ?></span></div> <?php echo $log['rounds_changed']; ?> rounds</div>
             <div class="log-item-undo">
                 <svg class="log-undo-icon"><use xlink:href="/images/undo.svg#icon"></use><image src="images/undo.png" height="24px" width="24px"/></svg>
             </div>
         </div>
-        <div class="log-item">
-            <div class="log-item-desc">
-                <div class="log-item-type"><span><?php echo trans('static.add_rounds'); ?></span><span class="log-time">2017-03-02 17:28:56</span></div> 123 rounds added: 1 for x, 5 for y, 3 for z</div>
-            <div class="log-item-undo">
-                <svg class="log-undo-icon"><use xlink:href="/images/undo.svg#icon"></use><image src="images/undo.png" height="24px" width="24px"/></svg>
-            </div>
-        </div>
+        <?php
+        }
+        ?>
     </div>
     <div class="nav"><!--
         --><a href="/manage/<?php echo $class; ?>" class="nav-item"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--

@@ -154,10 +154,14 @@ $app->group('/manage/{class}', function () {
     /*
      * Display log of all recent updates of the runners rounds
      */
-    $this->get('/log', function ($request, $response, $class) {
-        // /manage/{class}/log
-        return view('manage.log', ['class' => $class]);
-    });
+	$this->get('/log[/{page:[0-9]+}]', function ($request, $response, $class, $page = 1) {
+		// /manage/{class}/log/
+		$offset = 25*($page-1) > 0 ? 25*($page-1) : 0;
+		$logs = db_prepared_query(
+			'SELECT l.log_string, l.datetime, l.rounds_changed, u.username as user_name FROM logs as l, users as u WHERE l.user = u.id AND l.class = :class LIMIT 25 OFFSET :offset',
+			[':class' => $class, ':offset' => $offset])->fetchAll();
+		return view('manage.log', ['class' => $class, 'logs' => $logs]);
+	});
 
     /*
     * Undo round updates, Undo undos
