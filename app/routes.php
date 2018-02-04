@@ -240,7 +240,19 @@ $app->group('/edit', function () {
      */
     $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
-        return view('edit.class', ['class' => $class]);
+	    if(!app('auth')->can('editClass')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    // make sure the group exists
+	    $group = db_prepared_query(
+		    'SELECT name FROM groups WHERE name = :name',
+		    [':name' => $class]
+	    )->fetch();
+	    if(empty($group)) {
+		    return app('notFoundHandler')($request, $response);
+	    }
+	    return view('edit.class', ['class' => $class]);
     });
 
     /*
@@ -248,7 +260,17 @@ $app->group('/edit', function () {
      */
     $this->post('/class/{class}', function ($request, $response, $class) {
         // POST: /edit/class/{class}
-        // save new class data
+	    /** @var \Slim\Http\Request $request */
+	    if(!app('auth')->can('editClass')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    if(!isset($request->getParams()['name']) || empty($request->getParam('name'))) {
+		    return redirect('/manage/class/'.$class);
+	    }
+	    db_prepared_query('UPDATE groups SET name = :new_name WHERE name = :old_name',
+		    [':new_name' => $request->getParam('name'), ':old_name' => $class]);
+	    return redirect('/manage/'.urlencode($request->getParam('name')));
     });
 
     /*

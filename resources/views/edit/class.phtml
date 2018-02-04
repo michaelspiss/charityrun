@@ -21,17 +21,13 @@
         <form action="/edit/class/<?php echo $class; ?>" method="post" class="manage-form">
             <label class="manage-row">
                 <span><?php echo trans('static.name'); ?>:</span>
-                <input type="text" class="manage-list-right edit-input" value="<?php echo $class; ?>">
+                <input type="text" name="name" class="manage-list-right edit-input" value="<?php echo $class; ?>">
             </label>
-            <div class="manage-row">
-                <span><?php echo trans('static.students'); ?>:</span>
-                <a href="/manage/<?php echo $class; ?>" class="button button-noBorder manage-list-right edit-link"><?php echo trans('static.display_students'); ?></a>
-            </div>
             <input type="submit" id="save" class="hidden">
         </form>
     </div>
     <div class="button-container">
-        <a href="/manage" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <a href="/manage/<?php echo $class; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
         <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
     </div>
 </div>
