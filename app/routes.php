@@ -278,16 +278,16 @@ $app->group('/edit', function () {
      */
     $this->get('/donor/{id}', function ($request, $response, $id) {
         // /edit/donor/{id}
-	    $donor = db_prepared_query(
-	    	'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
-	        [':id' => $id]
-	    )->fetch();
 	    /** @var \Solution10\Auth\Auth $auth */
 	    $auth = app('auth');
 	    if(!$auth->can('editDonor')) {
 		    echo 'You don\'t have permission to do this';
 		    exit();
 	    }
+	    $donor = db_prepared_query(
+		    'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
+		    [':id' => $id]
+	    )->fetch();
 	    if(empty($donor)) {
 		    return app('notFoundHandler')($request, $response);
 	    }
