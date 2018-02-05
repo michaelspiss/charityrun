@@ -232,7 +232,22 @@ $app->group('/edit', function () {
      */
     $this->post('/runner/{id}', function ($request, $response, $id) {
         // POST: /edit/runner/{id}
-        // save new runner data
+	    if(!app('auth')->can('editRunner')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    $params = $request->getParams();
+	    if(isset($params['name'], $params['group'])) {
+	    	$group_data = db_prepared_query('SELECT id FROM groups WHERE id = :group',
+			    [':group' => $params['group']])->fetch(); // make sure the group exists
+	    	if(isset($group_data['id'])) {
+			    db_prepared_query(
+				    'UPDATE runners SET name = :name, class = :class WHERE id = :id',
+				    [':name' => $params['name'], ':class' => $group_data['id'], ':id' => $id]
+			    );
+		    }
+	    }
+	    return redirect("/edit/runner/$id");
     });
 
     /*
