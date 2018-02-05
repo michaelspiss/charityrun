@@ -297,8 +297,19 @@ $app->group('/edit', function () {
     /*
     * Update donor data
     */
-    $this->post('/donor/{id}', function ($request, $response, $class) {
+    $this->post('/donor/{id}', function ($request, $response, $id) {
         // POST: /edit/donor/{id}
-        // save new donor data
+	    if(!app('auth')->can('editDonor')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    $params = $request->getParams();
+	    if(isset($params['name'], $params['donation'], $params['amountIsFixed'], $params['wantsReceipt'])) {
+			db_prepared_query(
+				'UPDATE donors SET name = :name, donation = :donation, amountIsFixed = :amountIsFixed, wantsReceipt = :wantsReceipt WHERE id = :id',
+				[':name' => $params['name'], ':donation' => $params['donation'], ':amountIsFixed' => $params['amountIsFixed'], ':wantsReceipt' => $params['wantsReceipt'], ':id' => $id]
+			);
+	    }
+	    return redirect("/edit/donor/$id");
     });
 });
