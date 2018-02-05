@@ -33,15 +33,10 @@ class Manage {
 			}
 		}
 		if($rounds_changed !== 0) {
-			db_prepared_query(
-				'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`, `rounds_changed`) VALUES (:class, :log_string, :date_time, :user, :rounds_changed)',
-				[
-					':class' => $class,
-					':log_string' => $log_string,
-					':date_time' => date('Y-m-d H:m:s'),
-					':user' => app('auth')->user()->id(),
-					':rounds_changed' => $rounds_changed
-				]);
+			$group_id = $this->getGroupIdFromName($class);
+			if($group_id) {
+				$this->addLog($group_id, $log_string,$rounds_changed);
+			}
 		}
 		return redirect("/manage/$class");
 	}
@@ -81,21 +76,16 @@ class Manage {
 	private function rollback_addition(string $log_string, string $class) {
 		$round_changes = array_filter(explode(';', $log_string));
 		$total_change = 0;
-		foreach ( $round_changes as $round_change ) {
-			list($id, $change) = explode('+', $round_change);
-			db_prepared_query('UPDATE runners SET total_rounds = total_rounds - :change WHERE id = :id',
-				[':id' => $id, ':change' => $change]);
-			$total_change = $total_change - $change;
+		$group_id = $this->getGroupIdFromName($class);
+		if($group_id) {
+			foreach ( $round_changes as $round_change ) {
+				list($id, $change) = explode('+', $round_change);
+				db_prepared_query('UPDATE runners SET total_rounds = total_rounds - :change WHERE id = :id',
+					[':id' => $id, ':change' => $change]);
+				$total_change = $total_change - $change;
+			}
+			$this->addLog($group_id, str_replace('+', '-', $log_string),$total_change);
 		}
-		db_prepared_query(
-			'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`, `rounds_changed`) VALUES (:class, :log_string, :date_time, :user, :rounds_changed)',
-			[
-				':class' => $class,
-				':log_string' => str_replace('+', '-', $log_string),
-				':date_time' => date('Y-m-d H:m:s'),
-				':user' => app('auth')->user()->id(),
-				':rounds_changed' => $total_change
-			]);
 	}
 
 	/**
@@ -107,21 +97,35 @@ class Manage {
 	private function rollback_rollback(string $log_string, string $class) {
 		$round_changes = array_filter(explode(';', $log_string));
 		$total_change = 0;
-		foreach ( $round_changes as $round_change ) {
-			list($id, $change) = explode('-', $round_change);
-			db_prepared_query('UPDATE runners SET total_rounds = total_rounds + :change WHERE id = :id',
-				[':id' => $id, ':change' => $change]);
-			$total_change = $total_change + $change;
+		$group_id = $this->getGroupIdFromName($class);
+		if($group_id) {
+			foreach ( $round_changes as $round_change ) {
+				list( $id, $change ) = explode( '-', $round_change );
+				db_prepared_query( 'UPDATE runners SET total_rounds = total_rounds + :change WHERE id = :id',
+					[ ':id' => $id, ':change' => $change ] );
+				$total_change = $total_change + $change;
+			}
+			$this->addLog( $group_id, str_replace( '-', '+', $log_string ),
+				$total_change );
 		}
+	}
+
+	protected function addLog(int $group, string $log_string, string $rounds_changed) {
 		db_prepared_query(
 			'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`, `rounds_changed`) VALUES (:class, :log_string, :date_time, :user, :rounds_changed)',
 			[
-				':class' => $class,
-				':log_string' => str_replace('-', '+', $log_string),
+				':class' => $group,
+				':log_string' => $log_string,
 				':date_time' => date('Y-m-d H:m:s'),
 				':user' => app('auth')->user()->id(),
-				':rounds_changed' => $total_change
+				':rounds_changed' => $rounds_changed
 			]);
+	}
+
+	protected function getGroupIdFromName(string $name) {
+		$group_data = db_prepared_query('SELECT id FROM groups WHERE name = :group',
+			[':group' => $name])->fetch();
+		return $group_data['id'] ?? false;
 	}
 
 }

@@ -155,7 +155,7 @@ $app->group('/manage/{class}', function () {
 		// /manage/{class}/log/
 		$offset = 25*($page-1) > 0 ? 25*($page-1) : 0;
 		$logs = db_prepared_query(
-			'SELECT l.id, l.log_string, l.datetime, l.rounds_changed, l.active, u.username as user_name FROM logs as l, users as u WHERE l.user = u.id AND l.class = :class ORDER BY l.id DESC LIMIT 25 OFFSET :offset',
+			'SELECT l.id, l.log_string, l.datetime, l.rounds_changed, l.active, u.username as user_name FROM logs as l, users as u, groups AS g WHERE l.user = u.id AND l.class = g.id AND g.name = :class ORDER BY l.id DESC LIMIT 25 OFFSET :offset',
 			[':class' => $class, ':offset' => $offset])->fetchAll();
 		return view('manage.log', ['class' => $class, 'logs' => $logs, 'page' => $page]);
 	});
