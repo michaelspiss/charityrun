@@ -232,7 +232,22 @@ $app->group('/edit', function () {
      */
     $this->post('/runner/{id}', function ($request, $response, $id) {
         // POST: /edit/runner/{id}
-        // save new runner data
+	    if(!app('auth')->can('editRunner')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    $params = $request->getParams();
+	    if(isset($params['name'], $params['group'])) {
+	    	$group_data = db_prepared_query('SELECT id FROM groups WHERE id = :group',
+			    [':group' => $params['group']])->fetch(); // make sure the group exists
+	    	if(isset($group_data['id'])) {
+			    db_prepared_query(
+				    'UPDATE runners SET name = :name, class = :class WHERE id = :id',
+				    [':name' => $params['name'], ':class' => $group_data['id'], ':id' => $id]
+			    );
+		    }
+	    }
+	    return redirect("/edit/runner/$id");
     });
 
     /*
@@ -240,7 +255,19 @@ $app->group('/edit', function () {
      */
     $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
-        return view('edit.class', ['class' => $class]);
+	    if(!app('auth')->can('editClass')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    // make sure the group exists
+	    $group = db_prepared_query(
+		    'SELECT name FROM groups WHERE name = :name',
+		    [':name' => $class]
+	    )->fetch();
+	    if(empty($group)) {
+		    return app('notFoundHandler')($request, $response);
+	    }
+	    return view('edit.class', ['class' => $class]);
     });
 
     /*
@@ -248,7 +275,17 @@ $app->group('/edit', function () {
      */
     $this->post('/class/{class}', function ($request, $response, $class) {
         // POST: /edit/class/{class}
-        // save new class data
+	    /** @var \Slim\Http\Request $request */
+	    if(!app('auth')->can('editClass')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    if(!isset($request->getParams()['name']) || empty($request->getParam('name'))) {
+		    return redirect('/manage/class/'.$class);
+	    }
+	    db_prepared_query('UPDATE groups SET name = :new_name WHERE name = :old_name',
+		    [':new_name' => $request->getParam('name'), ':old_name' => $class]);
+	    return redirect('/manage/'.urlencode($request->getParam('name')));
     });
 
     /*
@@ -256,16 +293,16 @@ $app->group('/edit', function () {
      */
     $this->get('/donor/{id}', function ($request, $response, $id) {
         // /edit/donor/{id}
-	    $donor = db_prepared_query(
-	    	'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
-	        [':id' => $id]
-	    )->fetch();
 	    /** @var \Solution10\Auth\Auth $auth */
 	    $auth = app('auth');
 	    if(!$auth->can('editDonor')) {
 		    echo 'You don\'t have permission to do this';
 		    exit();
 	    }
+	    $donor = db_prepared_query(
+		    'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
+		    [':id' => $id]
+	    )->fetch();
 	    if(empty($donor)) {
 		    return app('notFoundHandler')($request, $response);
 	    }
@@ -275,8 +312,19 @@ $app->group('/edit', function () {
     /*
     * Update donor data
     */
-    $this->post('/donor/{id}', function ($request, $response, $class) {
+    $this->post('/donor/{id}', function ($request, $response, $id) {
         // POST: /edit/donor/{id}
-        // save new donor data
+	    if(!app('auth')->can('editDonor')) {
+		    echo 'You don\'t have permission to do this';
+		    exit();
+	    }
+	    $params = $request->getParams();
+	    if(isset($params['name'], $params['donation'], $params['amountIsFixed'], $params['wantsReceipt'])) {
+			db_prepared_query(
+				'UPDATE donors SET name = :name, donation = :donation, amountIsFixed = :amountIsFixed, wantsReceipt = :wantsReceipt WHERE id = :id',
+				[':name' => $params['name'], ':donation' => $params['donation'], ':amountIsFixed' => $params['amountIsFixed'], ':wantsReceipt' => $params['wantsReceipt'], ':id' => $id]
+			);
+	    }
+	    return redirect("/edit/donor/$id");
     });
 });

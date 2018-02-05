@@ -24,11 +24,11 @@
         <form action="/edit/runner/<?php echo $id; ?>" method="post" class="manage-form">
             <label class="manage-row">
                 <span><?php echo trans('static.name'); ?>:</span>
-                <input type="text" class="manage-list-right edit-input" value="<?php echo $runner['name']; ?>">
+                <input type="text" name="name" class="manage-list-right edit-input" value="<?php echo $runner['name']; ?>">
             </label>
             <label class="manage-row">
                 <span><?php echo trans('static.class'); ?>:</span>
-                <select name="class" id="class" class="manage-list-right edit-input">
+                <select name="group" id="class" class="manage-list-right edit-input">
                     <?php
                     foreach($groups as $group) {
                         $selected = $group['id'] == $runner['class'] ? "selected" : "";
