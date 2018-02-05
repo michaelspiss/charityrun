@@ -135,10 +135,7 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('/add', function ($request, $response, $class) {
         // /manage/{class}/add
-	    if(!app('auth')->can('addRounds')) {
-		    echo "You don't have permission to do this.";
-		    exit();
-	    }
+	    requires_permission('addRounds');
 	    $runners = db_prepared_query(
 	    	'SELECT r.id, r.name FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id',
 	        [':class' => $class]
@@ -199,10 +196,7 @@ $app->group('/edit', function () {
      */
     $this->get('/runner/{id}', function ($request, $response, $id) {
         // /edit/runner/{id}
-	    if(!app('auth')->can('editRunner')) {
-		    echo 'You don\'t have permission to do this';
-		    exit();
-	    }
+	    requires_permission('editRunner');
 	    // get runner data
 	    $runner = db_prepared_query(
 	    	'SELECT r.*, g.name as class_name FROM runners as r, groups as g WHERE r.id = :id and r.class = g.id',
@@ -232,10 +226,7 @@ $app->group('/edit', function () {
      */
     $this->post('/runner/{id}', function ($request, $response, $id) {
         // POST: /edit/runner/{id}
-	    if(!app('auth')->can('editRunner')) {
-		    echo 'You don\'t have permission to do this';
-		    exit();
-	    }
+	    requires_permission('editRunner');
 	    $params = $request->getParams();
 	    if(isset($params['name'], $params['group'])) {
 	    	$group_data = db_prepared_query('SELECT id FROM groups WHERE id = :group',
@@ -255,10 +246,7 @@ $app->group('/edit', function () {
      */
     $this->get('/class/{class}', function ($request, $response, $class) {
         // /edit/class/{class}
-	    if(!app('auth')->can('editClass')) {
-		    echo 'You don\'t have permission to do this';
-		    exit();
-	    }
+	    requires_permission('editClass');
 	    // make sure the group exists
 	    $group = db_prepared_query(
 		    'SELECT name FROM groups WHERE name = :name',
@@ -275,11 +263,8 @@ $app->group('/edit', function () {
      */
     $this->post('/class/{class}', function ($request, $response, $class) {
         // POST: /edit/class/{class}
-	    /** @var \Slim\Http\Request $request */
-	    if(!app('auth')->can('editClass')) {
-		    echo 'You don\'t have permission to do this';
-		    exit();
-	    }
+	    requires_permission('editClass');
+
 	    if(!isset($request->getParams()['name']) || empty($request->getParam('name'))) {
 		    return redirect('/manage/class/'.$class);
 	    }
@@ -293,12 +278,7 @@ $app->group('/edit', function () {
      */
     $this->get('/donor/{id}', function ($request, $response, $id) {
         // /edit/donor/{id}
-	    /** @var \Solution10\Auth\Auth $auth */
-	    $auth = app('auth');
-	    if(!$auth->can('editDonor')) {
-		    echo 'You don\'t have permission to do this';
-		    exit();
-	    }
+	    requires_permission('editDonor');
 	    $donor = db_prepared_query(
 		    'SELECT d.*, r.name as runner_name, g.name as runner_class FROM donors as d, runners as r, groups as g WHERE d.id = :id AND d.runner_id = r.id AND r.class = g.id',
 		    [':id' => $id]
@@ -314,10 +294,7 @@ $app->group('/edit', function () {
     */
     $this->post('/donor/{id}', function ($request, $response, $id) {
         // POST: /edit/donor/{id}
-	    if(!app('auth')->can('editDonor')) {
-		    echo 'You don\'t have permission to do this';
-		    exit();
-	    }
+	    requires_permission('editDonor');
 	    $params = $request->getParams();
 	    if(isset($params['name'], $params['donation'], $params['amountIsFixed'], $params['wantsReceipt'])) {
 			db_prepared_query(

@@ -15,10 +15,7 @@ class Manage {
 
 	public function add_post(Request $request, $response, $class) {
 		// POST: /manage/{class}/add
-		if(!app('auth')->can('addRounds')) {
-			echo "You don't have permission to do this.";
-			exit();
-		}
+		requires_permission('addRounds');
 		$log_string = '';
 		$rounds_changed = 0;
 		foreach($request->getParams() as $field_name => $value) {
@@ -49,10 +46,7 @@ class Manage {
 
 	public function rollback_log_post($request, $response, $class) {
 		// POST: /manage/{class}/log
-		if(!app('auth')->can('rollback')) {
-			echo "You don't have permission to do this.";
-			exit();
-		}
+		requires_permission('rollback');
 		$id = $request->getParams()['id'] ?? '';
 		if(preg_match('/^[0-9]+$/', $id)) {
 			$rollback_data = db_prepared_query(

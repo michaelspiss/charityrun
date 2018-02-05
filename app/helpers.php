@@ -76,3 +76,12 @@ if(!function_exists('db_prepared_query')) {
 		return $stmt;
 	}
 }
+
+if(!function_exists('requires_permission')) {
+	function requires_permission(string $permission) {
+		if(!app('auth')->can($permission)) {
+			echo 'You don\'t have permission to do this';
+			exit();
+		}
+	}
+}
