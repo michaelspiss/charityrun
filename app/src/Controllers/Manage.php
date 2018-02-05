@@ -25,14 +25,14 @@ class Manage {
 				db_prepared_query(
 					'UPDATE runners SET total_rounds = total_rounds + :rounds WHERE id = :id',
 					[':id' => $id, ':rounds' => $value] );
-				db_prepared_query(
-					"UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'",
-					[':rounds', $value] );
 				$log_string .= $id.'+'.$value.';';
 				$rounds_changed = $rounds_changed + $value;
 			}
 		}
 		if($rounds_changed !== 0) {
+			db_prepared_query(
+				"UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'",
+				[':rounds' => $rounds_changed] );
 			$group_id = $this->getGroupIdFromName($class);
 			if($group_id) {
 				$this->addLog($group_id, $log_string,$rounds_changed);
@@ -84,6 +84,9 @@ class Manage {
 					[':id' => $id, ':change' => $change]);
 				$total_change = $total_change - $change;
 			}
+			db_prepared_query(
+				"UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'",
+				[':rounds' => $total_change] );
 			$this->addLog($group_id, str_replace('+', '-', $log_string),$total_change);
 		}
 	}
@@ -105,6 +108,9 @@ class Manage {
 					[ ':id' => $id, ':change' => $change ] );
 				$total_change = $total_change + $change;
 			}
+			db_prepared_query(
+				"UPDATE stats SET value = value + :rounds WHERE id = 'total_rounds'",
+				[':rounds' => $total_change] );
 			$this->addLog( $group_id, str_replace( '-', '+', $log_string ),
 				$total_change );
 		}
