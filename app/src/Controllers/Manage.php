@@ -32,15 +32,17 @@ class Manage {
 				$rounds_changed = $rounds_changed + $value;
 			}
 		}
-		db_prepared_query(
-			'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`, `rounds_changed`) VALUES (:class, :log_string, :date_time, :user, :rounds_changed)',
-			[
-				':class' => $class,
-				':log_string' => $log_string,
-				':date_time' => date('Y-m-d H:m:s'),
-				':user' => app('auth')->user()->id(),
-				':rounds_changed' => $rounds_changed
-			]);
+		if($rounds_changed !== 0) {
+			db_prepared_query(
+				'INSERT INTO logs (`class`, `log_string`, `datetime`, `user`, `rounds_changed`) VALUES (:class, :log_string, :date_time, :user, :rounds_changed)',
+				[
+					':class' => $class,
+					':log_string' => $log_string,
+					':date_time' => date('Y-m-d H:m:s'),
+					':user' => app('auth')->user()->id(),
+					':rounds_changed' => $rounds_changed
+				]);
+		}
 		return redirect("/manage/$class");
 	}
 
