@@ -28,6 +28,12 @@ $app->get('/map', function () {
 });
 
 /*
+ * Returns all the data needed for the map to display
+ */
+$app->get('/map/json', \App\Controllers\MapData::class.':getData');
+
+
+/*
  * Display the current top-runners and overall statistics
  * "Leaderboard"
  */
