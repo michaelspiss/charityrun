@@ -31,8 +31,15 @@ class MapData {
 			$line_data["thickness"] = 4;
 			$line_data["alpha"] = 1;
 			$line_data["color"] = "#bb0000";
+			$line_data["customData"] = ['distance' => $lines[$i]['distance']];
 			$data["lines"][] = $line_data;
 		}
 		echo json_encode($data);
+	}
+
+	public function getStats() {
+		$stats = app('database')->query("SELECT id, value FROM stats WHERE active = 1")->fetchAll(\PDO::FETCH_KEY_PAIR);
+		$settings = app('database')->query("SELECT id, value FROM settings WHERE id = 'km_per_round' OR id = 'total_km'")->fetchAll(\PDO::FETCH_KEY_PAIR);
+		echo json_encode(array_merge($stats, $settings));
 	}
 }

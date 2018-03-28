@@ -40,6 +40,7 @@ function draw_progress_lines () {
     while(map.getObjectById("progress_"+i) !== undefined) {
         var line = map.getObjectById("progress_"+i).lineSvg.node;
         var length = line.getTotalLength();
+        var percent_run = Math.min(100, km_run / map.getObjectById("progress_"+i).customData.distance * 100);
         var one_percent = length / 100;
         line.setAttribute("stroke-dasharray", length);
         line.setAttribute("stroke-dashoffset", -length + (one_percent * percent_run));

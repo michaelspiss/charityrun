@@ -24,13 +24,24 @@ $app->get('/', function () {
  */
 $app->get('/map', function () {
     // /map
-    return view('map');
+	$total_data["stats"] = app('database')
+		->query("SELECT id, value, active FROM stats ORDER BY item_order")
+		->fetchAll(PDO::FETCH_UNIQUE);
+	$total_data["settings"] = app('database')
+		->query("SELECT id, value FROM settings WHERE id = 'total_km' OR id = 'km_per_round'")
+		->fetchAll(PDO::FETCH_KEY_PAIR);
+	return view('map', $total_data);
 });
 
 /*
  * Returns all the data needed for the map to display
  */
 $app->get('/map/json', \App\Controllers\MapData::class.':getData');
+
+/*
+ * Returns up-to-date stats
+ */
+$app->get('/stats/json', \App\Controllers\MapData::class.':getStats');
 
 
 /*
