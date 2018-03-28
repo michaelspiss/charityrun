@@ -1,0 +1,67 @@
+<?php
+/** @var string $runner_id */
+/** @var array $runner */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CharityRun: <?php echo trans('static.add_donor'); ?></title>
+	<base href="<?php echo base_url(); ?>">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+	<div class="layout-content">
+		<div class="layout-header">
+			<?php echo trans('static.add_donor'); ?>
+		</div>
+		<form action="/add/donor" method="post" class="manage-form">
+			<label class="manage-row">
+				<span><?php echo trans('static.name'); ?>:</span>
+				<input type="text" name="name" class="manage-list-right edit-input" value="" placeholder="<?php echo trans('static.full_name'); ?>" required>
+			</label>
+			<div class="manage-row">
+				<span><?php echo trans('static.donates_for'); ?>:</span>
+				<span class="manage-list-right"><?php echo $runner['name'].", ".$runner['runner_class']; ?></span>
+				<input type="hidden" name="runner_id" value="<?php echo $runner_id; ?>">
+			</div>
+			<label class="manage-row">
+				<span><?php echo trans('static.donation'); ?>:</span>
+				<input type="text" name="donation" class="manage-list-right edit-input" value="0.00" required>
+			</label>
+			<div class="manage-row">
+				<span><?php echo trans('static.fixed_amount'); ?>:</span>
+				<label class="edit-label manage-list-right">
+					Yes:
+					<input type="radio" name="amountIsFixed" value="1" required>
+				</label><br>
+				<label class="edit-label manage-list-right">
+					No:
+					<input type="radio" name="amountIsFixed" value="0" required>
+				</label>
+			</div>
+			<div class="manage-row">
+				<span><?php echo trans('static.wants_receipt'); ?>:</span>
+				<label class="edit-label manage-list-right">
+					Yes:
+					<input type="radio" name="wantsReceipt" value="1" required>
+				</label><br>
+				<label class="edit-label manage-list-right">
+					No:
+					<input type="radio" name="wantsReceipt" value="0" required>
+				</label>
+			</div>
+			<input type="submit" id="save" class="hidden">
+		</form>
+	</div>
+	<div class="button-container">
+		<a href="<?php echo base_url()."/edit/runner/".$runner_id; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+		<label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
+	</div>
+</div>
+</body>
+</html>
