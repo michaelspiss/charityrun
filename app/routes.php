@@ -366,6 +366,12 @@ $app->group('/add', function () {
 		   && ($amountIsFixed === "1" || $amountIsFixed === "0")
 		   && ($wantsReceipt === "1" || $wantsReceipt === "0")
 		   && is_numeric($runner_id)) {
+			$runner_existence_check = db_prepared_query(
+				'SELECT id FROM runners WHERE id = :id',
+				[':id' => $runner_id])->fetch();
+			if(empty($runner_existence_check)) {
+				return app('notFoundHandler')($request, $response);
+			}
 			$name = htmlspecialchars($name);
 			$insert_operation = db_prepared_query( 'INSERT INTO donors (name, donation, amountIsFixed, wantsReceipt, runner_id) VALUES (:name, :donation, :amountIsFixed, :wantsReceipt, :runner_id)',
 				[ ':name' => $name, ':donation' => $donation, ':amountIsFixed' => $amountIsFixed, ':wantsReceipt' => $wantsReceipt, ':runner_id' => $runner_id ] );
