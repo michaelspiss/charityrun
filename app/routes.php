@@ -292,11 +292,29 @@ $app->group('/edit', function () {
 	    requires_permission('editClass');
 
 	    if(!isset($request->getParams()['name']) || empty($request->getParam('name'))) {
-		    return redirect('/manage/class/'.$class);
+	    	if(isset($request->getParams()['doDelete'])) {
+	    		$response = app()->subRequest('DELETE', '/edit/class/'.$class);
+	    		return $response;
+		    }
+		    return redirect('/manage/'.$class);
 	    }
 	    db_prepared_query('UPDATE groups SET name = :new_name WHERE name = :old_name',
 		    [':new_name' => htmlspecialchars($request->getParam('name')), ':old_name' => $class]);
 	    return redirect('/manage/'.urlencode($request->getParam('name')));
+    });
+
+    /**
+     * Delete a class
+     */
+    $this->delete('/class/{class}', function ($request, $response, $class) {
+    	requires_permission('editClass');
+	    $success = db_prepared_query('DELETE FROM groups WHERE name = :name',
+		    [':name' => htmlspecialchars($class)]);
+        if($success) {
+			return redirect('/manage');
+        }
+        echo 'something went wrong.';
+        exit();
     });
 
     /*
