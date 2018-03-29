@@ -420,4 +420,35 @@ $app->group('/add', function () {
 		echo 'something went wrong.';
 		exit();
 	});
+
+	/**
+	 * Displays a form to add a new class
+	 */
+	$this->get('/class', function ($request, $response) {
+		requires_permission('addClass');
+	    return view('add.class');
+	});
+
+	/**
+	 * Adds the class to the database
+	 */
+	$this->post('/class', function ($request) {
+		requires_permission('addClass');
+		extract($request->getParams());
+	    if(isset($name)) {
+	    	$existence_check = db_prepared_query('SELECT id FROM groups WHERE name = :name',
+			    [':name' => htmlspecialchars($name)]);
+	    	if(!empty($existence_check)) {
+	    		echo trans('static.group_already_exists');
+	    		exit();
+		    }
+			$insert_operation = db_prepared_query('INSERT INTO groups (name) VALUES (:name)',
+				[':name' => htmlspecialchars($name)]);
+			if($insert_operation) {
+				return redirect('/manage/'.urlencode($name));
+			}
+	    }
+	    echo 'something went wrong.';
+	    exit();
+	});
 });

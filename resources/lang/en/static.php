@@ -43,4 +43,6 @@
 	  'full_name' => 'Full Name',
 	  'add_runner' => 'Add Runner',
 	  'donors_can_be_added_once_runner_saved' => 'Donors can be added once the runner is saved',
+	  'add_class' => 'Add Class',
+	  'group_already_exists' => 'A group with this name already exists.'
   ];

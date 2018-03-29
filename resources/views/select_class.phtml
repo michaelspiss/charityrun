@@ -39,6 +39,10 @@
             </form>
 	        <?php
         }
+
+        if(app('auth')->can('addClass')) {
+            echo '<a href="/add/class" class="button button-noBorder">'.trans('static.add_class').'</a>';
+        }
         ?>
     </div>
     <div class="selector-footer">

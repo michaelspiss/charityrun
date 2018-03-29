@@ -1,0 +1,35 @@
+<?php
+/** @var string $class */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.add_class'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('static.add_class'); ?>
+        </div>
+        <form action="/add/class" method="post" class="manage-form">
+            <label class="manage-row">
+                <span><?php echo trans('static.name'); ?>:</span>
+                <input type="text" name="name" class="manage-list-right edit-input" required>
+            </label>
+            <input type="submit" id="save" class="hidden">
+        </form>
+    </div>
+    <div class="button-container">
+        <a href="/manage" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
+    </div>
+</div>
+</body>
+</html>
