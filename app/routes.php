@@ -380,8 +380,30 @@ $app->group('/edit', function () {
 				[':name' => $name, ':donation' => $donation, ':amountIsFixed' => $amountIsFixed, ':wantsReceipt' => $wantsReceipt, ':id' => $id]
 			);
 	    }
+	    if(isset($request->getParams()['doDelete'])) {
+		    $response = app()->subRequest('DELETE', '/edit/donor/'.$id);
+		    return $response;
+	    }
 	    return redirect("/edit/donor/$id");
     });
+
+	/**
+	 * Deletes a donor
+	 */
+	$this->delete('/donor/{id}', function ($request, $response, $id) {
+		requires_permission('editDonor');
+		$runner = db_prepared_query('SELECT runner_id as id FROM donors WHERE id = :id',
+			[':id' => $id])->fetch();
+		if(isset($runner['id'])) {
+			$success = db_prepared_query('DELETE FROM donors WHERE id = :id',
+				[':id' => $id]);
+			if($success) {
+				return redirect('/edit/runner/'.$runner['id']);
+			}
+		}
+		echo 'something went wrong.';
+		exit();
+	});
 });
 
 
