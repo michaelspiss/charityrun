@@ -140,6 +140,14 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('', function ($request, $response, $class) {
         // /manage/{class}
+	    // make sure the group exists
+	    $group = db_prepared_query(
+		    'SELECT name FROM groups WHERE name = :name',
+		    [':name' => $class]
+	    )->fetch();
+	    if(empty($group)) {
+		    return app('notFoundHandler')($request, $response);
+	    }
 	    $runners = db_prepared_query(
 	    	'SELECT r.id, r.name, r.total_rounds FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id',
 		        [':class' => $class]
