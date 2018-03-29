@@ -470,7 +470,7 @@ $app->group('/add', function () {
 		extract($request->getParams());
 	    if(isset($name)) {
 	    	$existence_check = db_prepared_query('SELECT id FROM groups WHERE name = :name',
-			    [':name' => htmlspecialchars($name)]);
+			    [':name' => htmlspecialchars($name)])->fetch();
 	    	if(!empty($existence_check)) {
 	    		echo trans('static.group_already_exists');
 	    		exit();
