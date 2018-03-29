@@ -308,6 +308,13 @@ $app->group('/edit', function () {
      */
     $this->delete('/class/{class}', function ($request, $response, $class) {
     	requires_permission('editClass');
+    	$runners = db_prepared_query('SELECT r.id FROM runners as r, groups as g WHERE g.name = :name AND r.class = g.id',
+		    [':name' => htmlspecialchars($class)]);
+    	if(!empty($runners)) {
+    		echo 'This group still has runners. Please move them first.<br>';
+    		echo '<a href="/edit/class/'.$class.'">back</a>';
+    		exit();
+	    }
 	    $success = db_prepared_query('DELETE FROM groups WHERE name = :name',
 		    [':name' => htmlspecialchars($class)]);
         if($success) {
