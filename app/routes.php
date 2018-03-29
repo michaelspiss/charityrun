@@ -264,7 +264,29 @@ $app->group('/edit', function () {
 			    );
 		    }
 	    }
+	    if(isset($request->getParams()['doDelete'])) {
+		    $response = app()->subRequest('DELETE', '/edit/runner/'.$id);
+		    return $response;
+	    }
 	    return redirect("/edit/runner/$id");
+    });
+
+	/**
+	 * Deletes a runner
+	 */
+    $this->delete('/runner/{id}', function ($request, $response, $id) {
+		requires_permission('editRunner');
+		$group = db_prepared_query('SELECT g.name FROM groups as g, runners as r WHERE r.class = g.id AND r.id = :id',
+			[':id' => $id])->fetch();
+		if(isset($group['name'])) {
+			$success = db_prepared_query('DELETE FROM runners WHERE id = :id',
+				[':id' => $id]);
+			if($success) {
+				return redirect('/manage/'.$group['name']);
+			}
+		}
+		echo 'something went wrong.';
+		exit();
     });
 
     /*
