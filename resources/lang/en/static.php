@@ -40,5 +40,7 @@
       'added_rounds' => 'Added Rounds',
       'rolled_back' => 'Rolled Back',
 	  'add_donor' => 'Add Donor',
-	  'full_name' => 'Full Name'
+	  'full_name' => 'Full Name',
+	  'add_runner' => 'Add Runner',
+	  'donors_can_be_added_once_runner_saved' => 'Donors can be added once the runner is saved',
   ];

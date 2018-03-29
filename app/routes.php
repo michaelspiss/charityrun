@@ -314,7 +314,7 @@ $app->group('/edit', function () {
         // POST: /edit/donor/{id}
 	    requires_permission('editDonor');
 	    extract($request->getParams());
-	    if(isset($name, $donation, $amountIsFixed, $wantsReceipt)
+	    if(isset($name, $donation, $amountIsFixed, $wantsReceipt, $runner_id)
 	       && preg_match('/^[0-9]+((\.|\,)[0-9]{1,2})?$/', $donation)
 	       && ($amountIsFixed === "1" || $amountIsFixed === "0")
 	       && ($wantsReceipt === "1" || $wantsReceipt === "0")
@@ -384,6 +384,34 @@ $app->group('/add', function () {
 	$this->get( '/runner/{class}', function ( $request, $response, $class ) {
 		// /add/runner/{class}
 		requires_permission('addRunner');
+		$class_id = db_prepared_query(
+			'SELECT id FROM groups WHERE name = :class',
+			[':class' => $class]
+		)->fetch();
+		if(!isset($class_id['id'])) {
+			return app('notFoundHandler')($request, $response);
+		}
+		$groups = app('database')->query('SELECT id, name FROM groups')->fetchAll();
+		return view('add.runner', ['class' => $class, 'groups' => $groups, 'class_id' => $class_id['id']]);
+	});
 
+	/**
+	 * Saves the new runner to the database
+	 */
+	$this->post('/runner', function ($request, $response) {
+	    // /add/runner
+		requires_permission('addRunner');
+		extract($request->getParams()); // creates $name & $group (if present)
+		$group_id = db_prepared_query('SELECT id FROM groups WHERE name = :group_name',
+			[':group_name' => $group ?? ''])->fetch();
+		if(isset($name, $group_id['id'])) {
+			$success = db_prepared_query('INSERT INTO runners (name, class) VALUES (:name, :group_id)',
+				[':name' => htmlspecialchars($name), ':group_id' => $group_id['id']]);
+			if($success) {
+				return redirect('/edit/runner/'.app('database')->lastInsertId());
+			}
+		}
+		echo 'something went wrong.';
+		exit();
 	});
 });

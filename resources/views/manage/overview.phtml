@@ -44,6 +44,9 @@
                     }
                 }
             }
+            if(app('auth')->can('addRunner')) {
+                echo "<a href='/add/runner/$class' class='manage-row button button-noBorder'>Add a new runner to this class</a>";
+            }
             ?>
         </div>
     </div>
