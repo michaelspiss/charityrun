@@ -140,6 +140,14 @@ $app->group('/manage/{class}', function () {
     */
     $this->get('', function ($request, $response, $class) {
         // /manage/{class}
+	    // make sure the group exists
+	    $group = db_prepared_query(
+		    'SELECT name FROM groups WHERE name = :name',
+		    [':name' => $class]
+	    )->fetch();
+	    if(empty($group)) {
+		    return app('notFoundHandler')($request, $response);
+	    }
 	    $runners = db_prepared_query(
 	    	'SELECT r.id, r.name, r.total_rounds FROM runners as r, groups as g WHERE g.name = :class AND r.class = g.id',
 		        [':class' => $class]
@@ -256,7 +264,29 @@ $app->group('/edit', function () {
 			    );
 		    }
 	    }
+	    if(isset($request->getParams()['doDelete'])) {
+		    $response = app()->subRequest('DELETE', '/edit/runner/'.$id);
+		    return $response;
+	    }
 	    return redirect("/edit/runner/$id");
+    });
+
+	/**
+	 * Deletes a runner
+	 */
+    $this->delete('/runner/{id}', function ($request, $response, $id) {
+		requires_permission('editRunner');
+		$group = db_prepared_query('SELECT g.name FROM groups as g, runners as r WHERE r.class = g.id AND r.id = :id',
+			[':id' => $id])->fetch();
+		if(isset($group['name'])) {
+			$success = db_prepared_query('DELETE FROM runners WHERE id = :id',
+				[':id' => $id]);
+			if($success) {
+				return redirect('/manage/'.$group['name']);
+			}
+		}
+		echo 'something went wrong.';
+		exit();
     });
 
     /*
@@ -284,11 +314,36 @@ $app->group('/edit', function () {
 	    requires_permission('editClass');
 
 	    if(!isset($request->getParams()['name']) || empty($request->getParam('name'))) {
-		    return redirect('/manage/class/'.$class);
+	    	if(isset($request->getParams()['doDelete'])) {
+	    		$response = app()->subRequest('DELETE', '/edit/class/'.$class);
+	    		return $response;
+		    }
+		    return redirect('/manage/'.$class);
 	    }
 	    db_prepared_query('UPDATE groups SET name = :new_name WHERE name = :old_name',
 		    [':new_name' => htmlspecialchars($request->getParam('name')), ':old_name' => $class]);
 	    return redirect('/manage/'.urlencode($request->getParam('name')));
+    });
+
+    /**
+     * Delete a class
+     */
+    $this->delete('/class/{class}', function ($request, $response, $class) {
+    	requires_permission('editClass');
+    	$runners = db_prepared_query('SELECT r.id FROM runners as r, groups as g WHERE g.name = :name AND r.class = g.id',
+		    [':name' => htmlspecialchars($class)])->fetch();
+    	if(!empty($runners)) {
+    		echo 'This group still has runners. Please move them first.<br>';
+    		echo '<a href="/edit/class/'.$class.'">back</a>';
+    		exit();
+	    }
+	    $success = db_prepared_query('DELETE FROM groups WHERE name = :name',
+		    [':name' => htmlspecialchars($class)]);
+        if($success) {
+			return redirect('/manage');
+        }
+        echo 'something went wrong.';
+        exit();
     });
 
     /*
@@ -325,8 +380,30 @@ $app->group('/edit', function () {
 				[':name' => $name, ':donation' => $donation, ':amountIsFixed' => $amountIsFixed, ':wantsReceipt' => $wantsReceipt, ':id' => $id]
 			);
 	    }
+	    if(isset($request->getParams()['doDelete'])) {
+		    $response = app()->subRequest('DELETE', '/edit/donor/'.$id);
+		    return $response;
+	    }
 	    return redirect("/edit/donor/$id");
     });
+
+	/**
+	 * Deletes a donor
+	 */
+	$this->delete('/donor/{id}', function ($request, $response, $id) {
+		requires_permission('editDonor');
+		$runner = db_prepared_query('SELECT runner_id as id FROM donors WHERE id = :id',
+			[':id' => $id])->fetch();
+		if(isset($runner['id'])) {
+			$success = db_prepared_query('DELETE FROM donors WHERE id = :id',
+				[':id' => $id]);
+			if($success) {
+				return redirect('/edit/runner/'.$runner['id']);
+			}
+		}
+		echo 'something went wrong.';
+		exit();
+	});
 });
 
 
@@ -437,7 +514,7 @@ $app->group('/add', function () {
 		extract($request->getParams());
 	    if(isset($name)) {
 	    	$existence_check = db_prepared_query('SELECT id FROM groups WHERE name = :name',
-			    [':name' => htmlspecialchars($name)]);
+			    [':name' => htmlspecialchars($name)])->fetch();
 	    	if(!empty($existence_check)) {
 	    		echo trans('static.group_already_exists');
 	    		exit();

@@ -25,6 +25,10 @@
             </label>
             <input type="submit" id="save" class="hidden">
         </form>
+        <form action="/edit/class/<?php echo $class; ?>" method="post" class="manage-form">
+            <input type="checkbox" class="hidden" name="doDelete" checked>
+            <input type="submit" class="button button-abort" value="<?php echo trans('static.delete'); ?>">
+        </form>
     </div>
     <div class="button-container">
         <a href="/manage/<?php echo $class; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>

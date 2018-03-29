@@ -4,8 +4,12 @@
  * Returns a service from the container
  */
 if(!function_exists('app')) {
-    function app($service) {
-        global $container;
+    function app($service = '') {
+        if($service == '') {
+        	global $app;
+        	return $app;
+        }
+	    global $container;
         return $container[$service];
     }
 }
