@@ -1,0 +1,52 @@
+<?php
+/** @var string $class */
+/** @var int $class_id */
+/** @var array $groups */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.add_runner'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('static.add_runner'); ?>
+        </div>
+        <form action="/add/runner" method="post" class="manage-form">
+            <label class="manage-row">
+                <span><?php echo trans('static.name'); ?>:</span>
+                <input type="text" name="name" class="manage-list-right edit-input" placeholder="<?php echo trans('static.full_name'); ?>">
+            </label>
+            <label class="manage-row">
+                <span><?php echo trans('static.class'); ?>:</span>
+                <select name="group" id="class" class="manage-list-right edit-input">
+                    <?php
+                        foreach($groups as $group) {
+                            $selected = $group['id'] == $class_id ? "selected" : "";
+                            echo "<option value=\"{$group['id']}\" $selected>{$group['name']}</option>";
+                        }
+		            ?>
+                </select>
+            </label>
+            <div class="manage-row">
+                <span><?php echo trans('static.donors'); ?>:</span>
+                <label class="button-noBorder manage-list-right"><?php echo trans('static.donors_can_be_added_once_runner_saved'); ?></label>
+            </div>
+            <input type="submit" id="save" class="hidden">
+        </form>
+    </div>
+    <div class="button-container">
+        <a href="<?php echo base_url()."/manage/".$class; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
+    </div>
+</div>
+</body>
+</html>
