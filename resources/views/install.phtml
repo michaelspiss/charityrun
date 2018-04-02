@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CharityRun: <?php echo trans('static.installation'); ?></title>
+	<base href="<?php echo base_url(); ?>">
+	<link rel="stylesheet" href="css/styles.css">
+    <style>
+        #map:before {
+            content: '';
+            position: relative;
+            float:left;
+            display: inline-block;
+            padding-top: 40%;
+        }
+        #map:after {
+            content:'';
+            display: block;
+            clear: both;
+        }
+        .hasBorder {
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<div class="layout-container">
+	<div class="layout-content">
+		<div class="layout-header">
+			<?php echo trans('static.welcome'); ?><br>
+			<span style="font-size:.5em"><?php echo trans('static.thanks_for_using'); ?></span>
+		</div>
+		<form action="/" method="post" class="manage-form">
+            <h2 class="manage-row"><?php echo trans('static.admin_settings'); ?></h2>
+            <label class="manage-row">
+                <span><?php echo trans('static.admin_username'); ?>:</span>
+                <input type="text" name="name" class="manage-list-right edit-input" required>
+            </label>
+            <label class="manage-row">
+                <span><?php echo trans('static.admin_password'); ?>:</span>
+                <input type="password" name="name" class="manage-list-right edit-input" required>
+            </label>
+            <label class="manage-row">
+                <span><?php echo trans('static.repeat_password'); ?>:</span>
+                <input type="password" name="name" class="manage-list-right edit-input" required>
+            </label>
+
+            <h2 class="manage-row"><?php echo trans('static.assistant_settings'); ?></h2>
+            <label class="manage-row">
+                <span><?php echo trans('static.assistant_password'); ?>:</span>
+                <input type="password" name="name" class="manage-list-right edit-input" required>
+            </label>
+            <label class="manage-row">
+                <span><?php echo trans('static.repeat_password'); ?>:</span>
+                <input type="password" name="name" class="manage-list-right edit-input" required>
+            </label>
+            <br> <!-- make next element white -->
+
+            <h5 class="manage-row"><?php echo trans('static.map_settings'); ?></h5>
+            <div class="manage-row"><?php echo trans('static.click_to_insert_coordinates'); ?></div>
+            <div class="manage-row" style="display: flex; align-items: center; flex-wrap: wrap; justify-content: space-around">
+                <div style="flex-grow: 1">
+                    <h3><?php echo trans('static.from'); ?></h3>
+                    <table>
+                        <tr>
+                            <td><label for="latitude_from"><?php echo trans('static.latitude'); ?></label>
+                            <td><input type="text" name="latitude_from" id="latitude_from" value="" size="8">
+                        </tr>
+                        <tr>
+                            <td><label for="longitude_from"><?php echo trans('static.longitude'); ?></label>
+                            <td><input type="text" name="longitude_from" id="longitude_from" value="" size="8">
+                        </tr>
+                    </table>
+                </div>
+                <div style="flex-grow: 1;">
+                    <h3><?php echo trans('static.to'); ?></h3>
+                    <table>
+                        <tr>
+                            <td><label for="latitude_to"><?php echo trans('static.latitude'); ?></label>
+                            <td><input type="text" name="latitude_to" id="latitude_to" value="" size="8">
+                        </tr>
+                        <tr>
+                            <td><label for="longitude_to"><?php echo trans('static.longitude'); ?></label>
+                            <td><input type="text" name="longitude_to" id="longitude_to" value="" size="8">
+                        </tr>
+                    </table>
+                </div>
+                <div class="button-container" style="flex-grow: 1;">
+                    <input type="button" value="Reset" class="button button-abort" onclick="resetMapCoordinates()">
+                    <input type="button" value="Add" class="button button-success" onclick="addLine()">
+                </div>
+            </div>
+            <div id="map" class="manage-row" style="background: #fff;"></div>
+            <div class="manage-row">
+                <table style="width: 100%;" id="lines_table" class="hasBorder">
+                    <tr class="hasBorder">
+                        <th class="hasBorder"><?php echo trans('static.line_number'); ?></th>
+                        <th class="hasBorder"><?php echo trans('static.latitude_from'); ?></th>
+                        <th class="hasBorder"><?php echo trans('static.longitude_from'); ?></th>
+                        <th class="hasBorder"><?php echo trans('static.latitude_to'); ?></th>
+                        <th class="hasBorder"><?php echo trans('static.longitude_to'); ?></th>
+                        <th class="hasBorder"><?php echo trans('static.action'); ?></th>
+                    </tr>
+                </table>
+            </div>
+
+            <input type="hidden" name="lines" value="[]" id="lines_input">
+            <div style="height: 250px;"></div>
+			<input type="submit" class="button button-success" value="<?php echo trans('static.install'); ?>">
+		</form>
+	</div>
+</div>
+<table style="display: none">
+    <tr id="new_table_row" class="hasBorder">
+        <td class="hasBorder"></td>
+        <td class="hasBorder"></td>
+        <td class="hasBorder"></td>
+        <td class="hasBorder"></td>
+        <td class="hasBorder"></td>
+        <td class="hasBorder">
+            <input type="button" class="button button-abort" data-line-id="" value="Delete" onclick="removeLine(this)">
+        </td>
+    </tr>
+</table>
+<script type="text/javascript" src="js/ammap/ammap.js"></script>
+<script type="text/javascript" src="js/ammap/worldLow.js"></script>
+<script type="text/javascript" src="js/ammap/themes/light.js"></script>
+<script type="text/javascript" src="js/install_functions.js"></script>
+<script type="text/javascript" src="js/install_map.js"></script>
+</body>
+</html>
