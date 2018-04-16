@@ -8,10 +8,10 @@ function emptyString() {
 }
 function resetMapCoordinates()
 {
-    document.getElementById('latitude_from').setAttribute('value', '');
-    document.getElementById('longitude_from').setAttribute('value', '');
-    document.getElementById('latitude_to').setAttribute('value', '');
-    document.getElementById('longitude_to').setAttribute('value', '');
+    document.getElementById('latitude_from').value = '';
+    document.getElementById('longitude_from').value = '';
+    document.getElementById('latitude_to').value = '';
+    document.getElementById('longitude_to').value = '';
 }
 
 var lines_count = 0;
