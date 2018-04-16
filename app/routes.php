@@ -58,7 +58,8 @@ $app->get('/stats', function ($request, $response) {
 $app->get('/login', function ($request) {
     // /login
 	if(app('auth')->loggedIn()) {
-		return redirect('/manage');
+		//return redirect('/manage');
+		echo app('auth')->user()->username();
 	}
     /** @var \Slim\Http\Request $request */
     // check if user wants to log in as admin
@@ -76,6 +77,7 @@ $app->post('/login', function ($request) {
     $password = $request->getParam('password');
     // use username if provided, else log in as 'Assistant'
     $username = $request->getParam('username', 'Assistant');
+    $username = htmlspecialchars($username);
     if(app('auth')->login($username , $password))
     {
         return redirect('/manage');
