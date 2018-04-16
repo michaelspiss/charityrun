@@ -89,3 +89,35 @@ if(!function_exists('requires_permission')) {
 		}
 	}
 }
+
+if(!function_exists('preferred_language')) {
+	/**
+	 * Figures the user's preferred language out
+	 * @param string $default_language fallback if nothing matches
+	 * @param array $available_languages
+	 * @param string $http_accept_language $_SERVER['HTTP_ACCEPT_LANGUAGE']
+	 * @return string
+	 */
+	function preferred_language($default_language, $available_languages, $http_accept_language) {
+		$available_languages = array_flip($available_languages);
+		$langs = array();
+		preg_match_all('~([\w-]+)(?:[^,\d]+([\d.]+))?~', strtolower($http_accept_language), $matches, PREG_SET_ORDER);
+		foreach($matches as $match) {
+			list($a, $b) = explode('-', $match[1]) + array('', '');
+			$value = isset($match[2]) ? (float) $match[2] : 1.0;
+			if(isset($available_languages[$match[1]])) {
+				$langs[$match[1]] = $value;
+				continue;
+			}
+			if(isset($available_languages[$a])) {
+				$langs[$a] = $value - 0.1;
+			}
+		}
+		if($langs) {
+			arsort($langs);
+			return key($langs); // We don't need the whole array of choices since we have a match
+		} else {
+			return $default_language;
+		}
+	}
+}
