@@ -66,5 +66,9 @@
 	  'longitude_from' => 'Longitude from',
 	  'latitude_to' => 'Latitude to',
 	  'longitude_to' => 'Longitude to',
-	  'action' => 'Action'
+	  'action' => 'Action',
+	  'km_per_round' => 'km per round',
+	  'display_total_rounds_on_map' => 'Display total rounds on map',
+	  'display_run_km_on_map' => 'Display run km on map',
+	  'display_km_left_to_go_on_map' => 'Display km left to go on map'
   ];
