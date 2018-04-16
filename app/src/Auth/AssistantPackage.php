@@ -27,8 +27,7 @@ class AssistantPackage extends Package {
                 'viewEditHelp' => false,
                 'rollback' => false,
                 'editSettings' => false,
-                'addRounds' => true,
-                'removeAssistantEditRights' => false
+                'addRounds' => true
         ]);
     }
 }
