@@ -70,5 +70,6 @@
 	  'km_per_round' => 'Kilometer pro Runde',
 	  'display_total_rounds_on_map' => 'Gesamt gelaufene Runden auf der Karte anzeigen',
 	  'display_run_km_on_map' => 'Gesamt gelaufene Kilometer auf der Karte anzeigen',
-	  'display_km_left_to_go_on_map' => 'Restliche Kilometer auf der Karte anzeigen'
+	  'display_km_left_to_go_on_map' => 'Restliche Kilometer auf der Karte anzeigen',
+	  'stats' => 'Statistiken'
   ];
