@@ -6,24 +6,13 @@
 |--------------------------------------------------------------------------
 */
 
-/*
- * Index, let the user choose what to do:
- * 1. Display map
- * 2. Display stats
- * 3. Log in
- */
 use App\Auth\LoginCheckMiddleware as LCM;
-
-$app->get('/', function () {
-    // /
-    return view('home');
-});
 
 /*
  * Display the live map, with statistics about the run
  */
-$app->get('/map', function () {
-    // /map
+$app->get('/', function () {
+	// /map
 	$total_data["stats"] = app('database')
 		->query("SELECT id, value, active FROM stats ORDER BY item_order")
 		->fetchAll(PDO::FETCH_UNIQUE);
@@ -42,15 +31,6 @@ $app->get('/map/json', \App\Controllers\MapData::class.':getData');
  * Returns up-to-date stats
  */
 $app->get('/stats/json', \App\Controllers\MapData::class.':getStats');
-
-
-/*
- * Display the current top-runners and overall statistics
- * "Leaderboard"
- */
-$app->get('/stats', function ($request, $response) {
-    // /stats
-});
 
 /*
  * Display log in form, redirect if already logged in
