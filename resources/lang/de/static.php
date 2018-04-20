@@ -12,7 +12,6 @@
       'add' => 'Hinzufügen',
       'overview' => 'Übersicht',
       'change_class' => 'Klasse ändern',
-      'help' => 'Hilfe',
       'logout' => 'Abmelden',
       'map' => 'Karte',
       'total_km' => 'Kilometer gesamt',

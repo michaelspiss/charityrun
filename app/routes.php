@@ -118,13 +118,6 @@ $app->post('/manage', function ($request) {
     return redirect('/manage/'.$class);
 })->add(new LCM());
 
-/*
- * Display a FAQ page regarding the management of classes
- */
-$app->get('/manage/help', function () {
-    // /manage/help
-    return view('help');
-})->add(new LCM());
 
 $app->group('/manage/{class}', function () {
 
@@ -200,13 +193,6 @@ $app->group('/manage/{class}', function () {
  */
 
 $app->group('/edit', function () {
-
-    /*
-     * Display FAQ page regarding the editing of classes and runners
-     */
-    $this->get('/help', function ($request, $response) {
-        // /edit/help
-    });
 
     /*
      * Display available data of a runner, with the ability to change it

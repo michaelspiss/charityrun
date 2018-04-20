@@ -12,7 +12,6 @@
       'add' => 'Add',
       'overview' => 'Overview',
       'change_class' => 'Change Class',
-      'help' => 'Help',
       'logout' => 'Log Out',
       'map' => 'Map',
       'total_km' => 'total km',

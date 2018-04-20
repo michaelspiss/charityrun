@@ -15,7 +15,6 @@ $includeJS = isset($includeJS) ? $includeJS : true;
         <a href="/edit/class/<?php echo $class; ?>" class="button button-noBorder sidebar-item"><?php echo trans('static.edit_class'); ?></a>
     <?php } ?>
     <a href="/manage/<?php echo $class; ?>/log" class="button button-noBorder sidebar-item"><?php echo trans('static.log'); ?></a>
-    <a href="/manage/help" class="button button-noBorder sidebar-item"><?php echo trans('static.help'); ?></a>
     <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
     <?php
     $assistant = new User(1, 'Assistant');
