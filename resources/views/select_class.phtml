@@ -20,7 +20,7 @@
         </div>
         <?php
         if(empty($group_names)) {
-	        echo '<div><div class="manage-row"><center>There are no classes yet.</center></div></div>';
+	        echo '<div><div class="manage-row"><center>'.trans('static.no_classes_yet').'</center></div></div>';
         } else {
 	        ?>
             <form action="/manage" method="post">

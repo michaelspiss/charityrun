@@ -73,5 +73,10 @@
 	  'display_km_left_to_go_on_map' => 'Display km left to go on map',
 	  'stats' => 'Statistics',
 	  'remove_assistant_edit_permission' => 'Remove Assistant Edit Permission',
-	  'should_do_this_once_data_entered' => 'You should do this once all data has been entered.'
+	  'should_do_this_once_data_entered' => 'You should do this once all data has been entered.',
+      'class_does_not_have_members' => 'This class doesn\'t have any members.',
+      'runner' => 'Runner',
+      'rounds' => 'Rounds',
+	  'no_classes_yet' => 'There are no classes yet.',
+	  'add_new_runner' => 'Add a new runner to this class'
   ];

@@ -42,7 +42,7 @@
 	  'add_donor' => 'Spender hinzufügen',
 	  'full_name' => 'Voller Name',
 	  'add_runner' => 'Läufer hinzufügen',
-	  'donors_can_be_added_once_runner_saved' => 'Spender können hinzugefügt werden wenn der Läufer gespeichert wurde',
+	  'donors_can_be_added_once_runner_saved' => 'Spender können hinzugefügt werden, sobald der Läufer gespeichert wurde',
 	  'add_class' => 'Klasse hinzufügen',
 	  'group_already_exists' => 'Eine Gruppe mit diesem Namen existiert bereits.',
 	  'installation' => 'Installation',
@@ -73,5 +73,10 @@
 	  'display_km_left_to_go_on_map' => 'Restliche Kilometer auf der Karte anzeigen',
 	  'stats' => 'Statistiken',
 	  'remove_assistant_edit_permission' => 'Assistenten Bearbeitungsberechtigung entziehen',
-	  'should_do_this_once_data_entered' => 'Sollte ausgeführt werden sobald alle Daten eingetragen wurden.'
+	  'should_do_this_once_data_entered' => 'Sollte ausgeführt werden sobald alle Daten eingetragen wurden.',
+	  'class_does_not_have_members' => 'Diese Gruppe hat keine Läufer.',
+	  'runner' => 'Läufer',
+	  'rounds' => 'Runden',
+	  'no_classes_yet' => 'Es sind noch keine Gruppen vorhanden.',
+	  'add_new_runner' => 'Neuen Läufer zur Gruppe hinzufügen.'
   ];
