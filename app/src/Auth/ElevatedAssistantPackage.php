@@ -27,7 +27,8 @@ class ElevatedAssistantPackage extends Package {
                 'viewEditHelp' => true,
                 'rollback' => false,
                 'editSettings' => false,
-                'addRounds' => true
+                'addRounds' => true,
+                'removeAssistantEditPermission' => false
         ]);
     }
 }

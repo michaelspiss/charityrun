@@ -33,6 +33,17 @@ $app->get('/map/json', \App\Controllers\MapData::class.':getData');
 $app->get('/stats/json', \App\Controllers\MapData::class.':getStats');
 
 /*
+ * Removes all assistant edit permissions
+ */
+$app->get('/remove-assistant-permissions', function () {
+    // /remove-assistant-permissions
+	requires_permission('removeAssistantEditPermission');
+	$assistant = new \App\Auth\User(1, 'Assistant');
+	app('auth')->addPackageToUser($assistant, new \App\Auth\AssistantPackage());
+	app('auth')->removePackageFromUser($assistant, new \App\Auth\ElevatedAssistantPackage());
+	return redirect('/manage');
+});
+/*
  * Display log in form, redirect if already logged in
  */
 $app->get('/login', function ($request) {

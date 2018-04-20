@@ -1,6 +1,8 @@
 <?php
 /** @var string $class */
 
+use App\Auth\User;
+
 $isOpen = isset($isOpen) ? $isOpen : false;
 $includeJS = isset($includeJS) ? $includeJS : true;
 ?>
@@ -15,6 +17,13 @@ $includeJS = isset($includeJS) ? $includeJS : true;
     <a href="/manage/<?php echo $class; ?>/log" class="button button-noBorder sidebar-item"><?php echo trans('static.log'); ?></a>
     <a href="/manage/help" class="button button-noBorder sidebar-item"><?php echo trans('static.help'); ?></a>
     <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
+    <?php
+    $assistant = new User(1, 'Assistant');
+    if(app('auth')->can('removeAssistantEditPermission') && app('auth')->userCan($assistant, 'editRunner')) {
+        echo '<a href="/remove-assistant-permissions" class="sidebar-item button button-abort">'.trans('static.remove_assistant_edit_permission').'</a>';
+        echo '<span>'.trans('static.should_do_this_once_data_entered').'</span>';
+    }
+    ?>
 </div>
 
 <?php

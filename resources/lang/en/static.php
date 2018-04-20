@@ -71,5 +71,7 @@
 	  'display_total_rounds_on_map' => 'Display total rounds on map',
 	  'display_run_km_on_map' => 'Display run km on map',
 	  'display_km_left_to_go_on_map' => 'Display km left to go on map',
-	  'stats' => 'Statistics'
+	  'stats' => 'Statistics',
+	  'remove_assistant_edit_permission' => 'Remove Assistant Edit Permission',
+	  'should_do_this_once_data_entered' => 'You should do this once all data has been entered.'
   ];
