@@ -77,5 +77,6 @@
 	  'runner' => 'Läufer',
 	  'rounds' => 'Runden',
 	  'no_classes_yet' => 'Es sind noch keine Gruppen vorhanden.',
-	  'add_new_runner' => 'Neuen Läufer zur Gruppe hinzufügen.'
+	  'add_new_runner' => 'Neuen Läufer zur Gruppe hinzufügen.',
+      'total_donations' => 'Euro gesamt'
   ];

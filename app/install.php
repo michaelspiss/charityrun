@@ -25,6 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$display_total_rounds = isset($display_total_rounds) ? 1 : 0;
 		$display_run_km = isset($display_run_km) ? 1 : 0;
 		$display_left_to_go = isset($display_left_to_go) ? 1 : 0;
+		$display_total_donations = isset($display_total_donations) ? 1 : 0;
 		if(!preg_match('/^[0-9]+((\.|\,)[0-9]{1,2})?$/', $km_per_round)) {
 			saveState();
 			echo 'Km per round in wrong format. Examples: 1,5 / 1.5 / 1 / 2<br>';
@@ -64,6 +65,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			[':active' => $display_left_to_go]);
 		db_prepared_query("INSERT INTO `stats` VALUES ('km_run', 0, :active, 1)",
 			[':active' => $display_run_km]);
+		db_prepared_query("INSERT INTO `stats` VALUES ('total_donations', 0, :active, 4)",
+			[':active' => $display_total_donations]);
 		// map settings
 		db_prepared_query("INSERT INTO `settings` VALUES ('km_per_round', :km_per_round)",
 			[':km_per_round' => $km_per_round]);
