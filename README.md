@@ -21,11 +21,11 @@ others to build upon this platform or simply use it for their own runs.
 The software was built with four types of devices in mind:
 
 * A server, which holds the data and does the processing
-* A presenter, which is connected to a beamer, showing the live map
+* A presenter, which is connected to a projector, showing the live map
 * Multiple smartphones used my the run's assistants, to enter new round information
 * A router to connect all devices
 
-In our case, the server and presenter were one single device, a laptop connected both, the beamer and router.
+In our case, the server and presenter were one single device, a laptop connected both, the projector and router.
 As server software, you can use packages like XAMPP, which you only have to install and it will
 preconfigure all required software (the only requirements are php7+ and apache as server software).
 And unzip the software files into your server root. (If you are using XAMPP, it is the htdocs directory
