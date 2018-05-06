@@ -44,9 +44,23 @@ class Manage {
 			$group_id = $this->getGroupIdFromName($class);
 			if($group_id) {
 				$this->addLog($group_id, $log_string,$rounds_changed);
+				$this->updateGroupAverage($group_id);
 			}
 		}
 		return redirect("/manage/$class");
+	}
+
+	private function updateGroupAverage($group_id) {
+		$runners = db_prepared_query('SELECT total_rounds FROM runners WHERE class = :group_id', [
+			':group_id' => $group_id
+		])->fetchAll();
+		$runner_rounds = array_column($runners, 'total_rounds');
+		$total_rounds = array_sum($runner_rounds);
+		$member_count = count(array_filter($runner_rounds)); // only members who actually ran are being counted
+		$average_rounds = round($total_rounds / $member_count, 1);
+		db_prepared_query("UPDATE groups SET average_rounds = :average_rounds WHERE id = :group_id", [
+			':average_rounds' => $average_rounds, ':group_id' => $group_id
+		]);
 	}
 
 	// big helper function, mainly consisting of state detection
@@ -143,6 +157,7 @@ class Manage {
 				"UPDATE stats SET value = value + :donation_change WHERE id = 'total_donations'",
 				[':donation_change' => $donation_change] );
 			$this->addLog($group_id, str_replace('+', '-', $log_string),$total_change);
+			$this->updateGroupAverage($group_id);
 		}
 	}
 
@@ -173,6 +188,7 @@ class Manage {
 				[':donation_change' => $donation_change] );
 			$this->addLog( $group_id, str_replace( '-', '+', $log_string ),
 				$total_change );
+			$this->updateGroupAverage($group_id);
 		}
 	}
 
