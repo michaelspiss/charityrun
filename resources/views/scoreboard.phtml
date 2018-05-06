@@ -1,0 +1,56 @@
+<?php
+/** @var array $top_runners */
+/** @var array $top_groups */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.scoreboard'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('static.scoreboard'); ?>
+        </div>
+        <!-- reset :nth-child() to 0 -->
+        <div>
+            <h2 class="manage-row"><?php echo trans('static.top_five_runners'); ?></h2>
+            <div>
+                <div class="manage-row">
+                    <span><?php echo trans('static.runner'); ?></span><span class="manage-list-right"><?php echo trans('static.rounds'); ?></span>
+                </div>
+		        <?php
+		        foreach($top_runners as $runner) {?>
+                    <div class="manage-row">
+                        <span><?php echo $runner['name'].', '.$runner['group_name'] ?></span><span class="manage-list-right"><?php echo $runner['total_rounds'] ?></span>
+                    </div>
+			        <?php
+		        }
+		        ?>
+            </div>
+            <h2 class="manage-row"><?php echo trans('static.top_five_groups'); ?></h2>
+            <div>
+                <div class="manage-row">
+                    <span><?php echo trans('static.class'); ?></span><span class="manage-list-right"><?php echo trans('static.average_rounds'); ?></span>
+                </div>
+		        <?php
+		        foreach($top_groups as $group) {?>
+                    <div class="manage-row">
+                        <span><?php echo $group['name'] ?></span><span class="manage-list-right"><?php echo $group['average_rounds'] ?></span>
+                    </div>
+			        <?php
+		        }
+		        ?>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

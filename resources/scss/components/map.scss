@@ -11,6 +11,12 @@
   color: #000;
 }
 
+.map-scoreboard {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .map-stats {
   box-shadow: $default-box-shadow;
   display: flex;

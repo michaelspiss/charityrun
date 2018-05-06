@@ -24,6 +24,12 @@ $app->get('/', function () {
 	return view('map', $total_data);
 });
 
+$app->get('/scoreboard', function () {
+	$top_runners = app('database')->query('SELECT r.name, g.name as group_name, r.total_rounds FROM runners as r, groups as g WHERE r.class = g.id ORDER BY total_rounds DESC LIMIT 5');
+	$top_groups = app('database')->query('SELECT name, average_rounds FROM groups ORDER BY average_rounds DESC LIMIT 5');
+	return view('scoreboard', ['top_runners' => $top_runners, 'top_groups' => $top_groups]);
+});
+
 /*
  * Returns all the data needed for the map to display
  */

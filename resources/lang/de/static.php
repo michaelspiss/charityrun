@@ -82,5 +82,9 @@
       'runner_name' => 'Läufername',
       'donor_name' => 'Spendername',
       'yes' => 'Ja',
-      'no' => 'Nein'
+      'no' => 'Nein',
+      'scoreboard' => 'Scoreboard',
+	  'average_rounds' => 'Durchschnittliche Runden',
+	  'top_five_runners' => 'Top 5 Läufer',
+	  'top_five_groups' => 'Top 5 Klassen'
   ];
