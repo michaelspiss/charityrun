@@ -26,7 +26,8 @@ class AdminPackage extends Package {
                 'rollback' => true,
                 'editSettings' => true,
                 'addRounds' => true,
-	            'removeAssistantEditPermission' => true
+	            'removeAssistantEditPermission' => true,
+                'downloadData' => true
         ]);
     }
 }
