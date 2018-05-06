@@ -366,11 +366,12 @@ $app->group('/edit', function () {
         // POST: /edit/donor/{id}
 	    requires_permission('editDonor');
 	    extract($request->getParams());
-	    if(isset($name, $donation, $amountIsFixed, $wantsReceipt, $runner_id)
+	    if(isset($name, $donation, $amountIsFixed, $wantsReceipt)
 	       && preg_match('/^[0-9]+((\.|\,)[0-9]{1,2})?$/', $donation)
 	       && ($amountIsFixed === "1" || $amountIsFixed === "0")
 	       && ($wantsReceipt === "1" || $wantsReceipt === "0")
-	       && is_numeric($runner_id)) {
+	       && is_numeric($id)) {
+		    $donation = str_replace(',','.',$donation);
 		    $name = htmlspecialchars($name);
 			db_prepared_query(
 				'UPDATE donors SET name = :name, donation = :donation, amountIsFixed = :amountIsFixed, wantsReceipt = :wantsReceipt WHERE id = :id',
@@ -381,7 +382,10 @@ $app->group('/edit', function () {
 		    $response = app()->subRequest('DELETE', '/edit/donor/'.$id);
 		    return $response;
 	    }
-	    return redirect("/edit/donor/$id");
+	    $runner_id = db_prepared_query('SELECT runner_id FROM donors WHERE id = :id', [
+	    	':id' => $id
+	    ])->fetch()['runner_id'];
+	    return redirect("/edit/runner/$runner_id");
     });
 
 	/**
@@ -440,6 +444,7 @@ $app->group('/add', function () {
 		   && ($amountIsFixed === "1" || $amountIsFixed === "0")
 		   && ($wantsReceipt === "1" || $wantsReceipt === "0")
 		   && is_numeric($runner_id)) {
+			$donation = str_replace(',','.',$donation);
 			$runner_existence_check = db_prepared_query(
 				'SELECT id FROM runners WHERE id = :id',
 				[':id' => $runner_id])->fetch();
