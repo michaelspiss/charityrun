@@ -15,6 +15,10 @@ $includeJS = isset($includeJS) ? $includeJS : true;
         <a href="/edit/class/<?php echo $class; ?>" class="button button-noBorder sidebar-item"><?php echo trans('static.edit_class'); ?></a>
     <?php } ?>
     <a href="/manage/<?php echo $class; ?>/log" class="button button-noBorder sidebar-item"><?php echo trans('static.log'); ?></a>
+    <?php if(app('auth')->can('downloadData')) {?>
+    <a href="/download/runners" class="button button-noBorder sidebar-item"><?php echo trans('Download runner data'); ?></a>
+    <a href="/download/donors" class="button button-noBorder sidebar-item"><?php echo trans('Download donor data'); ?></a>
+    <?php } ?>
     <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
     <?php
     $assistant = new User(1, 'Assistant');

@@ -28,7 +28,8 @@ class AssistantPackage extends Package {
                 'rollback' => false,
                 'editSettings' => false,
                 'addRounds' => true,
-                'removeAssistantEditPermission' => false
+                'removeAssistantEditPermission' => false,
+                'downloadData' => false
         ]);
     }
 }

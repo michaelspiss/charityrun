@@ -78,5 +78,9 @@
       'rounds' => 'Rounds',
 	  'no_classes_yet' => 'There are no classes yet.',
 	  'add_new_runner' => 'Add a new runner to this class',
-	  'total_donations' => 'euro in total'
+	  'total_donations' => 'euro in total',
+	  'runner_name' => 'Runner name',
+	  'donor_name' => 'Donor name',
+	  'yes' => 'Yes',
+	  'no' => 'No'
   ];

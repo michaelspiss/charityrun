@@ -89,6 +89,16 @@ $app->get('/logout', function () {
     return redirect('/');
 });
 
+/**
+ * Downloads a csv file containing all runner data
+ */
+$app->get('/download/runners', \App\Controllers\DownloadData::class.':downloadRunnerData')->add(new LCM());
+
+/**
+ * Downloads a csv file containing all donor data
+ */
+$app->get('/download/donors', \App\Controllers\DownloadData::class.':downloadDonorData')->add(new LCM());
+
 /*
 |--------------------------------------------------------------------------
 | MANAGE
