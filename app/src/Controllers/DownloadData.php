@@ -6,10 +6,10 @@ use Slim\Http\Response;
 
 class DownloadData {
 
-	private function setHeaders(Response $response) {
+	private function setHeaders(Response $response, $filename) {
 		// output headers so that the file is downloaded rather than displayed
 		$response = $response->withHeader('Content-type','text/csv');
-		$response = $response->withHeader('Content-Disposition', 'attachment; filename="runner_data.csv"');
+		$response = $response->withHeader('Content-Disposition', 'attachment; filename="'.$filename.'.csv"');
 
 		// do not cache the file
 		$response = $response->withHeader('Pragma', 'no-cache');
@@ -36,7 +36,7 @@ class DownloadData {
 
 	public function downloadRunnerData($request, Response $response){
 		requires_permission('downloadData');
-		$response = $this->setHeaders($response);
+		$response = $this->setHeaders($response, 'runner_data');
 		$groups = app('database')->query("SELECT id, name FROM groups ORDER BY name")->fetchAll();
 		$file = $this->createCSV();
 		foreach ($groups as $group) {
@@ -59,7 +59,7 @@ class DownloadData {
 
 	public function downloadDonorData($request, Response $response){
 		requires_permission('downloadData');
-		$response = $this->setHeaders($response);
+		$response = $this->setHeaders($response, 'donor_data');
 		$groups = app('database')->query("SELECT id, name FROM groups ORDER BY name")->fetchAll();
 		$file = $this->createCSV();
 		foreach ($groups as $group) {
