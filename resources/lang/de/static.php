@@ -16,7 +16,7 @@
       'map' => 'Karte',
       'total_km' => 'Kilometer gesamt',
 	  'km_run' => 'Kilometer gelaufen',
-      'km_left_to_go' => 'überbleibend',
+      'km_left_to_go' => 'Kilometer verbleibend',
 	  'total_rounds' => 'Runden gesamt',
       'log' => 'Log',
       'add_rounds' => 'Runden hinzufügen',

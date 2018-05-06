@@ -16,7 +16,7 @@
       'map' => 'Map',
       'total_km' => 'total km',
 	  'km_run' => 'km run',
-      'km_left_to_go' => 'left to go',
+      'km_left_to_go' => 'km left to go',
 	  'total_rounds' => 'total rounds',
       'log' => 'Log',
       'add_rounds' => 'Add Rounds',
