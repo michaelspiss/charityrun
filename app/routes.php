@@ -19,6 +19,8 @@ $app->get('/', function () {
 	$total_data["settings"] = app('database')
 		->query("SELECT id, value FROM settings WHERE id = 'total_km' OR id = 'km_per_round'")
 		->fetchAll(PDO::FETCH_KEY_PAIR);
+	// prevent data from leaking if not enabled
+	if($total_data['total_donations']['active'] == 0) unset($total_data['total_donations']);
 	return view('map', $total_data);
 });
 

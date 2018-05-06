@@ -2,7 +2,8 @@ function updateStats() {
     var associations = {
         "km_run": km_run,
         "km_left_to_go": Math.max((total_km - km_run), 0),
-        "total_rounds": total_rounds
+        "total_rounds": total_rounds,
+        "total_donations": total_donations
     };
     for(var id in associations) {
         if(associations.hasOwnProperty(id) && document.getElementById(id) !== null) {
