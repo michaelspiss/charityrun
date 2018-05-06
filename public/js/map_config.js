@@ -19,6 +19,10 @@ var map = AmCharts.makeChart( "map", {
         "alpha": 0.4,
         "thickness": 2,
         "bringForwardOnHover": false
+    },
+    "areasSettings": {
+        "unlistedAreasColor": "#8dd9ef",
+        "unlistedAreasAlpha": 1
     }
 });
 
