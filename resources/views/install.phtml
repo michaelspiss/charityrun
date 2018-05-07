@@ -5,6 +5,7 @@
         'display_total_rounds' => 1,
         'display_run_km' => 1,
         'display_left_to_go' => 1,
+        'display_total_donations' => 1,
         'lines' => '{}'
     ];
     $retry_data = $_SESSION['retry'] ?? [];
@@ -92,6 +93,10 @@
                 <label>
                     <span><?php echo trans('static.display_km_left_to_go_on_map'); ?></span>
                     <input type="checkbox" name="display_left_to_go" <?php echo ($values['display_left_to_go'] ? 'checked' : ''); ?>>
+                </label><br>
+                <label>
+                    <span><?php echo trans('static.display_total_donations'); ?></span>
+                    <input type="checkbox" name="display_total_donations" <?php echo ($values['display_total_donations'] ? 'checked' : ''); ?>>
                 </label>
             </div>
             <div class="manage-row"><?php echo trans('static.click_to_insert_coordinates'); ?></div>

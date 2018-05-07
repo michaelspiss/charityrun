@@ -86,5 +86,6 @@
       'scoreboard' => 'Scoreboard',
 	  'average_rounds' => 'Durchschnittliche Runden',
 	  'top_five_runners' => 'Top 5 Läufer',
-	  'top_five_groups' => 'Top 5 Klassen'
+	  'top_five_groups' => 'Top 5 Klassen',
+	  'display_total_donations' => 'Gesammelte Spenden anzeigen'
   ];

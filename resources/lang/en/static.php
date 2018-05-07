@@ -86,5 +86,6 @@
 	  'scoreboard' => 'Scoreboard',
 	  'average_rounds' => 'Average Rounds',
 	  'top_five_runners' => 'Top 5 Runners',
-	  'top_five_groups' => 'Top 5 Groups'
+	  'top_five_groups' => 'Top 5 Groups',
+	  'display_total_donations' => 'Display total donations'
   ];
