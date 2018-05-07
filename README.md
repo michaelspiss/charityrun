@@ -49,4 +49,8 @@ Phase two is the actual run, assistants are able to add rounds to runners sequen
 or in a fixed interval, e.g. every 30 minutes.
 
 After the run has finished, the administrator is able to download the donator and runner data, which
-includes the rounds ran per runner and per group, the donators, and how much they donated, already calculated. 
+includes the rounds ran per runner and per group, the donators, and how much they donated, already calculated.
+
+**License**
+
+MIT
