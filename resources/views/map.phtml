@@ -42,7 +42,7 @@ $definitions['km_left_to_go'] = max(0, $settings['total_km'] - $definitions['km_
     var km_run = <?php echo $definitions['km_run']; ?>;
     var total_km = <?php echo $settings['total_km']; ?>;
     var total_rounds = <?php echo $stats['total_rounds']['value']; ?>;
-    var total_donations = <?php echo $stats['total_donations']; ?>;
+    var total_donations = <?php echo $stats['total_donations']['value'] ?? 0; ?>;
 </script>
 <script type="text/javascript" src="js/functions.js"></script>
 <script type="text/javascript" src="js/ammap/ammap.js"></script>

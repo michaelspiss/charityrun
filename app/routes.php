@@ -20,13 +20,15 @@ $app->get('/', function () {
 		->query("SELECT id, value FROM settings WHERE id = 'total_km' OR id = 'km_per_round'")
 		->fetchAll(PDO::FETCH_KEY_PAIR);
 	// prevent data from leaking if not enabled
-	if($total_data['total_donations']['active'] == 0) unset($total_data['total_donations']);
+	if($total_data['stats']['total_donations']['active'] == 0) unset($total_data['stats']['total_donations']);
 	return view('map', $total_data);
 });
 
 $app->get('/scoreboard', function () {
 	$top_runners = app('database')->query('SELECT r.name, g.name as group_name, r.total_rounds FROM runners as r, groups as g WHERE r.class = g.id ORDER BY total_rounds DESC LIMIT 5');
 	$top_groups = app('database')->query('SELECT name, average_rounds FROM groups ORDER BY average_rounds DESC LIMIT 5');
+	if(!$top_groups) $top_groups = [];
+	if(!$top_runners) $top_runners = [];
 	return view('scoreboard', ['top_runners' => $top_runners, 'top_groups' => $top_groups]);
 });
 
