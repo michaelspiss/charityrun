@@ -27,7 +27,7 @@
         </form>
         <form action="/edit/class/<?php echo $class; ?>" method="post" class="manage-form">
             <input type="checkbox" class="hidden" name="doDelete" checked>
-            <input type="submit" class="button button-abort" value="<?php echo trans('static.delete'); ?>">
+            <input type="submit" class="button button-abort" onclick="return doConfirm()" value="<?php echo trans('static.delete'); ?>">
         </form>
     </div>
     <div class="button-container">
@@ -35,5 +35,6 @@
         <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
     </div>
 </div>
+<script type="text/javascript" src="js/functions.js"></script>
 </body>
 </html>

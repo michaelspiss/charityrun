@@ -23,11 +23,12 @@ $includeJS = isset($includeJS) ? $includeJS : true;
     <?php
     $assistant = new User(1, 'Assistant');
     if(app('auth')->can('removeAssistantEditPermission') && app('auth')->userCan($assistant, 'editRunner')) {
-        echo '<a href="/remove-assistant-permissions" class="sidebar-item button button-abort">'.trans('static.remove_assistant_edit_permission').'</a>';
+        echo '<a href="/remove-assistant-permissions" onclick="return doConfirm()" class="sidebar-item button button-abort">'.trans('static.remove_assistant_edit_permission').'</a>';
         echo '<span>'.trans('static.should_do_this_once_data_entered').'</span>';
     }
     ?>
 </div>
+<script type="text/javascript" src="js/functions.js"></script>
 
 <?php
 if($includeJS) {

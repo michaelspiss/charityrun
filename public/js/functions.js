@@ -24,3 +24,7 @@ function getAsync(url, callback)
     xmlHttp.responseType = "json";
     xmlHttp.send(null);
 }
+
+function doConfirm(){
+    return confirm('Are you sure?');
+}
