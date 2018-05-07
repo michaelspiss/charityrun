@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS `lines` (
 );
 CREATE TABLE IF NOT EXISTS `groups` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`name`	TEXT
+	`name`	TEXT,
+	`average_rounds` NUMERIC DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS `donors` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -60,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `donors` (
 	`donation`	NUMERIC,
 	`amountIsFixed`	INTEGER,
 	`wantsReceipt`	INTEGER,
-	`runner_id`	INTEGER
+	`runner_id`	INTEGER,
+	`total_donation` NUMERIC DEFAULT 0
 );
 COMMIT;
