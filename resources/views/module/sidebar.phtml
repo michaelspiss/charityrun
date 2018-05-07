@@ -1,0 +1,37 @@
+<?php
+/** @var string $class */
+
+use App\Auth\User;
+
+$isOpen = isset($isOpen) ? $isOpen : false;
+$includeJS = isset($includeJS) ? $includeJS : true;
+?>
+<a href="/manage/<?php echo $class; ?>" class="sidebar-background <?php if(!$isOpen) { echo 'sidebar-hide hidden'; } ?>"></a>
+<div class="sidebar <?php if(!$isOpen) { echo 'sidebar-hide'; } ?>">
+    <img src="images/map_banner.jpg" alt="" style="width: 100%; height: auto;">
+    <div class="sidebar-current_class"><?php echo trans('dynamic.class_x', ['class' => $class]); ?></div>
+    <a href="/manage" class="button button-noBorder sidebar-item"><?php echo trans('static.change_class'); ?></a>
+    <?php if(app('auth')->can('editClass')) { ?>
+        <a href="/edit/class/<?php echo $class; ?>" class="button button-noBorder sidebar-item"><?php echo trans('static.edit_class'); ?></a>
+    <?php } ?>
+    <a href="/manage/<?php echo $class; ?>/log" class="button button-noBorder sidebar-item"><?php echo trans('static.log'); ?></a>
+    <?php if(app('auth')->can('downloadData')) {?>
+    <a href="/download/runners" class="button button-noBorder sidebar-item"><?php echo trans('static.download_runner_data'); ?></a>
+    <a href="/download/donors" class="button button-noBorder sidebar-item"><?php echo trans('static.download_donor_data'); ?></a>
+    <?php } ?>
+    <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
+    <?php
+    $assistant = new User(1, 'Assistant');
+    if(app('auth')->can('removeAssistantEditPermission') && app('auth')->userCan($assistant, 'editRunner')) {
+        echo '<a href="/remove-assistant-permissions" onclick="return doConfirm()" class="sidebar-item button button-abort">'.trans('static.remove_assistant_edit_permission').'</a>';
+        echo '<span>'.trans('static.should_do_this_once_data_entered').'</span>';
+    }
+    ?>
+</div>
+<script type="text/javascript" src="js/functions.js"></script>
+
+<?php
+if($includeJS) {
+    echo '<script type="text/javascript" src="js/sidebar.js"></script>';
+}
+?>

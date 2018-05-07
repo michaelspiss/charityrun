@@ -1,0 +1,45 @@
+.button {
+  height: $buttonHeight;
+  line-height: $buttonHeight;
+  text-align: center;
+  font-weight: bold;
+  color: $white;
+  font-size: $font-bigger;
+  display: block;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.button-success {
+  background: $green;
+}
+
+.button-back {
+  background: $gray;
+}
+
+.button-abort {
+  background: $red;
+}
+
+.button-noBorder {
+  color: $black;
+}
+
+.button-warning {
+  background: $yellow;
+}
+
+.button-container {
+  display: flex;
+
+  .button {
+    flex: 1 1 100%;
+  }
+}
+
+.button-smallText {
+  font-size: 1em;
+}

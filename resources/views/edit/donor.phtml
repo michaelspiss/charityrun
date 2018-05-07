@@ -1,0 +1,83 @@
+<?php
+/** @var string $id */
+/** @var array $donor */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.edit_donor_x', ['name' => $donor['name']]); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.edit_donor_x', ['name' => $donor['name']]); ?>
+        </div>
+        <form action="/edit/donor/<?php echo $id; ?>" method="post" class="manage-form">
+            <label class="manage-row">
+                <span><?php echo trans('static.name'); ?>:</span>
+                <input type="text" name="name" class="manage-list-right edit-input" value="<?php echo $donor['name']; ?>">
+            </label>
+            <div class="manage-row">
+                <span><?php echo trans('static.donates_for'); ?>:</span>
+                <span class="manage-list-right"><?php echo $donor['runner_name'].", ".$donor['runner_class']; ?></span>
+            </div>
+            <label class="manage-row">
+                <span><?php echo trans('static.donation'); ?>:</span>
+                <input type="text" name="donation" class="manage-list-right edit-input" value="<?php echo $donor['donation']; ?>">
+            </label>
+            <div class="manage-row">
+                <span><?php echo trans('static.fixed_amount'); ?>:</span>
+                <label class="edit-label manage-list-right">
+                    Yes:
+                    <input type="radio" name="amountIsFixed" value="1" <?php
+                        $selected = $donor['amountIsFixed'] == 1 ? "checked" : "";
+                        echo $selected;
+                        ?> >
+                </label><br>
+                <label class="edit-label manage-list-right">
+                    No:
+                    <input type="radio" name="amountIsFixed" value="0" <?php
+                    $selected = $donor['amountIsFixed'] == 0 ? "checked" : "";
+                    echo $selected;
+                    ?> >
+                </label>
+            </div>
+            <div class="manage-row">
+                <span><?php echo trans('static.wants_receipt'); ?>:</span>
+                <label class="edit-label manage-list-right">
+                    Yes:
+                    <input type="radio" name="wantsReceipt" value="1" <?php
+                    $selected = $donor['wantsReceipt'] == 1 ? "checked" : "";
+                    echo $selected;
+                    ?> >
+                </label><br>
+                <label class="edit-label manage-list-right">
+                    No:
+                    <input type="radio" name="wantsReceipt" value="0" <?php
+                    $selected = $donor['wantsReceipt'] == 0 ? "checked" : "";
+                    echo $selected;
+                    ?> >
+                </label>
+            </div>
+            <input type="submit" id="save" class="hidden">
+        </form>
+        <form action="/edit/donor/<?php echo $id; ?>" method="post" class="manage-form">
+            <input type="checkbox" class="hidden" name="doDelete" checked>
+            <input type="submit" class="button button-abort" onclick="return doConfirm()" value="<?php echo trans('static.delete'); ?>">
+        </form>
+    </div>
+    <div class="button-container">
+        <a href="<?php echo base_url()."/edit/runner/".$donor['runner_id']; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
+    </div>
+</div>
+<script type="text/javascript" src="js/functions.js"></script>
+</body>
+</html>

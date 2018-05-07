@@ -1,0 +1,46 @@
+<?php
+/** @var string $class */
+/** @var array $runners */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.manage_class_x', ['class' => $class]); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.manage_class_x', ['class' => $class]); ?>
+        </div>
+        <form action="/manage/<?php echo $class; ?>/add" method="post" class="manage-form">
+            <div class="manage-row">
+                <span>Runner</span><span class="manage-list-right">Rounds</span>
+            </div>
+            <?php
+            foreach($runners as $runner) {
+                echo "
+                <label class=\"manage-row\">
+                    <span>{$runner['name']}</span><input type=\"number\" class=\"manage-list-right\" name=\"runner{$runner['id']}\" placeholder=\"0\" min='0'>
+                </label>
+                ";
+            }
+            ?>
+            <input type="submit" class="button button-success" value="<?php echo trans('static.submit'); ?>">
+        </form>
+    </div>
+    <div class="nav"><!--
+        --><a href="/manage/<?php echo $class; ?>" class="nav-item"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item active"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--
+    --></div>
+</div>
+<?php
+echo $this->fetch('module/sidebar.phtml', ['class' => $class]);
+?>
+</body>
+</html>

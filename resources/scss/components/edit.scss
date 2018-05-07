@@ -1,0 +1,17 @@
+.edit-input {
+  width: 50%;
+  width: calc(50% - 20px);
+  min-width: 130px;
+}
+
+.edit-link {
+  width: 50%;
+  font-size: 1em;
+  text-align: center;
+}
+
+.edit-label {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}

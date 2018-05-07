@@ -1,0 +1,32 @@
+.manage-row {
+  min-height: $buttonHeight;
+  padding: 0 $default-padding;
+  line-height: $buttonHeight;
+  font-size: $font-bigger;
+  display: block;
+
+  &:after {
+    clear: both;
+    content: '';
+    display: block;
+  }
+}
+
+.manage-row:nth-child(even) {
+  background: $gray;
+  color: $white;
+}
+
+.manage-list-right {
+  float: right;
+}
+
+.manage-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.manage-row input[type=radio] {
+  height: 54px;
+  margin: 0;
+}

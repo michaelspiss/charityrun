@@ -15,7 +15,7 @@ gulp.task('serve', ['sass'], function() {
     });
 
     gulp.watch(["resources/scss/*.scss", "resources/scss/**/*scss"], ['sass']);
-    gulp.watch(["resources/views/*.php", "resources/views/**/*.php"]).on('change', browserSync.reload);
+    gulp.watch(["resources/views/*.phtml", "resources/views/**/*.phtml"]).on('change', browserSync.reload);
     gulp.watch(["resources/lang/**/*.php"]).on('change', browserSync.reload);
 });
 

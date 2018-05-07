@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.login'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <form action="/login" method="post" class="login">
+            <div class="login-header"><?php echo trans('static.login'); ?></div>
+            <?php
+                /** @var boolean $login_as_admin */
+                if($login_as_admin) {
+            ?>
+                <input type="text" class="login-field" name="username" placeholder="<?php echo trans('static.username'); ?>">
+            <?php } ?>
+            <input type="password" class="login-field" name="password" placeholder="<?php echo trans('static.password'); ?>">
+            <input type="submit" class="button button-success" value="<?php echo trans('static.submit'); ?>">
+            <?php
+                if($login_as_admin) {
+                    echo '<a href="/login" class="button button-noBorder button-smallText">'.trans('dynamic.log_in_as_x', ['role' => 'Assistant']).'</a>';
+                } else {
+                    echo '<a href="/login?admin" class="button button-noBorder button-smallText">'.trans('dynamic.log_in_as_x', ['role' => 'Administrator']).'</a>';
+                }
+            ?>
+        </form>
+    </div>
+    <a href="/" class="button button-back"><?php echo trans('static.back'); ?></a>
+</div>
+</body>
+</html>

@@ -21,6 +21,12 @@ $app = new \Slim\App($settings);
 // Set up dependencies
 require __DIR__ . '/../app/dependencies.php';
 
+// Check if the database exists (= config has been done)
+if(!file_exists('../storage/database/database.sqlite')) {
+	require '../app/install.php';
+	exit();
+}
+
 // Register middleware
 require __DIR__ . '/../app/middleware.php';
 

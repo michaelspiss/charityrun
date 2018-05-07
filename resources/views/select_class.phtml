@@ -1,0 +1,53 @@
+<?php
+    /** @var array $group_names */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.select_class'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('static.select_class'); ?>
+        </div>
+        <?php
+        if(empty($group_names)) {
+	        echo '<div><div class="manage-row"><center>'.trans('static.no_classes_yet').'</center></div></div>';
+        } else {
+	        ?>
+            <form action="/manage" method="post">
+		        <?php
+		        foreach ( $group_names as $group_name ) {
+			        $group_name = $group_name['name'];
+			        echo "
+                <div class='selector-option'>
+                    <input type='radio' name='class' value='$group_name' id='class$group_name' class='selector-option-radio'>
+                    <label for='class$group_name' class='selector-option-label'>$group_name</label>
+                </div>
+                ";
+		        }
+		        ?>
+                <input type="submit" class="hidden" id="formSubmit">
+            </form>
+	        <?php
+        }
+
+        if(app('auth')->can('addClass')) {
+            echo '<a href="/add/class" class="button button-noBorder">'.trans('static.add_class').'</a>';
+        }
+        ?>
+    </div>
+    <div class="selector-footer">
+        <label for="formSubmit" class="button button-noBorder selector-submit"><?php echo trans('static.next'); ?></label>
+    </div>
+</div>
+</body>
+</html>

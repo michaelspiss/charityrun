@@ -1,0 +1,61 @@
+<?php
+/** @var string $class */
+/** @var array $runners */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.manage_class_x', ['class' => $class]); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.manage_class_x', ['class' => $class]); ?>
+        </div>
+        <!-- reset :nth-child() to 0 -->
+        <div>
+            <div class="manage-row">
+                <span><?php echo trans('static.runner'); ?></span><span class="manage-list-right"><?php echo trans('static.rounds'); ?></span>
+            </div>
+            <?php
+            if(empty($runners)) {
+                echo '<div class="manage-row"><center>'.trans('static.class_does_not_have_members').'</center></div>';
+            } else {
+                foreach ($runners as $runner) {
+                    if(app('auth')->can('editRunner')) {
+                        echo "
+                        <a href='/edit/runner/{$runner['id']}' class='manage-row'>
+                            <span>{$runner['name']}</span><span class='manage-list-right'>{$runner['total_rounds']}</span>
+                        </a>
+                        ";
+                    } else {
+                        echo "
+                        <div class='manage-row'>
+                            <span>{$runner['name']}</span><span class='manage-list-right'>{$runner['total_rounds']}</span>
+                        </div>
+                        ";
+                    }
+                }
+            }
+            if(app('auth')->can('addRunner')) {
+                echo "<a href='/add/runner/$class' class='manage-row button button-noBorder'>".trans('static.add_new_runner')."</a>";
+            }
+            ?>
+        </div>
+    </div>
+    <div class="nav"><!--
+        --><a href="/manage/<?php echo $class; ?>" class="nav-item active"><?php echo trans('static.overview'); ?></a><a href="/manage/<?php echo $class; ?>/add" class="nav-item"><?php echo trans('static.add'); ?></a><a href="/manage/<?php echo $class; ?>/more" class="nav-item" id="more"><?php echo trans('static.more'); ?></a><!--
+    --></div>
+</div>
+<?php
+echo $this->fetch('module/sidebar.phtml', ['class' => $class]);
+?>
+</body>
+</html>

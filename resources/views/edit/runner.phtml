@@ -1,0 +1,74 @@
+<?php
+/** @var string $id */
+/** @var array $runner */
+/** @var array $donors */
+/** @var array $groups */
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('dynamic.edit_runner_x', ['name' => $runner['name']]); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content">
+        <div class="layout-header">
+            <?php echo trans('dynamic.edit_runner_x', ['name' => $runner['name']]); ?>
+        </div>
+        <form action="/edit/runner/<?php echo $id; ?>" method="post" class="manage-form">
+            <label class="manage-row">
+                <span><?php echo trans('static.name'); ?>:</span>
+                <input type="text" name="name" class="manage-list-right edit-input" value="<?php echo $runner['name']; ?>">
+            </label>
+            <label class="manage-row">
+                <span><?php echo trans('static.class'); ?>:</span>
+                <select name="group" id="class" class="manage-list-right edit-input">
+                    <?php
+                    foreach($groups as $group) {
+                        $selected = $group['id'] == $runner['class'] ? "selected" : "";
+                        echo "<option value=\"{$group['id']}\" $selected>{$group['name']}</option>";
+                    }
+                    ?>
+                </select>
+            </label>
+            <div class="manage-row">
+                <span><?php echo trans('static.donors'); ?>:</span>
+                <label class="button button-noBorder manage-list-right edit-link" for="donors_list"><?php echo trans('static.display_donors'); ?></label>
+            </div>
+            <input type="checkbox" id="donors_list" class="accordion-status" checked>
+            <div class="accordion-content">
+                <?php
+                if(!isset($donors[0])) {
+                    echo '<div class="manage-row">'.trans('static.has_no_donors').'</div>';
+                }
+                foreach($donors as $donor) {
+                    if(app('auth')->can('editDonor')) {
+                        echo "<a href=\"edit/donor/{$donor['id']}\" class='manage-row'>{$donor['name']}</a>";
+                    } else {
+                        echo "<div class='manage-row'>{$donor['name']}</div>";
+                    }
+                }
+                ?>
+                <a href="add/donor/<?php echo $id; ?>" class="button button-noBorder">Add Donor to this runner</a>
+            </div>
+            <input type="submit" id="save" class="hidden">
+        </form>
+        <form action="/edit/runner/<?php echo $id; ?>" method="post" class="manage-form">
+            <input type="checkbox" class="hidden" name="doDelete" checked>
+            <input type="submit" class="button button-abort" onclick="return doConfirm()" value="<?php echo trans('static.delete'); ?>">
+        </form>
+    </div>
+    <div class="button-container">
+        <a href="<?php echo base_url()."/manage/".$runner['class_name']; ?>" class="button button-back"><?php echo trans('static.cancel'); ?></a>
+        <label for="save" class="button button-success"><?php echo trans('static.save'); ?></label>
+    </div>
+</div>
+<script type="text/javascript" src="js/functions.js"></script>
+</body>
+</html>

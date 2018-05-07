@@ -3,6 +3,11 @@
 
 $container = $app->getContainer();
 
+// Alternative route strategy
+$container['foundHandler'] = function () {
+    return new \Slim\Handlers\Strategies\RequestResponseArgs();
+};
+
 // view renderer
 $container['renderer'] = function ($c) {
     $settings = $c->get('settings')['renderer'];
@@ -21,6 +26,28 @@ $container['logger'] = function ($c) {
 // translator
 $container['translator'] = function ($c) {
     $settings = $c->get('settings')['translator'];
-    $loader = new \Illuminate\Translation\FileLoader(new \Illuminate\Filesystem\Filesystem, $settings['path']);
-    return new \Illuminate\Translation\Translator($loader, $settings['default_locale']);
+    if(!isset($_SESSION['lang'])) {
+		chdir($settings['path']);
+	    $available_languages = array_diff(glob('*', GLOB_ONLYDIR), ['.', '..']);
+	    chdir(__DIR__);
+		$_SESSION['lang'] = preferred_language(
+			$settings['default_locale'],
+			$available_languages,
+			$_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    }
+    return new \MichaelSpiss\Translation\Translator($_SESSION['lang'], $settings['path']);
+};
+
+$container['database'] = function ($c) {
+    $settings = $c->get('settings')['database'];
+    $pdo = new PDO($settings['dsn'], $settings['username'], $settings['password']);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    return $pdo;
+};
+
+$container['auth'] = function () {
+    $storageDelegate = new \App\Auth\PDOStorage(app('database'));
+    $sessionDelegate = new \Solution10\Auth\Driver\Session();
+
+    return new Solution10\Auth\Auth('Default', $sessionDelegate, $storageDelegate);
 };

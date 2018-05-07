@@ -1,0 +1,62 @@
+<?php
+/** @var array $stats */
+/** @var array $settings */
+$definitions['km_run'] = (float) $stats['total_rounds']['value'] * (float) $settings['km_per_round'];
+$definitions['km_left_to_go'] = max(0, $settings['total_km'] - $definitions['km_run']);
+?>
+<!doctype html>
+<html lang="<?php echo app('translator')->getLocale(); ?>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CharityRun: <?php echo trans('static.map'); ?></title>
+    <base href="<?php echo base_url(); ?>">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="layout-container">
+    <div class="layout-content" style="position:relative;">
+        <div id="map" class="map"></div>
+        <a href="/login" class="map-login"><?php echo trans('static.login'); ?></a>
+        <a href="/scoreboard" class="map-scoreboard button button-noBorder"><?php echo trans('static.scoreboard'); ?></a>
+    </div>
+    <div class="map-stats">
+    <?php
+    foreach($stats as $key => $value) {
+        if($value["active"]) {
+            $stat_value = empty($value['value']) ? ($definitions[$key] ?? $value['value']) : $value['value'];
+            echo "
+                <div class='map-stats-item'>
+                    <span id='$key'>$stat_value</span>
+                    <b>".trans('static.'.$key)."</b>
+                </div>
+            ";
+        }
+    }
+    ?>
+    </div>
+</div>
+<script>
+    var km_run = <?php echo $definitions['km_run']; ?>;
+    var total_km = <?php echo $settings['total_km']; ?>;
+    var total_rounds = <?php echo $stats['total_rounds']['value']; ?>;
+    var total_donations = <?php echo $stats['total_donations']['value'] ?? 0; ?>;
+</script>
+<script type="text/javascript" src="js/functions.js"></script>
+<script type="text/javascript" src="js/ammap/ammap.js"></script>
+<script type="text/javascript" src="js/ammap/worldLow.js"></script>
+<script type="text/javascript" src="js/ammap/themes/light.js"></script>
+<script type="text/javascript" src="js/ammap/dataloader.min.js"></script>
+<script type="text/javascript" src="js/map_config.js"></script>
+<script>
+    setInterval(function(){getAsync("stats/json", function (json) {
+        km_run = json.total_rounds * json.km_per_round;
+        total_rounds = json.total_rounds;
+        total_donations = json.total_donations;
+        updateStats();
+    })}, 10*1000);
+</script>
+</body>
+</html>
