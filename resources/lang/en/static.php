@@ -87,5 +87,7 @@
 	  'average_rounds' => 'Average Rounds',
 	  'top_five_runners' => 'Top 5 Runners',
 	  'top_five_groups' => 'Top 5 Groups',
-	  'display_total_donations' => 'Display total donations'
+	  'display_total_donations' => 'Display total donations',
+	  'download_runner_data' => 'Download runner data',
+	  'download_donor_data' => 'Download donor data'
   ];

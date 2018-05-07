@@ -16,8 +16,8 @@ $includeJS = isset($includeJS) ? $includeJS : true;
     <?php } ?>
     <a href="/manage/<?php echo $class; ?>/log" class="button button-noBorder sidebar-item"><?php echo trans('static.log'); ?></a>
     <?php if(app('auth')->can('downloadData')) {?>
-    <a href="/download/runners" class="button button-noBorder sidebar-item"><?php echo trans('Download runner data'); ?></a>
-    <a href="/download/donors" class="button button-noBorder sidebar-item"><?php echo trans('Download donor data'); ?></a>
+    <a href="/download/runners" class="button button-noBorder sidebar-item"><?php echo trans('static.download_runner_data'); ?></a>
+    <a href="/download/donors" class="button button-noBorder sidebar-item"><?php echo trans('static.download_donor_data'); ?></a>
     <?php } ?>
     <a href="/logout" class="button button-noBorder sidebar-item"><?php echo trans('static.logout'); ?></a>
     <?php

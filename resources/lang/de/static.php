@@ -87,5 +87,7 @@
 	  'average_rounds' => 'Durchschnittliche Runden',
 	  'top_five_runners' => 'Top 5 Läufer',
 	  'top_five_groups' => 'Top 5 Klassen',
-	  'display_total_donations' => 'Gesammelte Spenden anzeigen'
+	  'display_total_donations' => 'Gesammelte Spenden anzeigen',
+      'download_runner_data' => 'Läuferdaten herunterladen',
+      'download_donor_data' => 'Spenderdaten herunterladen'
   ];
