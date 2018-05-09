@@ -51,6 +51,11 @@ or in a fixed interval, e.g. every 30 minutes.
 After the run has finished, the administrator is able to download the donator and runner data, which
 includes the rounds ran per runner and per group, the donators, and how much they donated, already calculated.
 
+**Download**
+
+You can download the latest release here:
+https://github.com/michaelspiss/charityrun/releases
+
 **License**
 
 MIT
