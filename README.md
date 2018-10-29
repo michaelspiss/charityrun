@@ -2,13 +2,13 @@
 
 CharityRun is a software that was developed for the Gymnasium Raubling, which
 does a charity run every four years for aid organizations in Sri Lanka and Bolivia.
-The goal was to display the distance, that was run in total by the school
+The goal was to display the distance that was run in total by the school
 on a map, with the ultimate goal of reaching Sri Lanka or Bolivia. Over time,
 the software's tasks grew and it has become rich in features, such as also being
-responsible for calculating the overall donations per person, that was previously done by hand.
+responsible for calculating the overall donations per person, which was previously done by hand.
 
 The first version of the software was used at the charity run in 2014, where it managed roughly a thousand
-pupils and teachers.
+pupils and teachers. 
 
 For all other runs, beginning as of 2018, the software was completely rebuilt
 from scratch, with real world experience from the first run.
