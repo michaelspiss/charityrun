@@ -43,7 +43,7 @@ devices. Phase one begins now, which includes entering all data into the softwar
 After that, the administrator logs in and revokes the assistant's permission to enter or edit user data. This
 is to assure that no one accidentally deletes a runner or alters some other data during the run. The administrator can revoke
 the their permission by clicking on the red banner on his sidebar. From now on, only the administrator is able to edit or delete
-runner.
+runners, donators and donations.
 _Until that point, the administrator account should not have been used._
 
 Phase two is the actual run, assistants are able to add rounds to runners sequentially. This can either be done in real time
