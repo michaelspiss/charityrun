@@ -25,31 +25,32 @@ The software was built with four types of devices in mind:
 * Multiple smartphones used my the run's assistants, to enter new round information
 * A router to connect all devices
 
-In our case, the server and presenter were one single device, a laptop connected both, the projector and router.
-As server software, you can use packages like XAMPP, which you only have to install and it will
-preconfigure all required software (the only requirements are php7+ and apache as server software).
-And unzip the software files into your server root. (If you are using XAMPP, it is the htdocs directory
+In our case, the server and presenter were one single device, a laptop connected to the projector and router.
+As server software, you can use packages like XAMPP, which bundles all software needed to install and is already
+preconfigured (the only requirements are php7+ and apache as server software).
+As second step, unzip the software files into your server root. (If you are using XAMPP, it is the htdocs directory
 in your XAMPP installation folder.)
 
 The router has to have the ability to let devices communicate within the same network, please check that.
 AVM routers all seem to work fine, but you may have to test that first.
 After connecting all devices to the router (which is not connected to the internet!) it's
-the last step to find out the server's IP address. Entering it into a browser on any other connected device should
+the last step to find out the server's local IP address. Entering it into a browser on any other connected device should
 bring up the installation page (enter it the same way as you would normally enter google.com, but now it's something like
 192.168.178.100).
 
 After you are finished setting everything up, assistants can log in via the login button (bottom right corner) on their
 devices. Phase one begins now, which includes entering all data into the software.
 After that, the administrator logs in and revokes the assistant's permission to enter or edit user data. This
-is to assure that no one accidentally deletes a runner or alters some other data. The administrator can revoke their permission
-by clicking on the red banner on his sidebar. From now on, only the administrator is able 
+is to assure that no one accidentally deletes a runner or alters some other data during the run. The administrator can revoke
+the their permission by clicking on the red banner on his sidebar. From now on, only the administrator is able to edit or delete
+runner.
 _Until that point, the administrator account should not have been used._
 
 Phase two is the actual run, assistants are able to add rounds to runners sequentially. This can either be done in real time
 or in a fixed interval, e.g. every 30 minutes.
 
 After the run has finished, the administrator is able to download the donator and runner data, which
-includes the rounds ran per runner and per group, the donators, and how much they donated, already calculated.
+includes the rounds ran per runner and per group, the donators, and how much they donate, already calculated.
 
 **Download**
 
